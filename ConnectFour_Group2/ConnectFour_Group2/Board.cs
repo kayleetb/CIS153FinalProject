@@ -4,23 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CIS153_03_30_2021_Connect4Helper
+namespace ConnectFour_Group2
 {
     class Board
     {
-        //this should be 6x7 but for this simple example I am just going to make this 2x2
-        private const int numRows = 2;
-        private const int numCols = 2;
-        Cell[,] gameBoard = new Cell[numRows,numCols];
-        //I am going to put some other things down here that might be nice to have part of this class
-        //However you could even have these in a different class called GameDriver.cs but only two classes
-        //are required Board.cs and Cell.cs
-        bool gameOver;
-        bool playerTurn;
-        //1 = red 2 = yellow
-        int aiColor;
+        private const int numRows = 6;
+        private const int numCols = 7;
+        Cell[,] gameBoard = new Cell[numRows, numCols];
 
-        //getters
+        //========GETTERS==========
         public int getNumRows()
         {
             return numRows;
@@ -41,7 +33,7 @@ namespace CIS153_03_30_2021_Connect4Helper
             return gameBoard;
         }
 
-        //setters
+        //========SETTERS==========
         //probably want to pass cells to game board not and entire board
         //however, you could definitely pass a full board
         public void setGameBoardCell(Cell cell)
@@ -51,4 +43,5 @@ namespace CIS153_03_30_2021_Connect4Helper
             gameBoard[cell.getRow(), cell.getCol()] = cell;
         }
     }
+
 }

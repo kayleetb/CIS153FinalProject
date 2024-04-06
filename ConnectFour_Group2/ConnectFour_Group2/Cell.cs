@@ -3,31 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms; //need to include this so button can be part of my cell class
+using System.Windows.Forms;
 
-namespace CIS153_03_30_2021_Connect4Helper
+namespace ConnectFour_Group2
 {
     class Cell
     {
-        int row;
+        int row; 
         int col;
-        Button btn;
-        
-        //Default Constructor
+        RoundButton btn;
         public Cell()
         {
 
         }
-
-        //Overloaded consturctor might be nice
-        public Cell(int r, int c, Button button)
+        public Cell(int r, int c, RoundButton b)
         {
             row = r;
-            col = c;
-            btn = button;
+            col = c;    
+            btn = b;
         }
-
-        //getters
+        //======GETTERS=========
         public int getRow()
         {
             return row;
@@ -36,26 +31,23 @@ namespace CIS153_03_30_2021_Connect4Helper
         {
             return col;
         }
-        public Button getButton()
+        public RoundButton getButton()
         {
             return btn;
         }
-
-
-        //setters
+        //======SETTERS===========
         public void setRow(int r)
         {
             row = r;
         }
-
         public void setCol(int c)
         {
             col = c;
         }
-
-        public void setBtn(Button b)
+        public void setBtn(RoundButton b)
         {
             btn = b;
         }
     }
+
 }

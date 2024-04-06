@@ -22,5 +22,6 @@ namespace ConnectFour_Group2
         {
             InitializeComponent();
         }
+
     }
 }
