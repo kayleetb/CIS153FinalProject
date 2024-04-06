@@ -31,7 +31,7 @@ namespace ConnectFour_Group2
         {
             return col;
         }
-        public RoundButton getButton()
+        public RoundButton getBtn()
         {
             return btn;
         }
