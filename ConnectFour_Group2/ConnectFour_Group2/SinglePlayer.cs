@@ -12,8 +12,9 @@ namespace ConnectFour_Group2
 {
     public partial class SinglePlayer : Form
     {
-        private Board gameBoard;
         WelcomePage sform;
+        private Board gameBoard;
+        private bool isPlayer1Turn = true;
         public SinglePlayer()
         {
             InitializeComponent();
@@ -24,6 +25,7 @@ namespace ConnectFour_Group2
             sform = sf;
             gameBoard = new Board();
             setUpGame();
+            //DisplayBoardtoConsole(); for testing
         }
         public void setUpGame()
         {
@@ -46,5 +48,24 @@ namespace ConnectFour_Group2
                 gameBoard.setGameBoardCell(c);
             }
         }
+        private void SinglePlayer_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //if the x in the corner is pressed it will close the whole application
+            Application.Exit();
+        }
+        //just testing with this
+        //public void DisplayBoardtoConsole()
+        //{
+        //    for (int row = 0; row < gameBoard.getNumRows(); row++)
+        //    {
+        //        for (int col = 0; col < gameBoard.getNumCols(); col++)
+        //        {
+        //            Cell cell = gameBoard.getCell(row, col);
+        //            Console.Write("- ");
+                    
+        //        }
+        //        Console.WriteLine();
+        //    }
+        //}
     }
 }

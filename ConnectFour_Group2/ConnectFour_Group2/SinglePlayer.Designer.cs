@@ -631,6 +631,7 @@
             this.Name = "SinglePlayer";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SinglePlayer";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SinglePlayer_FormClosing);
             this.ResumeLayout(false);
 
         }

@@ -7,10 +7,10 @@ using System.Windows.Forms;
 
 namespace ConnectFour_Group2
 {
-    class Cell
+    public class Cell
     {
-        int row; 
-        int col;
+        private int row; 
+        private int col;
         RoundButton btn;
         public Cell()
         {

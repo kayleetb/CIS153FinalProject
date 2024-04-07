@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.lbl_turn = new System.Windows.Forms.Label();
             this.btn_5_6 = new ConnectFour_Group2.RoundButton();
             this.btn_5_5 = new ConnectFour_Group2.RoundButton();
             this.btn_5_4 = new ConnectFour_Group2.RoundButton();
@@ -72,6 +73,15 @@
             this.btn_0_0 = new ConnectFour_Group2.RoundButton();
             this.SuspendLayout();
             // 
+            // lbl_turn
+            // 
+            this.lbl_turn.AutoSize = true;
+            this.lbl_turn.Location = new System.Drawing.Point(578, 798);
+            this.lbl_turn.Name = "lbl_turn";
+            this.lbl_turn.Size = new System.Drawing.Size(0, 20);
+            this.lbl_turn.TabIndex = 84;
+            this.lbl_turn.Click += new System.EventHandler(this.RoundButton_Click);
+            // 
             // btn_5_6
             // 
             this.btn_5_6.BackColor = System.Drawing.Color.White;
@@ -83,6 +93,7 @@
             this.btn_5_6.TabIndex = 83;
             this.btn_5_6.Text = "5,6";
             this.btn_5_6.UseVisualStyleBackColor = false;
+            this.btn_5_6.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_5_5
             // 
@@ -95,6 +106,7 @@
             this.btn_5_5.TabIndex = 82;
             this.btn_5_5.Text = "5,5";
             this.btn_5_5.UseVisualStyleBackColor = false;
+            this.btn_5_5.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_5_4
             // 
@@ -107,6 +119,7 @@
             this.btn_5_4.TabIndex = 81;
             this.btn_5_4.Text = "5,4";
             this.btn_5_4.UseVisualStyleBackColor = false;
+            this.btn_5_4.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_5_3
             // 
@@ -119,6 +132,7 @@
             this.btn_5_3.TabIndex = 80;
             this.btn_5_3.Text = "5,3";
             this.btn_5_3.UseVisualStyleBackColor = false;
+            this.btn_5_3.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_5_2
             // 
@@ -131,6 +145,7 @@
             this.btn_5_2.TabIndex = 79;
             this.btn_5_2.Text = "5,2";
             this.btn_5_2.UseVisualStyleBackColor = false;
+            this.btn_5_2.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_5_1
             // 
@@ -143,6 +158,7 @@
             this.btn_5_1.TabIndex = 78;
             this.btn_5_1.Text = "5,1";
             this.btn_5_1.UseVisualStyleBackColor = false;
+            this.btn_5_1.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_5_0
             // 
@@ -155,6 +171,7 @@
             this.btn_5_0.TabIndex = 77;
             this.btn_5_0.Text = "5,0";
             this.btn_5_0.UseVisualStyleBackColor = false;
+            this.btn_5_0.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_4_6
             // 
@@ -167,6 +184,7 @@
             this.btn_4_6.TabIndex = 76;
             this.btn_4_6.Text = "4,6";
             this.btn_4_6.UseVisualStyleBackColor = false;
+            this.btn_4_6.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_4_5
             // 
@@ -179,6 +197,7 @@
             this.btn_4_5.TabIndex = 75;
             this.btn_4_5.Text = "4,5";
             this.btn_4_5.UseVisualStyleBackColor = false;
+            this.btn_4_5.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_4_4
             // 
@@ -191,6 +210,7 @@
             this.btn_4_4.TabIndex = 74;
             this.btn_4_4.Text = "4,4";
             this.btn_4_4.UseVisualStyleBackColor = false;
+            this.btn_4_4.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_4_3
             // 
@@ -203,6 +223,7 @@
             this.btn_4_3.TabIndex = 73;
             this.btn_4_3.Text = "4,3";
             this.btn_4_3.UseVisualStyleBackColor = false;
+            this.btn_4_3.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_4_2
             // 
@@ -215,6 +236,7 @@
             this.btn_4_2.TabIndex = 72;
             this.btn_4_2.Text = "4,2";
             this.btn_4_2.UseVisualStyleBackColor = false;
+            this.btn_4_2.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_4_1
             // 
@@ -227,6 +249,7 @@
             this.btn_4_1.TabIndex = 71;
             this.btn_4_1.Text = "4,1";
             this.btn_4_1.UseVisualStyleBackColor = false;
+            this.btn_4_1.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_4_0
             // 
@@ -239,6 +262,7 @@
             this.btn_4_0.TabIndex = 70;
             this.btn_4_0.Text = "4,0";
             this.btn_4_0.UseVisualStyleBackColor = false;
+            this.btn_4_0.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_3_6
             // 
@@ -251,6 +275,7 @@
             this.btn_3_6.TabIndex = 69;
             this.btn_3_6.Text = "3,6";
             this.btn_3_6.UseVisualStyleBackColor = false;
+            this.btn_3_6.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_3_5
             // 
@@ -263,6 +288,7 @@
             this.btn_3_5.TabIndex = 68;
             this.btn_3_5.Text = "3,5";
             this.btn_3_5.UseVisualStyleBackColor = false;
+            this.btn_3_5.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_3_4
             // 
@@ -275,6 +301,7 @@
             this.btn_3_4.TabIndex = 67;
             this.btn_3_4.Text = "3,4";
             this.btn_3_4.UseVisualStyleBackColor = false;
+            this.btn_3_4.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_3_3
             // 
@@ -287,6 +314,7 @@
             this.btn_3_3.TabIndex = 66;
             this.btn_3_3.Text = "3,3";
             this.btn_3_3.UseVisualStyleBackColor = false;
+            this.btn_3_3.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_3_2
             // 
@@ -299,6 +327,7 @@
             this.btn_3_2.TabIndex = 65;
             this.btn_3_2.Text = "3,2";
             this.btn_3_2.UseVisualStyleBackColor = false;
+            this.btn_3_2.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_3_1
             // 
@@ -311,6 +340,7 @@
             this.btn_3_1.TabIndex = 64;
             this.btn_3_1.Text = "3,1";
             this.btn_3_1.UseVisualStyleBackColor = false;
+            this.btn_3_1.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_3_0
             // 
@@ -323,6 +353,7 @@
             this.btn_3_0.TabIndex = 63;
             this.btn_3_0.Text = "3,0";
             this.btn_3_0.UseVisualStyleBackColor = false;
+            this.btn_3_0.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_2_6
             // 
@@ -335,6 +366,7 @@
             this.btn_2_6.TabIndex = 62;
             this.btn_2_6.Text = "2,6";
             this.btn_2_6.UseVisualStyleBackColor = false;
+            this.btn_2_6.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_2_5
             // 
@@ -347,6 +379,7 @@
             this.btn_2_5.TabIndex = 61;
             this.btn_2_5.Text = "2,5";
             this.btn_2_5.UseVisualStyleBackColor = false;
+            this.btn_2_5.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_2_4
             // 
@@ -359,6 +392,7 @@
             this.btn_2_4.TabIndex = 60;
             this.btn_2_4.Text = "2,4";
             this.btn_2_4.UseVisualStyleBackColor = false;
+            this.btn_2_4.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_2_3
             // 
@@ -371,6 +405,7 @@
             this.btn_2_3.TabIndex = 59;
             this.btn_2_3.Text = "2,3";
             this.btn_2_3.UseVisualStyleBackColor = false;
+            this.btn_2_3.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_2_2
             // 
@@ -383,6 +418,7 @@
             this.btn_2_2.TabIndex = 58;
             this.btn_2_2.Text = "2,2";
             this.btn_2_2.UseVisualStyleBackColor = false;
+            this.btn_2_2.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_2_1
             // 
@@ -395,6 +431,7 @@
             this.btn_2_1.TabIndex = 57;
             this.btn_2_1.Text = "2,1";
             this.btn_2_1.UseVisualStyleBackColor = false;
+            this.btn_2_1.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_2_0
             // 
@@ -407,6 +444,7 @@
             this.btn_2_0.TabIndex = 56;
             this.btn_2_0.Text = "2,0";
             this.btn_2_0.UseVisualStyleBackColor = false;
+            this.btn_2_0.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_1_6
             // 
@@ -419,6 +457,7 @@
             this.btn_1_6.TabIndex = 55;
             this.btn_1_6.Text = "1,6";
             this.btn_1_6.UseVisualStyleBackColor = false;
+            this.btn_1_6.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_1_5
             // 
@@ -431,6 +470,7 @@
             this.btn_1_5.TabIndex = 54;
             this.btn_1_5.Text = "1,5";
             this.btn_1_5.UseVisualStyleBackColor = false;
+            this.btn_1_5.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_1_4
             // 
@@ -443,6 +483,7 @@
             this.btn_1_4.TabIndex = 53;
             this.btn_1_4.Text = "1,4";
             this.btn_1_4.UseVisualStyleBackColor = false;
+            this.btn_1_4.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_1_3
             // 
@@ -455,6 +496,7 @@
             this.btn_1_3.TabIndex = 52;
             this.btn_1_3.Text = "1,3";
             this.btn_1_3.UseVisualStyleBackColor = false;
+            this.btn_1_3.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_1_2
             // 
@@ -467,6 +509,7 @@
             this.btn_1_2.TabIndex = 51;
             this.btn_1_2.Text = "1,2";
             this.btn_1_2.UseVisualStyleBackColor = false;
+            this.btn_1_2.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_1_1
             // 
@@ -479,6 +522,7 @@
             this.btn_1_1.TabIndex = 50;
             this.btn_1_1.Text = "1,1";
             this.btn_1_1.UseVisualStyleBackColor = false;
+            this.btn_1_1.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_1_0
             // 
@@ -491,6 +535,7 @@
             this.btn_1_0.TabIndex = 49;
             this.btn_1_0.Text = "1,0";
             this.btn_1_0.UseVisualStyleBackColor = false;
+            this.btn_1_0.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_0_6
             // 
@@ -503,6 +548,7 @@
             this.btn_0_6.TabIndex = 48;
             this.btn_0_6.Text = "0,7";
             this.btn_0_6.UseVisualStyleBackColor = false;
+            this.btn_0_6.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_0_5
             // 
@@ -515,6 +561,7 @@
             this.btn_0_5.TabIndex = 47;
             this.btn_0_5.Text = "0,5";
             this.btn_0_5.UseVisualStyleBackColor = false;
+            this.btn_0_5.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_0_4
             // 
@@ -527,6 +574,7 @@
             this.btn_0_4.TabIndex = 46;
             this.btn_0_4.Text = "0,4";
             this.btn_0_4.UseVisualStyleBackColor = false;
+            this.btn_0_4.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_0_3
             // 
@@ -539,6 +587,7 @@
             this.btn_0_3.TabIndex = 45;
             this.btn_0_3.Text = "0,3";
             this.btn_0_3.UseVisualStyleBackColor = false;
+            this.btn_0_3.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_0_2
             // 
@@ -551,6 +600,7 @@
             this.btn_0_2.TabIndex = 44;
             this.btn_0_2.Text = "0,2";
             this.btn_0_2.UseVisualStyleBackColor = false;
+            this.btn_0_2.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_0_1
             // 
@@ -563,6 +613,7 @@
             this.btn_0_1.TabIndex = 43;
             this.btn_0_1.Text = "0,1";
             this.btn_0_1.UseVisualStyleBackColor = false;
+            this.btn_0_1.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // btn_0_0
             // 
@@ -576,6 +627,7 @@
             this.btn_0_0.TabIndex = 42;
             this.btn_0_0.Text = "0,0";
             this.btn_0_0.UseVisualStyleBackColor = false;
+            this.btn_0_0.Click += new System.EventHandler(this.RoundButton_Click);
             // 
             // TwoPlayer
             // 
@@ -583,6 +635,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.ClientSize = new System.Drawing.Size(1171, 859);
+            this.Controls.Add(this.lbl_turn);
             this.Controls.Add(this.btn_5_6);
             this.Controls.Add(this.btn_5_5);
             this.Controls.Add(this.btn_5_4);
@@ -630,7 +683,9 @@
             this.Name = "TwoPlayer";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TwoPlayer";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TwoPlayer_FormClosing);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -678,5 +733,6 @@
         private RoundButton btn_0_2;
         private RoundButton btn_0_1;
         private RoundButton btn_0_0;
+        private System.Windows.Forms.Label lbl_turn;
     }
 }
