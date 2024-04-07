@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ConnectFour_Group2
@@ -17,10 +12,11 @@ namespace ConnectFour_Group2
         private bool isPlayer1Turn = true;
         private RoundButton currentButton;
 
-        public TwoPlayer()
+        /* public TwoPlayer()
         {
             InitializeComponent();
-        }
+        } */
+
         public TwoPlayer(WelcomePage sf)
         {
             InitializeComponent();
@@ -31,8 +27,9 @@ namespace ConnectFour_Group2
             lbl_turn.ForeColor = Color.Red;
 
             setUpGame();
-            DisplayBoardtoConsole();
+            DisplayBoardToConsole();
         }
+
         private void TwoPlayer_FormClosing(object sender, FormClosingEventArgs e)
         {
             //if the x in the corner is pressed it will close the whole application
@@ -43,7 +40,7 @@ namespace ConnectFour_Group2
         {
             RoundButton button = (RoundButton)sender;
             Cell cell = gameBoard.GetCellFromButton(button);
-            Console.WriteLine("Button Clicked - Row: " + cell.getRow() + ", Col: " + cell.getCol());
+            /* Console.WriteLine("Button Clicked - Row: " + cell.getRow() + ", Col: " + cell.getCol()); */
             if (IsBottomRow(cell))
             {
                 if (isPlayer1Turn)
@@ -83,13 +80,15 @@ namespace ConnectFour_Group2
 
             //this will make sure you can't click on buttons that are already pressed
             button.Enabled = false;
-            DisplayBoardtoConsole();
+            DisplayBoardToConsole();
             isPlayer1Turn = !isPlayer1Turn;
         }
+
         public bool IsBottomRow(Cell cell)
         {
             return cell.getRow() == gameBoard.getNumRows() - 1;
         }
+
         public bool IsCellBelowPressed(Cell cell)
         {
             //check if the cell is in the bottom row
@@ -110,6 +109,7 @@ namespace ConnectFour_Group2
             }
             return false;
         }
+
         public void setUpGame()
         {
             string name;
@@ -141,7 +141,8 @@ namespace ConnectFour_Group2
                 }
             }
         }
-        public void DisplayBoardtoConsole()
+
+        public void DisplayBoardToConsole()
         {
             for (int row = 0; row < gameBoard.getNumRows(); row++)
             {
@@ -166,8 +167,6 @@ namespace ConnectFour_Group2
                 Console.WriteLine();
             }
             Console.WriteLine("============================");
-
         }
-
     }
 }

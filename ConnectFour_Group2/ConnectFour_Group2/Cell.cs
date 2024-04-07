@@ -1,52 +1,53 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace ConnectFour_Group2
+﻿namespace ConnectFour_Group2
 {
-    public class Cell
+	class Cell
     {
-        private int row; 
-        private int col;
-        RoundButton btn;
-        public Cell()
-        {
+        public enum value { empty = 0, p1 = 1, p2 = 2 };
 
-        }
-        public Cell(int r, int c, RoundButton b)
+
+        private Cell.value val;
+        private int row, col; /* Row and column are only able to be set in the constructor. */
+        RoundButton btn;
+
+
+        public Cell(Cell.value v, RoundButton b, int r, int c)
         {
-            row = r;
-            col = c;    
+            val = v;
             btn = b;
+            row = r;
+            col = c;
         }
+
         //======GETTERS=========
-        public int getRow()
-        {
-            return row;
-        }
-        public int getCol()
-        {
-            return col;
-        }
         public RoundButton getBtn()
         {
             return btn;
         }
+
+        public Cell.value getVal()
+        {
+            return val;
+        }
+
+        public int getRow()
+        {
+            return row;
+        }
+
+        public int getCol()
+        {
+            return col;
+        }
+
         //======SETTERS===========
-        public void setRow(int r)
-        {
-            row = r;
-        }
-        public void setCol(int c)
-        {
-            col = c;
-        }
         public void setBtn(RoundButton b)
         {
             btn = b;
+        }
+
+        public void setVal(Cell.value v)
+        {
+            val = v;
         }
     }
 
