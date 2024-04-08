@@ -7,12 +7,18 @@ using System.Threading.Tasks;
 
 namespace ConnectFour_Group2
 {
+	public struct CoordRC
+	{
+		public int row, col;
+	}
+
     public class Board
     {
         private const int NUM_ROWS = 6;
         private const int NUM_COLS = 7;
         private const int WIN_CONDITION = 4;
         private Cell[,] gameBoard = new Cell[NUM_ROWS, NUM_COLS];
+
 
         //========GETTERS==========
         public int getNumRows()
@@ -23,40 +29,68 @@ namespace ConnectFour_Group2
         {
             return NUM_COLS;
         }
-        //Maybe I want to be able to get an individual cell from the gameboard given row and col
+
         public Cell getCell(int r, int c)
         {
             //Console.WriteLine("Getting Cell - Row: " + r + ", Col: " + c);
             return gameBoard[r, c];
         }
 
-        //Maybe we want to be able to view the entire board not just a cell
         public Cell[,] getGameBoard()
         {
             return gameBoard;
         }
+
+		public Cell getCellFromButton(RoundButton button)
+        {
+			CoordRC coord;
+
+			coord = Board.getCoordFromButton(button);
+
+            return gameBoard[coord.row, coord.col];
+        }
+
+		/*
+		 * getCoordFromButton:	Get Coord From Button
+		 * ARG:	button	RoundButton
+		 * RET:	coord	CoordRC
+		 * DES:	Uses the name of the RoundButton control to find it's coordinates.
+		 */
+		public static CoordRC getCoordFromButton(RoundButton button)
+		{
+			const char DELIM = '_';
+			CoordRC coord;
+			string name;
+			int posDelim;
+
+			coord = new CoordRC();
+
+            name = button.Name;
+            posDelim = name.IndexOf(DELIM);
+            coord.row = Int32.Parse(name.Substring(posDelim + 1, 1));
+            name = name.Substring(posDelim + 2);
+            posDelim = name.IndexOf(DELIM);
+            coord.col = Int32.Parse(name.Substring(posDelim + 1));
+
+			/* coord.row = button.row;
+			coord.col = button.col; */
+
+			return coord;
+		}
 
         //========SETTERS==========
         public void setGameBoardCell(Cell cell, int row, int col)
         {
             gameBoard[row, col] = cell;
         }
-        public Cell GetCellFromButton(RoundButton button)
-        {
-            string name = button.Name;
-            char delim = '_';
-            int posDelim = name.IndexOf(delim);
-            int row = Int32.Parse(name.Substring(posDelim + 1, 1));
-            name = name.Substring(posDelim + 2);
-            posDelim = name.IndexOf(delim);
-            int col = Int32.Parse(name.Substring(posDelim + 1));
-
-            return gameBoard[row, col];
-        }
+        
 
         /*
          * playMove: Play Move
-         * Arg
+         * ARG:	value	Cell.value
+         *		col		int
+		 * RET:	played	bool
+		 * DES:	Attempts to play the move at the given column.
          */
         public bool playMove(Cell.value value, int col)
         {
@@ -79,6 +113,9 @@ namespace ConnectFour_Group2
             return true;
         }
 
+		/*
+		 * WARNING: THIS HAS NOT BEEN PROPERLY TESTED YET.
+		 */
 		public Cell.value getWinner()
 		{
             Cell cell;
@@ -217,6 +254,33 @@ namespace ConnectFour_Group2
 
             /* No winner was found. */
             return Cell.value.empty;
+		}
+
+		public void initialize(IEnumerable<RoundButton> buttons)
+		{
+            /* string name;
+            char delim = '_';
+            int posDelim;
+            int col;
+            int row; */
+            Cell c;
+			CoordRC coord;
+
+            foreach (var button in buttons)
+            {
+				coord = Board.getCoordFromButton(button);
+				c = new Cell(Cell.value.empty, button);
+
+				this.setGameBoardCell(c, coord.row, coord.col);
+
+                //if the cell is not in the bottom row it will be disabled
+                //until a cell in the bottom row is selected by a player
+                /* if(!IsBottomRow(c))
+                {
+                    button.Enabled=false;
+                } */
+            }
+
 		}
     }
 }

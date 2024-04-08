@@ -26,7 +26,8 @@ namespace ConnectFour_Group2
             lbl_turn.Text = "Player 1's Turn";
             lbl_turn.ForeColor = Color.Red;
 
-            setUpGame();
+			/* setUpGame(); */
+			gameBoard.initialize(this.Controls.OfType<RoundButton>());
             DisplayBoardToConsole();
         }
 
@@ -39,9 +40,9 @@ namespace ConnectFour_Group2
         private void RoundButton_Click(object sender, EventArgs e)
         {
             RoundButton button = (RoundButton)sender;
-            Cell cell = gameBoard.GetCellFromButton(button);
+            Cell cell = gameBoard.getCellFromButton(button);
             /* Console.WriteLine("Button Clicked - Row: " + cell.getRow() + ", Col: " + cell.getCol()); */
-            if (IsBottomRow(cell))
+            /* if (IsBottomRow(cell))
             {
                 if (isPlayer1Turn)
                 {
@@ -56,6 +57,7 @@ namespace ConnectFour_Group2
                     lbl_turn.ForeColor = Color.Red;
                 }
             }
+
             if(IsCellBelowPressed(cell))
             {
                 if(cell.getRow() > 0)
@@ -76,7 +78,7 @@ namespace ConnectFour_Group2
                     lbl_turn.Text = "Player 1's Turn";
                     lbl_turn.ForeColor = Color.Red;
                 } 
-            }
+            } */
 
             //this will make sure you can't click on buttons that are already pressed
             button.Enabled = false;
@@ -84,12 +86,12 @@ namespace ConnectFour_Group2
             isPlayer1Turn = !isPlayer1Turn;
         }
 
-        public bool IsBottomRow(Cell cell)
+        /* public bool IsBottomRow(Cell cell)
         {
             return cell.getRow() == gameBoard.getNumRows() - 1;
-        }
+        } */
 
-        public bool IsCellBelowPressed(Cell cell)
+        /* public bool IsCellBelowPressed(Cell cell)
         {
             //check if the cell is in the bottom row
             if (cell.getRow() == gameBoard.getNumRows() - 1)
@@ -108,9 +110,9 @@ namespace ConnectFour_Group2
                 return !cellBelow.getBtn().Enabled;
             }
             return false;
-        }
+        } */
 
-        public void setUpGame()
+        /* public void setUpGame()
         {
             string name;
             char delim = '_';
@@ -121,17 +123,11 @@ namespace ConnectFour_Group2
 
             foreach (var button in this.Controls.OfType<RoundButton>())
             {
-                name = button.Name;
-                posDelim = name.IndexOf(delim);
-                row = Int32.Parse(name.Substring(posDelim + 1, 1));
-                name = name.Substring(posDelim + 2);
-                posDelim = name.IndexOf(delim);
-                col = Int32.Parse(name.Substring(posDelim + 1));
 
-                c = new Cell(row, col, button);
+				c = new Cell(row, col, button);
 
-                //add that cell to the gameboard
-                gameBoard.setGameBoardCell(c);
+				//add that cell to the gameboard
+				gameBoard.setGameBoardCell(c);
 
                 //if the cell is not in the bottom row it will be disabled
                 //until a cell in the bottom row is selected by a player
@@ -140,7 +136,7 @@ namespace ConnectFour_Group2
                     button.Enabled=false;
                 }
             }
-        }
+        } */
 
         public void DisplayBoardToConsole()
         {
