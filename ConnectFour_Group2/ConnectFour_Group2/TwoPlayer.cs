@@ -34,7 +34,10 @@ namespace ConnectFour_Group2
 
         private void RoundButton_Click(object sender, EventArgs e)
         {
-			gameBoard.playMove(gameDriver.getTurn(), Board.getCoordFromButton((RoundButton)sender).col);
+			if (gameBoard.playMove(gameDriver.getTurn(), Board.getCoordFromButton((RoundButton)sender).col))
+			{
+				gameDriver.nextTurn();
+			}
         }
 
 

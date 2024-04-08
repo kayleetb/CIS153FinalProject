@@ -100,7 +100,7 @@ namespace ConnectFour_Group2
 				return false;
 
 			/* Find the first instance of a non-empty cell (or the last cell). */
-			for (r = 0; r < NUM_ROWS && internalBoard[r, col].getVal() != Cell.value.empty; ++r);
+			for (r = 0; r < NUM_ROWS && internalBoard[r, col].getVal() != Cell.value.empty; ++r) ;
 
             /* The prior loop overshoots the index by one. */
 			/* Apparently not?? */
@@ -108,14 +108,16 @@ namespace ConnectFour_Group2
 
 			Console.WriteLine("PLAYMOVE: r = " + r);
 
-			if (r < 0 ||)
+			if (r < 0 || r >= NUM_ROWS)
                 return false;
 
 			Console.WriteLine("PLAYMOVE: r = " + r);
 
 			
             internalBoard[r, col].setVal(value);
-			internalBoard[r, col].getBtn().ForeColor = Player.PLAYERS[(int)value].getColor();
+			internalBoard[r, col].getBtn().BackColor = Player.PLAYERS[(int)value].getColor();
+
+			
 
             return true;
         }
