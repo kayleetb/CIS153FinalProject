@@ -89,9 +89,11 @@ namespace ConnectFour_Group2
 		 * RET:	played	bool
 		 * DES:	Attempts to play the move at the given column.
          */
-        public bool playMove(Cell.value value, int col)
-        {
-            /* register */ int r;
+        public bool playMove(Cell.value value, int col) {
+			Console.WriteLine("playMove(" + value + ", " + col + ")");
+
+			/* register */
+			int r;
 
 			/* Guard against no one trying to play. */
 			if (value == Cell.value.empty)
@@ -101,12 +103,19 @@ namespace ConnectFour_Group2
 			for (r = 0; r < NUM_ROWS && internalBoard[r, col].getVal() != Cell.value.empty; ++r);
 
             /* The prior loop overshoots the index by one. */
-            --r;
+			/* Apparently not?? */
+            /* --r; */
 
-            if (r < 0)
+			Console.WriteLine("PLAYMOVE: r = " + r);
+
+			if (r < 0 ||)
                 return false;
 
+			Console.WriteLine("PLAYMOVE: r = " + r);
+
+			
             internalBoard[r, col].setVal(value);
+			internalBoard[r, col].getBtn().ForeColor = Player.PLAYERS[(int)value].getColor();
 
             return true;
         }
