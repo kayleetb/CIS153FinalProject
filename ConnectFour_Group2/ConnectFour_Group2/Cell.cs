@@ -14,8 +14,6 @@
         {
             val = v;
             btn = b;
-            /* row = r;
-            col = c; */
         }
 
         //======GETTERS=========
@@ -28,16 +26,6 @@
         {
             return val;
         }
-
-        /* public int getRow()
-        {
-            return row;
-        }
-
-        public int getCol()
-        {
-            return col;
-        } */
 
         //======SETTERS===========
         public void setBtn(RoundButton b)

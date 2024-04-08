@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
+
 namespace ConnectFour_Group2
 {
 	public struct CoordRC
@@ -13,7 +14,7 @@ namespace ConnectFour_Group2
         private const int NUM_ROWS = 6;
         private const int NUM_COLS = 7;
         private const int WIN_CONDITION = 4;
-        private Cell[,] gameBoard = new Cell[NUM_ROWS, NUM_COLS];
+        private Cell[,] internalBoard = new Cell[NUM_ROWS, NUM_COLS];
 
 
         //========GETTERS==========
@@ -29,12 +30,12 @@ namespace ConnectFour_Group2
         public Cell getCell(int r, int c)
         {
             //Console.WriteLine("Getting Cell - Row: " + r + ", Col: " + c);
-            return gameBoard[r, c];
+            return internalBoard[r, c];
         }
 
         public Cell[,] getGameBoard()
         {
-            return gameBoard;
+            return internalBoard;
         }
 
 		public Cell getCellFromButton(RoundButton button)
@@ -43,7 +44,7 @@ namespace ConnectFour_Group2
 
 			coord = Board.getCoordFromButton(button);
 
-            return gameBoard[coord.row, coord.col];
+            return internalBoard[coord.row, coord.col];
         }
 
 		/*
@@ -77,7 +78,7 @@ namespace ConnectFour_Group2
         //========SETTERS==========
         public void setGameBoardCell(Cell cell, int row, int col)
         {
-            gameBoard[row, col] = cell;
+            internalBoard[row, col] = cell;
         }
         
 
@@ -92,11 +93,12 @@ namespace ConnectFour_Group2
         {
             /* register */ int r;
 
-            for (r = 0; r < NUM_ROWS; ++r)
-            {
-                if (gameBoard[r, col].getVal() != Cell.value.empty)
-                    break;
-            }
+			/* Guard against no one trying to play. */
+			if (value == Cell.value.empty)
+				return false;
+
+			/* Find the first instance of a non-empty cell (or the last cell). */
+			for (r = 0; r < NUM_ROWS && internalBoard[r, col].getVal() != Cell.value.empty; ++r);
 
             /* The prior loop overshoots the index by one. */
             --r;
@@ -104,7 +106,7 @@ namespace ConnectFour_Group2
             if (r < 0)
                 return false;
 
-            gameBoard[r, col].setVal(value);
+            internalBoard[r, col].setVal(value);
 
             return true;
         }
@@ -130,7 +132,7 @@ namespace ConnectFour_Group2
                 pattern = Cell.value.empty;
                 for (consecutive = c = 0; c < NUM_COLS; ++c)
                 {
-                    cell = gameBoard[r, c];
+                    cell = internalBoard[r, c];
 
                     if (cell.getVal() == Cell.value.empty)
                     {
@@ -160,7 +162,7 @@ namespace ConnectFour_Group2
                 pattern = Cell.value.empty;
                 for (consecutive = r = 0; r < NUM_ROWS; ++r)
                 {
-                    cell = gameBoard[r, c];
+                    cell = internalBoard[r, c];
 
                     if (cell.getVal() == Cell.value.empty)
                     {
@@ -196,7 +198,7 @@ namespace ConnectFour_Group2
                     pattern = Cell.value.empty;
                     for (consecutive = i = 0; r + i < NUM_ROWS && c + i < NUM_COLS; ++i)
                     {
-						cell = gameBoard[r + i, c + i];
+						cell = internalBoard[r + i, c + i];
 
 						if (cell.getVal() == Cell.value.empty)
 						{
@@ -223,7 +225,7 @@ namespace ConnectFour_Group2
                     pattern = Cell.value.empty;
                     for (consecutive = i = 0; r - i >= 0 && c + i < NUM_COLS; ++i)
                     {
-                        cell = gameBoard[r - i, c + i];
+                        cell = internalBoard[r - i, c + i];
 
                         if (cell.getVal() == Cell.value.empty)
                         {
@@ -254,11 +256,6 @@ namespace ConnectFour_Group2
 
 		public void initialize(IEnumerable<RoundButton> buttons)
 		{
-            /* string name;
-            char delim = '_';
-            int posDelim;
-            int col;
-            int row; */
             Cell c;
 			CoordRC coord;
 
@@ -268,13 +265,6 @@ namespace ConnectFour_Group2
 				c = new Cell(Cell.value.empty, button);
 
 				this.setGameBoardCell(c, coord.row, coord.col);
-
-                //if the cell is not in the bottom row it will be disabled
-                //until a cell in the bottom row is selected by a player
-                /* if(!IsBottomRow(c))
-                {
-                    button.Enabled=false;
-                } */
             }
 
 		}
