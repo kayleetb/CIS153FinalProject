@@ -1,60 +1,283 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace ConnectFour_Group2
 {
+	public struct CoordRC
+	{
+		public int row, col;
+	}
+
     public class Board
     {
-        private const int numRows = 6;
-        private const int numCols = 7;
-        Cell[,] gameBoard = new Cell[numRows, numCols];
+        private const int NUM_ROWS = 6;
+        private const int NUM_COLS = 7;
+        private const int WIN_CONDITION = 4;
+        private Cell[,] internalBoard = new Cell[NUM_ROWS, NUM_COLS];
+
 
         //========GETTERS==========
         public int getNumRows()
         {
-            return numRows;
+            return NUM_ROWS;
         }
         public int getNumCols()
         {
-            return numCols;
+            return NUM_COLS;
         }
-        //Maybe I want to be able to get an individual cell from the gameboard given row and col
+
         public Cell getCell(int r, int c)
         {
             //Console.WriteLine("Getting Cell - Row: " + r + ", Col: " + c);
-            return gameBoard[r, c];
+            return internalBoard[r, c];
         }
 
-        //Maybe we want to be able to view the entire board not just a cell
         public Cell[,] getGameBoard()
         {
-            return gameBoard;
+            return internalBoard;
         }
+
+		public Cell getCellFromButton(RoundButton button)
+        {
+			CoordRC coord;
+
+			coord = Board.getCoordFromButton(button);
+
+            return internalBoard[coord.row, coord.col];
+        }
+
+		/*
+		 * getCoordFromButton:	Get Coord From Button
+		 * ARG:	button	RoundButton
+		 * RET:	coord	CoordRC
+		 * DES:	Uses the name of the RoundButton control to find it's coordinates.
+		 */
+		public static CoordRC getCoordFromButton(RoundButton button)
+		{
+			const char DELIM = '_';
+			CoordRC coord;
+			string name;
+			int posDelim;
+
+			coord = new CoordRC();
+
+            name = button.Name;
+            posDelim = name.IndexOf(DELIM);
+            coord.row = Int32.Parse(name.Substring(posDelim + 1, 1));
+            name = name.Substring(posDelim + 2);
+            posDelim = name.IndexOf(DELIM);
+            coord.col = Int32.Parse(name.Substring(posDelim + 1));
+
+			/* coord.row = button.row;
+			coord.col = button.col; */
+
+			return coord;
+		}
 
         //========SETTERS==========
-        //probably want to pass cells to game board not and entire board
-        //however, you could definitely pass a full board
-        public void setGameBoardCell(Cell cell)
+        public void setGameBoardCell(Cell cell, int row, int col)
         {
-            //the only reason I can do this is because I am going to make sure that I 
-            //set the row and col of a cell before I add it to the board
-            gameBoard[cell.getRow(), cell.getCol()] = cell;
+            internalBoard[row, col] = cell;
         }
-        public Cell GetCellFromButton(RoundButton button)
-        {
-            string name = button.Name;
-            char delim = '_';
-            int posDelim = name.IndexOf(delim);
-            int row = Int32.Parse(name.Substring(posDelim + 1, 1));
-            name = name.Substring(posDelim + 2);
-            posDelim = name.IndexOf(delim);
-            int col = Int32.Parse(name.Substring(posDelim + 1));
+        
 
-            return gameBoard[row, col];
+        /*
+         * playMove: Play Move
+         * ARG:	value	Cell.value
+         *		col		int
+		 * RET:	played	bool
+		 * DES:	Attempts to play the move at the given column.
+         */
+        public bool playMove(Cell.value value, int col) {
+			Console.WriteLine("playMove(" + value + ", " + col + ")");
+
+			/* register */
+			int r;
+
+			/* Guard against no one trying to play. */
+			if (value == Cell.value.empty)
+				return false;
+
+			/* Find the first instance of a non-empty cell (or the last cell). */
+			for (r = 0; r < NUM_ROWS && internalBoard[r, col].getVal() != Cell.value.empty; ++r) ;
+
+            /* The prior loop overshoots the index by one. */
+			/* Apparently not?? */
+            /* --r; */
+
+			Console.WriteLine("PLAYMOVE: r = " + r);
+
+			if (r < 0 || r >= NUM_ROWS)
+                return false;
+
+			Console.WriteLine("PLAYMOVE: r = " + r);
+
+			
+            internalBoard[r, col].setVal(value);
+			internalBoard[r, col].getBtn().BackColor = Player.PLAYERS[(int)value].getColor();
+
+			
+
+            return true;
         }
+
+		/*
+		 * WARNING: THIS HAS NOT BEEN PROPERLY TESTED YET.
+		 */
+		public Cell.value getWinner()
+		{
+            Cell cell;
+            Cell.value pattern;
+            int consecutive;
+			/* register */ int r, c;
+
+            /*
+             * I'm just going to split up all of the checks across different loops
+             * Because I am lazy...
+             */
+
+            /* VERTICAL */
+			for (r = 0; r < NUM_ROWS; ++r)
+			{
+                pattern = Cell.value.empty;
+                for (consecutive = c = 0; c < NUM_COLS; ++c)
+                {
+                    cell = internalBoard[r, c];
+
+                    if (cell.getVal() == Cell.value.empty)
+                    {
+                        pattern = Cell.value.empty;
+                        consecutive = 0;
+                        continue;
+                    }
+
+                    /* If this is a new pattern, reset count. */
+                    if (cell.getVal() != pattern)
+                    {
+						pattern = cell.getVal();
+                        consecutive = 0;
+                    }
+
+                    /* Increment regardless of whether or not this is a new pattern. */
+					++consecutive;
+
+					if (consecutive >= WIN_CONDITION)
+						return pattern;
+                }
+			}
+
+            /* HORIZONTAL */
+            for (c = 0; c < NUM_COLS; ++c)
+            {
+                pattern = Cell.value.empty;
+                for (consecutive = r = 0; r < NUM_ROWS; ++r)
+                {
+                    cell = internalBoard[r, c];
+
+                    if (cell.getVal() == Cell.value.empty)
+                    {
+                        pattern = Cell.value.empty;
+                        consecutive = 0;
+                        continue;
+                    }
+
+                    /* If this is a new pattern, reset count. */
+                    if (cell.getVal() != pattern)
+                    {
+                        pattern = cell.getVal();
+                        consecutive = 0;
+                    }
+
+                    /* Increment regardless of whether or not this is a new pattern. */
+                    ++consecutive;
+
+                    if (consecutive >= WIN_CONDITION)
+                        return pattern;
+                }
+            }
+
+            /* DIAGONAL */
+            /* Oh yeah, this is definitely some sleep medicated coding. Fix eventually. */
+            for (r = 0; r < NUM_ROWS; ++r)
+            {
+                for (c = 0; c < NUM_COLS; ++c)
+                {
+                    int i;
+
+                    /* DIAGONAL - DOWN+RIGHT */
+                    pattern = Cell.value.empty;
+                    for (consecutive = i = 0; r + i < NUM_ROWS && c + i < NUM_COLS; ++i)
+                    {
+						cell = internalBoard[r + i, c + i];
+
+						if (cell.getVal() == Cell.value.empty)
+						{
+							pattern = Cell.value.empty;
+							consecutive = 0;
+							continue;
+						}
+
+                        /* If this is a new pattern, reset count. */
+                        if (cell.getVal() != pattern)
+                        {
+                            pattern = cell.getVal();
+                            consecutive = 0;
+                        }
+
+						/* Increment regardless of whether or not this is a new pattern. */
+                        ++consecutive;
+
+                        if (consecutive >= WIN_CONDITION)
+                            return pattern;
+                    }
+
+                    /* DIAGONAL - DOWN+LEFT */
+                    pattern = Cell.value.empty;
+                    for (consecutive = i = 0; r - i >= 0 && c + i < NUM_COLS; ++i)
+                    {
+                        cell = internalBoard[r - i, c + i];
+
+                        if (cell.getVal() == Cell.value.empty)
+                        {
+                            pattern = Cell.value.empty;
+                            consecutive = 0;
+                            continue;
+                        }
+
+                        /* If this is a new pattern, reset count. */
+                        if (cell.getVal() != pattern)
+                        {
+                            pattern = cell.getVal();
+                            consecutive = 0;
+                        }
+
+						/* Increment regardless of whether or not this is a new pattern. */
+                        ++consecutive;
+
+                        if (consecutive >= WIN_CONDITION)
+                            return pattern;
+                    }
+                }
+            }
+
+            /* No winner was found. */
+            return Cell.value.empty;
+		}
+
+		public void initialize(IEnumerable<RoundButton> buttons)
+		{
+            Cell c;
+			CoordRC coord;
+
+            foreach (var button in buttons)
+            {
+				coord = Board.getCoordFromButton(button);
+				c = new Cell(Cell.value.empty, button);
+
+				this.setGameBoardCell(c, coord.row, coord.col);
+            }
+
+		}
     }
-
 }

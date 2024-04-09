@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ConnectFour_Group2
 {
-    public class RoundButton : Button
-    {
+	public class RoundButton : Button
+	{
+		public int row { get; set; }
+		public int col { get; set; }
+
         protected override void OnPaint(PaintEventArgs e)
         {  //change flatstyle to flat when adding buttons
 

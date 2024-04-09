@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows.Forms;
 
 namespace ConnectFour_Group2
@@ -24,10 +17,11 @@ namespace ConnectFour_Group2
             InitializeComponent();
             sform = sf;
             gameBoard = new Board();
-            setUpGame();
+			/* setUpGame(); */
+			gameBoard.initialize(this.Controls.OfType<RoundButton>());
             //DisplayBoardtoConsole(); for testing
         }
-        public void setUpGame()
+        /* public void setUpGame()
         {
             string name;
             char delim = '_';
@@ -47,7 +41,7 @@ namespace ConnectFour_Group2
                 c = new Cell(row, col, button);
                 gameBoard.setGameBoardCell(c);
             }
-        }
+        } */
         private void SinglePlayer_FormClosing(object sender, FormClosingEventArgs e)
         {
             //if the x in the corner is pressed it will close the whole application
