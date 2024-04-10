@@ -43,9 +43,9 @@ namespace ConnectFour_Group2
 
         public void DisplayBoardToConsole()
         {
-            for (int row = 0; row < gameBoard.getNumRows(); row++)
+            for (int row = 0; row < Board.NUM_ROWS; row++)
             {
-                for (int col = 0; col < gameBoard.getNumCols(); col++)
+                for (int col = 0; col < Board.NUM_COLS; col++)
                 {
                     Cell cell = gameBoard.getCell(row, col);
                     //player 1's turn

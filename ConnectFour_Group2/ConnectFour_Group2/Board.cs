@@ -11,22 +11,13 @@ namespace ConnectFour_Group2
 
     public class Board
     {
-        private const int NUM_ROWS = 6;
-        private const int NUM_COLS = 7;
+        public const int NUM_ROWS = 6;
+        public const int NUM_COLS = 7;
         private const int WIN_CONDITION = 4;
         private Cell[,] internalBoard = new Cell[NUM_ROWS, NUM_COLS];
 
 
         //========GETTERS==========
-        public int getNumRows()
-        {
-            return NUM_ROWS;
-        }
-        public int getNumCols()
-        {
-            return NUM_COLS;
-        }
-
         public Cell getCell(int r, int c)
         {
             //Console.WriteLine("Getting Cell - Row: " + r + ", Col: " + c);
@@ -100,24 +91,21 @@ namespace ConnectFour_Group2
 				return false;
 
 			/* Find the first instance of a non-empty cell (or the last cell). */
-			for (r = 0; r < NUM_ROWS && internalBoard[r, col].getVal() != Cell.value.empty; ++r) ;
+			for (r = 0; r < NUM_ROWS && internalBoard[r, col].getVal() == Cell.value.empty; ++r) ;
 
             /* The prior loop overshoots the index by one. */
 			/* Apparently not?? */
-            /* --r; */
+            --r;
 
 			Console.WriteLine("PLAYMOVE: r = " + r);
 
-			if (r < 0 || r >= NUM_ROWS)
+			if (r < 0)
                 return false;
 
 			Console.WriteLine("PLAYMOVE: r = " + r);
 
-			
             internalBoard[r, col].setVal(value);
 			internalBoard[r, col].getBtn().BackColor = Player.PLAYERS[(int)value].getColor();
-
-			
 
             return true;
         }
