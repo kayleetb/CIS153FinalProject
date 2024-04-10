@@ -22,7 +22,7 @@ namespace ConnectFour_Group2
 
 			gameBoard.initialize(this.Controls.OfType<RoundButton>());
 			gameDriver.setTurn(Cell.value.p1);
-            DisplayBoardToConsole();
+            gameBoard.DisplayBoardToConsole();
         }
 
         private void TwoPlayer_FormClosing(object sender, FormClosingEventArgs e)
@@ -38,34 +38,13 @@ namespace ConnectFour_Group2
 			{
 				gameDriver.nextTurn();
 			}
-        }
 
-
-        public void DisplayBoardToConsole()
-        {
-            for (int row = 0; row < Board.NUM_ROWS; row++)
-            {
-                for (int col = 0; col < Board.NUM_COLS; col++)
-                {
-                    Cell cell = gameBoard.getCell(row, col);
-                    //player 1's turn
-                    if (cell.getBtn().BackColor == Color.Red)
-                    {
-                        Console.Write("X ");
-                    }
-                    //player 2's turn
-                    else if (cell.getBtn().BackColor == Color.Yellow)
-                    {
-                        Console.Write("O ");
-                    }
-                    else
-                    {
-                        Console.Write("- ");
-                    }
-                }
-                Console.WriteLine();
-            }
-            Console.WriteLine("============================");
+			if (gameBoard.getWinner() != Cell.value.empty)
+			{
+#if DEBUG
+				Console.WriteLine(gameBoard.getWinner() + " has won!");
+#endif
+			}
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Collections.Generic;
 
 
@@ -20,13 +21,7 @@ namespace ConnectFour_Group2
         //========GETTERS==========
         public Cell getCell(int r, int c)
         {
-            //Console.WriteLine("Getting Cell - Row: " + r + ", Col: " + c);
             return internalBoard[r, c];
-        }
-
-        public Cell[,] getGameBoard()
-        {
-            return internalBoard;
         }
 
 		public Cell getCellFromButton(RoundButton button)
@@ -81,10 +76,11 @@ namespace ConnectFour_Group2
 		 * DES:	Attempts to play the move at the given column.
          */
         public bool playMove(Cell.value value, int col) {
+#if DEBUG
 			Console.WriteLine("playMove(" + value + ", " + col + ")");
+#endif
 
-			/* register */
-			int r;
+			/* register */ int r;
 
 			/* Guard against no one trying to play. */
 			if (value == Cell.value.empty)
@@ -97,21 +93,20 @@ namespace ConnectFour_Group2
 			/* Apparently not?? */
             --r;
 
-			Console.WriteLine("PLAYMOVE: r = " + r);
-
 			if (r < 0)
                 return false;
 
-			Console.WriteLine("PLAYMOVE: r = " + r);
-
-            internalBoard[r, col].setVal(value);
+			internalBoard[r, col].setVal(value);
 			internalBoard[r, col].getBtn().BackColor = Player.PLAYERS[(int)value].getColor();
 
             return true;
         }
 
 		/*
-		 * WARNING: THIS HAS NOT BEEN PROPERLY TESTED YET.
+		 * getWinner	Get Winner
+		 * ARG	NONE
+		 * RET	WINNER	Cell.value
+		 * INF	Find and returns the player who has won. Returns Cell.value.empty if no winner was found.
 		 */
 		public Cell.value getWinner()
 		{
@@ -253,6 +248,12 @@ namespace ConnectFour_Group2
             return Cell.value.empty;
 		}
 
+		/*
+		 * initialize	Initialize
+		 * ARG	NONE
+		 * RET	NONE
+		 * INF	Initializes all cells in the Board with their RoundButtons.
+		 */
 		public void initialize(IEnumerable<RoundButton> buttons)
 		{
             Cell c;
@@ -267,5 +268,43 @@ namespace ConnectFour_Group2
             }
 
 		}
+
+		/*
+		 * DisplayBoardToConsole	Display Board to Console
+		 * ARG	NONE
+		 * RET	NONE
+		 * INF	Prints all cells and their current values to STDOUT.
+		 */
+        public void DisplayBoardToConsole()
+        {
+			string buf;
+
+			buf = "";
+
+			for (int col = 0; col < Board.NUM_COLS; col++)
+            {
+				for (int row = 0; row < Board.NUM_ROWS; row++)
+                {
+					switch (this.getCell(row, col).getVal())
+					{
+						case Cell.value.p1:
+							buf += 'X';
+							break;
+						case Cell.value.p2:
+							buf += 'O';
+							break;
+						default:
+							buf += ' ';
+							break;
+					}
+
+					buf += " \n";
+                }
+
+				buf += "\n============================\n";
+            }
+
+            Console.Write(buf);
+        }
     }
 }

@@ -6,7 +6,6 @@
 
 
         private Cell.value val;
-        /* private int row, col; */ /* Row and column are only able to be set in the constructor. */
         private RoundButton btn;
 
 
