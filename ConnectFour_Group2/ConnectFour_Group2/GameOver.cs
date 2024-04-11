@@ -12,14 +12,15 @@ namespace ConnectFour_Group2
 {
     public partial class GameOver : Form
     {
+        private WelcomePage sform;
         private Cell.value winner;
         private Form previousForm;
-        private Board gameBoard;
 
         public GameOver(Form parentForm)
         {
             InitializeComponent();
             previousForm = parentForm;
+
         }
         private void GameOver_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -41,6 +42,7 @@ namespace ConnectFour_Group2
             {
                 lbl_gameOutCome.Text = "Player 2 has won!";
             }
+            //if AI won, display you lost
             else
             {
                 lbl_gameOutCome.Text = "It's a draw!";
@@ -56,6 +58,16 @@ namespace ConnectFour_Group2
         {
             this.Hide();
             previousForm.Hide();
+            if (previousForm is SinglePlayer)
+            {
+                SinglePlayer newGame = new SinglePlayer(sform);
+                newGame.Show();
+            }
+            if (previousForm is TwoPlayer)
+            {
+                TwoPlayer newGame = new TwoPlayer(sform);
+                newGame.Show();
+            }
 
         }
     }
