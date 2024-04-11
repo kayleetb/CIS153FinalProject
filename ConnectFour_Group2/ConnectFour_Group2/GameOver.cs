@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace ConnectFour_Group2
 {
-    public partial class Winner : Form
+    public partial class GameOver : Form
     {
-        public Winner()
+        public GameOver()
         {
             InitializeComponent();
         }
