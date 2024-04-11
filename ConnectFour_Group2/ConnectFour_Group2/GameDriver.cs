@@ -7,7 +7,7 @@ namespace ConnectFour_Group2
 	 * GameDriver should hold information related to the game that isn't applicable to the board.
 	 * For example, the board does not need to know who's turn it is, but it should know what to do when a player presses a button (which the GameDriver does not need to know).
 	 */
-    class GameDriver
+    public class GameDriver
     {
 		private Label lbl_turn;
 		private Cell.value currentTurn;

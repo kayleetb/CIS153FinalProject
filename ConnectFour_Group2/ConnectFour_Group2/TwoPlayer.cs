@@ -20,6 +20,7 @@ namespace ConnectFour_Group2
             gameBoard = new Board();
 			gameDriver = new GameDriver(lbl_turn);
 
+
 			gameBoard.initialize(this.Controls.OfType<RoundButton>());
 			gameDriver.setTurn(Cell.value.p1);
             gameBoard.DisplayBoardToConsole();
@@ -41,10 +42,17 @@ namespace ConnectFour_Group2
 
 			if (gameBoard.getWinner() != Cell.value.empty)
 			{
-#if DEBUG
-				Console.WriteLine(gameBoard.getWinner() + " has won!");
-#endif
+                //once a player wins we will hide this form and display the gameOver form
+                this.Hide();
+                loadGameOverForm(gameBoard.getWinner());
 			}
+        }
+
+        public void loadGameOverForm(Cell.value winner)
+        {
+            GameOver formToLoad = new GameOver(this);
+            formToLoad.SetGameOutCome(winner);
+            formToLoad.Show();
         }
     }
 }

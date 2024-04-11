@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Collections.Generic;
+using System.Windows.Forms;
+using System.Diagnostics.Eventing.Reader;
 
 
 namespace ConnectFour_Group2
@@ -16,7 +18,7 @@ namespace ConnectFour_Group2
         public const int NUM_COLS = 7;
         private const int WIN_CONDITION = 4;
         private Cell[,] internalBoard = new Cell[NUM_ROWS, NUM_COLS];
-
+        private GameDriver driver;
 
         //========GETTERS==========
         public Cell getCell(int r, int c)
@@ -101,6 +103,7 @@ namespace ConnectFour_Group2
 
             return true;
         }
+
 
 		/*
 		 * getWinner	Get Winner
@@ -268,7 +271,6 @@ namespace ConnectFour_Group2
             }
 
 		}
-
 		/*
 		 * DisplayBoardToConsole	Display Board to Console
 		 * ARG	NONE
