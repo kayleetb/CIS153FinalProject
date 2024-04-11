@@ -8,10 +8,13 @@ namespace ConnectFour_Group2
         WelcomePage sform;
         private Board gameBoard;
         private bool isPlayer1Turn = true;
+       
+        //Do we need this since it has an override?
         public SinglePlayer()
         {
             InitializeComponent();
         }
+       
         public SinglePlayer(WelcomePage sf)
         {
             InitializeComponent();
@@ -47,6 +50,32 @@ namespace ConnectFour_Group2
             //if the x in the corner is pressed it will close the whole application
             Application.Exit();
         }
+
+        private void RoundButton_Click(object sender, System.EventArgs e)
+        {
+            if(isPlayer1Turn)
+            {
+                lbl_turn.Visible = true;
+
+                gameBoard.playMove(Cell.value.p1, Board.getCoordFromButton((RoundButton)sender).col);
+
+                isPlayer1Turn = false;
+
+                lbl_turn.Visible = false;
+
+            }
+            else
+            {
+                //AI logic goes here......
+
+                
+
+
+
+            }
+
+
+        }
         //just testing with this
         //public void DisplayBoardtoConsole()
         //{
@@ -56,7 +85,7 @@ namespace ConnectFour_Group2
         //        {
         //            Cell cell = gameBoard.getCell(row, col);
         //            Console.Write("- ");
-                    
+
         //        }
         //        Console.WriteLine();
         //    }
