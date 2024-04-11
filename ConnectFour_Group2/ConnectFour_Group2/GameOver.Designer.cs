@@ -50,6 +50,7 @@
             this.btn_playAgain.TabIndex = 1;
             this.btn_playAgain.Text = "Play Again";
             this.btn_playAgain.UseVisualStyleBackColor = true;
+            this.btn_playAgain.Click += new System.EventHandler(this.btn_playAgain_Click);
             // 
             // btn_reviewGame
             // 

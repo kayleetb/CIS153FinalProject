@@ -18,7 +18,6 @@ namespace ConnectFour_Group2
         public const int NUM_COLS = 7;
         private const int WIN_CONDITION = 4;
         private Cell[,] internalBoard = new Cell[NUM_ROWS, NUM_COLS];
-        private GameDriver driver;
 
         //========GETTERS==========
         public Cell getCell(int r, int c)
@@ -68,7 +67,6 @@ namespace ConnectFour_Group2
         {
             internalBoard[row, col] = cell;
         }
-        
 
         /*
          * playMove: Play Move
@@ -84,12 +82,12 @@ namespace ConnectFour_Group2
 
 			/* register */ int r;
 
-			/* Guard against no one trying to play. */
-			if (value == Cell.value.empty)
-				return false;
+            /* Guard against no one trying to play. */
+            if (value == Cell.value.empty)
+                return false;
 
-			/* Find the first instance of a non-empty cell (or the last cell). */
-			for (r = 0; r < NUM_ROWS && internalBoard[r, col].getVal() == Cell.value.empty; ++r) ;
+            /* Find the first instance of a non-empty cell (or the last cell). */
+            for (r = 0; r < NUM_ROWS && internalBoard[r, col].getVal() == Cell.value.empty; ++r) ;
 
             /* The prior loop overshoots the index by one. */
 			/* Apparently not?? */
@@ -271,6 +269,13 @@ namespace ConnectFour_Group2
             }
 
 		}
+
+        public void LoadGameOverForm(Cell.value winner, Form parentForm)
+        {
+            GameOver formToLoad = new GameOver(parentForm);
+            formToLoad.SetGameOutCome(winner);
+            formToLoad.Show();
+        }
 		/*
 		 * DisplayBoardToConsole	Display Board to Console
 		 * ARG	NONE

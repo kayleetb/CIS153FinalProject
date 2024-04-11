@@ -13,14 +13,13 @@ namespace ConnectFour_Group2
     public partial class GameOver : Form
     {
         private Cell.value winner;
-        private TwoPlayer previousTwoPlayerForm;
-        private SinglePlayer previousSinglePlayerForm;
+        private Form previousForm;
+        private Board gameBoard;
 
-        public GameOver(TwoPlayer twoPlayerForm)
+        public GameOver(Form parentForm)
         {
             InitializeComponent();
-            previousTwoPlayerForm = twoPlayerForm;
-            //gameDriverForm = gameDriver;
+            previousForm = parentForm;
         }
         private void GameOver_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -50,7 +49,14 @@ namespace ConnectFour_Group2
 
         private void btn_reviewGame_Click(object sender, EventArgs e)
         {
-            previousTwoPlayerForm.Show();
+            previousForm.Show();
+        }
+
+        private void btn_playAgain_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            previousForm.Hide();
+
         }
     }
 }

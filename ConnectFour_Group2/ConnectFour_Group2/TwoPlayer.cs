@@ -12,7 +12,6 @@ namespace ConnectFour_Group2
         private Board gameBoard;
 		private GameDriver gameDriver;
 
-
         public TwoPlayer(WelcomePage sf)
         {
             InitializeComponent();
@@ -46,6 +45,26 @@ namespace ConnectFour_Group2
                 this.Hide();
                 loadGameOverForm(gameBoard.getWinner());
 			}
+        }
+        private void RoundButton_MouseEnter(object sender, EventArgs e)
+        {
+            RoundButton button = (RoundButton)sender;
+            Cell cell = gameBoard.getCellFromButton(button);
+            if(cell.getVal() == Cell.value.empty)
+            {
+                int col = Board.getCoordFromButton(button).col;
+                button.BackColor = Player.PLAYERS[(int)gameDriver.getTurn()].getColor();
+            }
+        }
+        private void RoundButton_MouseLeave(object sender, EventArgs e)
+        {
+            RoundButton button = (RoundButton)sender;
+            Cell cell = gameBoard.getCellFromButton(button);
+
+            if(cell.getVal() == Cell.value.empty)
+            {
+                button.BackColor = Color.White;
+            }
         }
 
         public void loadGameOverForm(Cell.value winner)
