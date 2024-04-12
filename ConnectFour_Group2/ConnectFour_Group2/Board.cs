@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Diagnostics.Eventing.Reader;
+using System.Linq;
 
 
 namespace ConnectFour_Group2
@@ -18,6 +19,7 @@ namespace ConnectFour_Group2
         public const int NUM_COLS = 7;
         private const int WIN_CONDITION = 4;
         private Cell[,] internalBoard = new Cell[NUM_ROWS, NUM_COLS];
+        private TableLayoutPanel tableLayoutPanel;
 
         //========GETTERS==========
         public Cell getCell(int r, int c)
@@ -56,9 +58,9 @@ namespace ConnectFour_Group2
             posDelim = name.IndexOf(DELIM);
             coord.col = Int32.Parse(name.Substring(posDelim + 1));
 
-			/* coord.row = button.row;
+            /* coord.row = button.row;
 			coord.col = button.col; */
-
+            Console.WriteLine(coord.col +" " + coord.row);
 			return coord;
 		}
 
@@ -249,26 +251,39 @@ namespace ConnectFour_Group2
             return Cell.value.empty;
 		}
 
-		/*
+        public void initializetable(TableLayoutPanel tblp)
+        {
+            Cell c;
+            CoordRC coord;
+
+            foreach (RoundButton button in tableLayoutPanel.Controls.OfType<RoundButton>())
+            {
+                coord = getCoordFromButton(button);
+                c = new Cell(Cell.value.empty, button);
+                this.setGameBoardCell(c, coord.row, coord.col);
+
+            }
+        }
+        /*
 		 * initialize	Initialize
 		 * ARG	NONE
 		 * RET	NONE
 		 * INF	Initializes all cells in the Board with their RoundButtons.
 		 */
-		public void initialize(IEnumerable<RoundButton> buttons)
-		{
+        public void initialize(IEnumerable<RoundButton> buttons)
+        {
             Cell c;
-			CoordRC coord;
+            CoordRC coord;
 
             foreach (var button in buttons)
             {
-				coord = Board.getCoordFromButton(button);
-				c = new Cell(Cell.value.empty, button);
+                coord = Board.getCoordFromButton(button);
+                c = new Cell(Cell.value.empty, button);
 
-				this.setGameBoardCell(c, coord.row, coord.col);
+                this.setGameBoardCell(c, coord.row, coord.col);
             }
 
-		}
+        }
 
         public void LoadGameOverForm(Cell.value winner, Form parentForm)
         {
@@ -276,7 +291,17 @@ namespace ConnectFour_Group2
             formToLoad.SetGameOutCome(winner);
             formToLoad.Show();
         }
-		/*
+
+        //function below currently doesn't work with the gameover form 
+        //says gameboard is null 
+        public void disableAllCells()
+        {
+            foreach (Cell cell in internalBoard)
+            {
+                cell.getBtn().Enabled = false;
+            }
+        }
+        /*
 		 * DisplayBoardToConsole	Display Board to Console
 		 * ARG	NONE
 		 * RET	NONE
@@ -284,31 +309,31 @@ namespace ConnectFour_Group2
 		 */
         public void DisplayBoardToConsole()
         {
-			string buf;
+            string buf;
 
-			buf = "";
+            buf = "";
 
-			for (int col = 0; col < Board.NUM_COLS; col++)
+            for (int col = 0; col < Board.NUM_COLS; col++)
             {
-				for (int row = 0; row < Board.NUM_ROWS; row++)
+                for (int row = 0; row < Board.NUM_ROWS; row++)
                 {
-					switch (this.getCell(row, col).getVal())
-					{
-						case Cell.value.p1:
-							buf += 'X';
-							break;
-						case Cell.value.p2:
-							buf += 'O';
-							break;
-						default:
-							buf += ' ';
-							break;
-					}
+                    switch (this.getCell(row, col).getVal())
+                    {
+                        case Cell.value.p1:
+                            buf += 'X';
+                            break;
+                        case Cell.value.p2:
+                            buf += 'O';
+                            break;
+                        default:
+                            buf += ' ';
+                            break;
+                    }
 
-					buf += " \n";
+                    buf += " \n";
                 }
 
-				buf += "\n============================\n";
+                buf += "\n============================\n";
             }
 
             Console.Write(buf);

@@ -20,9 +20,9 @@ namespace ConnectFour_Group2
 			gameDriver = new GameDriver(lbl_turn);
 
 
-			gameBoard.initialize(this.Controls.OfType<RoundButton>());
+            gameBoard.initialize(tableLayoutPanel1.Controls.OfType<RoundButton>());
 			gameDriver.setTurn(Cell.value.p1);
-            gameBoard.DisplayBoardToConsole();
+            //gameBoard.DisplayBoardToConsole();
         }
 
         private void TwoPlayer_FormClosing(object sender, FormClosingEventArgs e)
@@ -50,7 +50,7 @@ namespace ConnectFour_Group2
         {
             RoundButton button = (RoundButton)sender;
             Cell cell = gameBoard.getCellFromButton(button);
-            if(cell.getVal() == Cell.value.empty)
+            if (cell.getVal() == Cell.value.empty)
             {
                 int col = Board.getCoordFromButton(button).col;
                 button.BackColor = Player.PLAYERS[(int)gameDriver.getTurn()].getColor();
@@ -61,7 +61,7 @@ namespace ConnectFour_Group2
             RoundButton button = (RoundButton)sender;
             Cell cell = gameBoard.getCellFromButton(button);
 
-            if(cell.getVal() == Cell.value.empty)
+            if (cell.getVal() == Cell.value.empty)
             {
                 button.BackColor = Color.White;
             }
@@ -72,6 +72,11 @@ namespace ConnectFour_Group2
             GameOver formToLoad = new GameOver(this);
             formToLoad.SetGameOutCome(winner);
             formToLoad.Show();
+        }
+
+        public Board getBoard()
+        {
+            return gameBoard;
         }
     }
 }

@@ -51,6 +51,7 @@ namespace ConnectFour_Group2
 
         private void btn_reviewGame_Click(object sender, EventArgs e)
         {
+            ((TwoPlayer)previousForm).getBoard().disableAllCells();
             previousForm.Show();
         }
 
