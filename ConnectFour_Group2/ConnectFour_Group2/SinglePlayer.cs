@@ -79,10 +79,11 @@ namespace ConnectFour_Group2
             }
 
             //maybe needs different placement?
-            //Thread.Sleep(500);
+            //Thread.Sleep(3000);
 
             if (!isPlayer1Turn) 
             {
+
                 ai.compMove(gameBoard);
 
                 if (gameBoard.getWinner() != Cell.value.empty)
