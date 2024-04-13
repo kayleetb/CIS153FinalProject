@@ -15,7 +15,8 @@ namespace ConnectFour_Group2
 		{
 			new Player(Color.Gray,   ""),
 			new Player(Color.Red,    "Player 1"),
-			new Player(Color.Yellow, "Player 2")
+			new Player(Color.Yellow, "Player 2"),
+			new Player(Color.Blue, "Computer")
 		};
 		private Color color;
 		private string name;

@@ -4,7 +4,7 @@ namespace ConnectFour_Group2
 {
 	public class Cell
     {
-        public enum value { empty = 0, p1 = 1, p2 = 2 };
+        public enum value { empty = 0, p1 = 1, p2 = 2, Ai = 3 };
 
         private Cell.value val;
         private RoundButton btn;

@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace ConnectFour_Group2
@@ -8,7 +10,8 @@ namespace ConnectFour_Group2
         WelcomePage sform;
         private Board gameBoard;
         private bool isPlayer1Turn = true;
-       
+        Computer ai;
+
         //Do we need this since it has an override?
         public SinglePlayer()
         {
@@ -19,9 +22,10 @@ namespace ConnectFour_Group2
         {
             InitializeComponent();
             sform = sf;
+            ai = new Computer();
             gameBoard = new Board();
-			/* setUpGame(); */
-			gameBoard.initialize(this.Controls.OfType<RoundButton>());
+            /* setUpGame(); */
+            gameBoard.initialize(tableLayoutPanel1.Controls.OfType<RoundButton>());
             //DisplayBoardtoConsole(); for testing
         }
         /* public void setUpGame()
@@ -51,6 +55,10 @@ namespace ConnectFour_Group2
             Application.Exit();
         }
 
+       
+        
+        
+        
         private void RoundButton_Click(object sender, System.EventArgs e)
         {
             if(isPlayer1Turn)
@@ -59,23 +67,46 @@ namespace ConnectFour_Group2
 
                 gameBoard.playMove(Cell.value.p1, Board.getCoordFromButton((RoundButton)sender).col);
 
-                isPlayer1Turn = false;
+                if (gameBoard.getWinner() != Cell.value.empty)
+                {
+                    this.Hide();
+                    loadGameOverForm(gameBoard.getWinner());
+                }
 
+                isPlayer1Turn=false;
                 lbl_turn.Visible = false;
 
             }
-            else
+
+            //maybe needs different placement?
+            //Thread.Sleep(500);
+
+            if (!isPlayer1Turn) 
             {
-                //AI logic goes here......
+                ai.compMove(gameBoard);
 
-                
+                if (gameBoard.getWinner() != Cell.value.empty)
+                {
+                    this.Hide();
+                    loadGameOverForm(gameBoard.getWinner());
+                }
 
+                isPlayer1Turn = true;
+                lbl_turn.Visible = true;
 
 
             }
-
-
         }
+
+
+
+        public void loadGameOverForm(Cell.value winner)
+        {
+            GameOver formToLoad = new GameOver(this);
+            formToLoad.SetGameOutCome(winner);
+            formToLoad.Show();
+        }
+
         //just testing with this
         //public void DisplayBoardtoConsole()
         //{
