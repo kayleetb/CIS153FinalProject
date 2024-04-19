@@ -84,9 +84,11 @@ namespace ConnectFour_Group2
 
             label12.Text = gamesPlayed;
 
-            double p1WinPercent = (p1Wins / intGames) * 100;
+            double p1WinPercent = (((double)p1Wins) / ((double)intGames)) * 100;
+            p1WinPercent = Math.Round(p1WinPercent, 2);
             Console.WriteLine("p1 win %: " + p1Wins + " / " + intGames + " = " + p1WinPercent);
-            double aiWinPercent = (aiWins / intGames) * 100;
+            double aiWinPercent = (((double)aiWins) / ((double)intGames)) * 100;
+            aiWinPercent = Math.Round(aiWinPercent, 2);
             Console.WriteLine("ai win %: " + aiWins + " / " + intGames + " = " + aiWinPercent);
 
             label10.Text = p1WinPercent.ToString() + "%";

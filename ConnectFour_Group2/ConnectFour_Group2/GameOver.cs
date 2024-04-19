@@ -83,5 +83,17 @@ namespace ConnectFour_Group2
             }
 
         }
+
+        //STATS
+        private void btn_StatsGO_Click(object sender, EventArgs e)
+        {
+            loadStatsFormGO();
+            this.Hide();
+        }
+        public void loadStatsFormGO()
+        {
+            Stats formToLoad = new Stats(sform);
+            formToLoad.Show();
+        }
     }
 }
