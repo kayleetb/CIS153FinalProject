@@ -11,6 +11,12 @@ namespace ConnectFour_Group2
         private Board gameBoard;
         private bool isPlayer1Turn = true;
         Computer ai;
+
+        //Do we need this since it has an override?
+        public SinglePlayer()
+        {
+            InitializeComponent();
+        }
        
         public SinglePlayer(WelcomePage sf)
         {
@@ -21,12 +27,6 @@ namespace ConnectFour_Group2
             /* setUpGame(); */
             gameBoard.initialize(tableLayoutPanel1.Controls.OfType<RoundButton>());
             //DisplayBoardtoConsole(); for testing
-
-            tableLayoutPanel1.Controls.Add(pictureBox1);
-
-            //pictureBox1.Controls.Add(tableLayoutPanel1);
-            pictureBox1.Location = new System.Drawing.Point(200, 0);
-            pictureBox1.BringToFront();
         }
         /* public void setUpGame()
         {
@@ -54,6 +54,10 @@ namespace ConnectFour_Group2
             //if the x in the corner is pressed it will close the whole application
             Application.Exit();
         }
+
+       
+        
+        
         
         private void RoundButton_Click(object sender, System.EventArgs e)
         {
