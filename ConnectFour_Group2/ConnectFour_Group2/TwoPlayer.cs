@@ -63,7 +63,7 @@ namespace ConnectFour_Group2
 
             if (cell.getVal() == Cell.value.empty)
             {
-                button.BackColor = Color.White;
+                button.BackColor = Color.DarkGray;
             }
         }
 

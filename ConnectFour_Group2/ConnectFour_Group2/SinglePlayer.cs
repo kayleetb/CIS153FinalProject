@@ -11,12 +11,6 @@ namespace ConnectFour_Group2
         private Board gameBoard;
         private bool isPlayer1Turn = true;
         Computer ai;
-
-        //Do we need this since it has an override?
-        public SinglePlayer()
-        {
-            InitializeComponent();
-        }
        
         public SinglePlayer(WelcomePage sf)
         {

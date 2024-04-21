@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WelcomePage));
             this.btn_singlePlayer = new System.Windows.Forms.Button();
             this.btn_twoPlayer = new System.Windows.Forms.Button();
             this.btn_Stats = new System.Windows.Forms.Button();
@@ -71,6 +72,7 @@
             this.Controls.Add(this.btn_Stats);
             this.Controls.Add(this.btn_twoPlayer);
             this.Controls.Add(this.btn_singlePlayer);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "WelcomePage";
