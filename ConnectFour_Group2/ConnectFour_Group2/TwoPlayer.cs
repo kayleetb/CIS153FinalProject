@@ -53,7 +53,13 @@ namespace ConnectFour_Group2
             if (cell.getVal() == Cell.value.empty)
             {
                 int col = Board.getCoordFromButton(button).col;
-                button.BackColor = Player.PLAYERS[(int)gameDriver.getTurn()].getColor();
+                foreach (RoundButton btn in tableLayoutPanel1.Controls.OfType<RoundButton>())
+                {
+                    if (Board.getCoordFromButton(btn).col == col && gameBoard.getCellFromButton(btn).getVal() == Cell.value.empty)
+                    {
+                        btn.BackColor = Color.White;
+                    }
+                }
             }
         }
         private void RoundButton_MouseLeave(object sender, EventArgs e)
@@ -63,7 +69,14 @@ namespace ConnectFour_Group2
 
             if (cell.getVal() == Cell.value.empty)
             {
-                button.BackColor = Color.DarkGray;
+                int col = Board.getCoordFromButton(button).col;
+                foreach (RoundButton btn in tableLayoutPanel1.Controls.OfType<RoundButton>())
+                {
+                    if (Board.getCoordFromButton(btn).col == col && gameBoard.getCellFromButton(btn).getVal() == Cell.value.empty)
+                    {
+                        btn.BackColor = Color.DarkGray;
+                    }
+                }
             }
         }
 

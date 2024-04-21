@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
@@ -49,9 +50,6 @@ namespace ConnectFour_Group2
             Application.Exit();
         }
 
-       
-        
-        
         
         private void RoundButton_Click(object sender, System.EventArgs e)
         {
@@ -93,13 +91,45 @@ namespace ConnectFour_Group2
             }
         }
 
-
-
         public void loadGameOverForm(Cell.value winner)
         {
             GameOver formToLoad = new GameOver(this);
             formToLoad.SetGameOutCome(winner);
             formToLoad.Show();
+        }
+
+        private void RoundButton_MouseEnter(object sender, EventArgs e)
+        {
+            RoundButton button = (RoundButton)sender;
+            Cell cell = gameBoard.getCellFromButton(button);
+            if (cell.getVal() == Cell.value.empty)
+            {
+                int col = Board.getCoordFromButton(button).col;
+                foreach (RoundButton btn in tableLayoutPanel1.Controls.OfType<RoundButton>())
+                {
+                    if (Board.getCoordFromButton(btn).col == col && gameBoard.getCellFromButton(btn).getVal() == Cell.value.empty)
+                    {
+                        btn.BackColor = Color.White;
+                    }
+                }
+            }
+        }
+        private void RoundButton_MouseLeave(object sender, EventArgs e)
+        {
+            RoundButton button = (RoundButton)sender;
+            Cell cell = gameBoard.getCellFromButton(button);
+
+            if (cell.getVal() == Cell.value.empty)
+            {
+                int col = Board.getCoordFromButton(button).col;
+                foreach (RoundButton btn in tableLayoutPanel1.Controls.OfType<RoundButton>())
+                {
+                    if (Board.getCoordFromButton(btn).col == col && gameBoard.getCellFromButton(btn).getVal() == Cell.value.empty)
+                    {
+                        btn.BackColor = Color.DarkGray;
+                    }
+                }
+            }
         }
 
         //just testing with this
