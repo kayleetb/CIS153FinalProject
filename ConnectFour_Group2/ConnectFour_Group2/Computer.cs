@@ -89,7 +89,7 @@ namespace ConnectFour_Group2
                 {
                     cell = board.getCell(r, c);
 
-                    if (cell.getVal() == Cell.value.p1)
+                    if (r - 1 > 0 && cell.getVal() == Cell.value.p1)
                     {
                         coord.row = r;
                         coord.col = c;
@@ -98,7 +98,7 @@ namespace ConnectFour_Group2
 
                         cell = board.getCell(r - 1, c);
 
-                        if (cell.getVal() == Cell.value.p1)
+                        if (r - 2 > 0 && cell.getVal() == Cell.value.p1)
                         {
                             coord.row = r - 1;
                             coord.col = c;
@@ -522,7 +522,7 @@ namespace ConnectFour_Group2
                 {
                     cell = board.getCell(r, c);
 
-                    if (cell.getVal() == Cell.value.Ai)
+                    if (r - 1 > 0 && cell.getVal() == Cell.value.Ai)
                     {
                         coord.row = r;
                         coord.col = c;
@@ -531,7 +531,7 @@ namespace ConnectFour_Group2
 
                         cell = board.getCell(r - 1, c);
 
-                        if (cell.getVal() == Cell.value.Ai)
+                        if (r - 2 > 0 && cell.getVal() == Cell.value.Ai)
                         {
                             coord.row = r - 1;
                             coord.col = c;
