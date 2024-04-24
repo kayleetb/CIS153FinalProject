@@ -13,19 +13,21 @@ namespace ConnectFour_Group2
 		/* This array should be as long as there are entries in Cell.value. */
 		public static readonly Player[] PLAYERS =
 		{
-			new Player(Color.Gray,   ""),
-			new Player(Color.Red,    "Player 1"),
-			new Player(Color.Yellow, "Player 2"),
-			new Player(Color.Blue, "Computer")
+			new Player(Color.Gray,   "", null),
+			new Player(Color.Red,    "Player 1", Properties.Resources.redconnectfourpiece),
+			new Player(Color.Yellow, "Player 2", Properties.Resources.yellowconnectfourpiece),
+			new Player(Color.Yellow, "Computer", Properties.Resources.yellowconnectfourpiece)
 		};
 		private Color color;
 		private string name;
+		private Image backgroundImage;
 
 
-		public Player(Color c, string n)
+		public Player(Color c, string n, Image img)
 		{
 			color = c;
 			name = n;
+			backgroundImage = img;
 		}
 
 
@@ -37,6 +39,10 @@ namespace ConnectFour_Group2
 		public string getName()
 		{
 			return name;
+		}
+		public Image getBackgroundImage() 
+		{
+			return backgroundImage;
 		}
 	}
 }

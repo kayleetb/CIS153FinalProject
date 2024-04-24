@@ -73,15 +73,29 @@
             this.btn_2_6 = new ConnectFour_Group2.RoundButton();
             this.btn_3_1 = new ConnectFour_Group2.RoundButton();
             this.btn_3_0 = new ConnectFour_Group2.RoundButton();
+            this.pictureBox_0 = new System.Windows.Forms.PictureBox();
+            this.pictureBox_1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox_2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox_3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox_4 = new System.Windows.Forms.PictureBox();
+            this.pictureBox_5 = new System.Windows.Forms.PictureBox();
+            this.pictureBox_6 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_0)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_6)).BeginInit();
             this.SuspendLayout();
             // 
             // lbl_turn
             // 
             this.lbl_turn.AutoSize = true;
-            this.lbl_turn.Location = new System.Drawing.Point(443, 787);
+            this.lbl_turn.Location = new System.Drawing.Point(600, 958);
             this.lbl_turn.Name = "lbl_turn";
-            this.lbl_turn.Size = new System.Drawing.Size(77, 30);
+            this.lbl_turn.Size = new System.Drawing.Size(51, 20);
             this.lbl_turn.TabIndex = 84;
             this.lbl_turn.Text = "player";
             // 
@@ -142,7 +156,7 @@
             this.tableLayoutPanel1.Controls.Add(this.btn_3_1, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.btn_3_0, 0, 3);
             this.tableLayoutPanel1.ForeColor = System.Drawing.Color.Black;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(81, 24);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(165, 236);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(10);
             this.tableLayoutPanel1.RowCount = 6;
@@ -262,6 +276,7 @@
             // 
             this.btn_5_4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btn_5_4.BackColor = System.Drawing.Color.DarkGray;
+            this.btn_5_4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btn_5_4.col = 0;
             this.btn_5_4.FlatAppearance.BorderSize = 0;
             this.btn_5_4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -870,12 +885,83 @@
             this.btn_3_0.MouseEnter += new System.EventHandler(this.RoundButton_MouseEnter);
             this.btn_3_0.MouseLeave += new System.EventHandler(this.RoundButton_MouseLeave);
             // 
+            // pictureBox_0
+            // 
+            this.pictureBox_0.Location = new System.Drawing.Point(174, 58);
+            this.pictureBox_0.Name = "pictureBox_0";
+            this.pictureBox_0.Size = new System.Drawing.Size(123, 120);
+            this.pictureBox_0.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox_0.TabIndex = 88;
+            this.pictureBox_0.TabStop = false;
+            // 
+            // pictureBox_1
+            // 
+            this.pictureBox_1.Location = new System.Drawing.Point(303, 58);
+            this.pictureBox_1.Name = "pictureBox_1";
+            this.pictureBox_1.Size = new System.Drawing.Size(123, 120);
+            this.pictureBox_1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox_1.TabIndex = 89;
+            this.pictureBox_1.TabStop = false;
+            // 
+            // pictureBox_2
+            // 
+            this.pictureBox_2.Location = new System.Drawing.Point(432, 58);
+            this.pictureBox_2.Name = "pictureBox_2";
+            this.pictureBox_2.Size = new System.Drawing.Size(123, 120);
+            this.pictureBox_2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox_2.TabIndex = 90;
+            this.pictureBox_2.TabStop = false;
+            // 
+            // pictureBox_3
+            // 
+            this.pictureBox_3.Location = new System.Drawing.Point(561, 58);
+            this.pictureBox_3.Name = "pictureBox_3";
+            this.pictureBox_3.Size = new System.Drawing.Size(123, 120);
+            this.pictureBox_3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox_3.TabIndex = 91;
+            this.pictureBox_3.TabStop = false;
+            // 
+            // pictureBox_4
+            // 
+            this.pictureBox_4.Location = new System.Drawing.Point(690, 58);
+            this.pictureBox_4.Name = "pictureBox_4";
+            this.pictureBox_4.Size = new System.Drawing.Size(123, 120);
+            this.pictureBox_4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox_4.TabIndex = 92;
+            this.pictureBox_4.TabStop = false;
+            // 
+            // pictureBox_5
+            // 
+            this.pictureBox_5.Location = new System.Drawing.Point(819, 58);
+            this.pictureBox_5.Name = "pictureBox_5";
+            this.pictureBox_5.Size = new System.Drawing.Size(123, 120);
+            this.pictureBox_5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox_5.TabIndex = 93;
+            this.pictureBox_5.TabStop = false;
+            // 
+            // pictureBox_6
+            // 
+            this.pictureBox_6.Location = new System.Drawing.Point(948, 58);
+            this.pictureBox_6.Name = "pictureBox_6";
+            this.pictureBox_6.Size = new System.Drawing.Size(123, 120);
+            this.pictureBox_6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox_6.TabIndex = 94;
+            this.pictureBox_6.TabStop = false;
+            // 
             // TwoPlayer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.ClientSize = new System.Drawing.Size(1098, 847);
+            this.ClientSize = new System.Drawing.Size(1251, 1144);
+            this.Controls.Add(this.pictureBox_0);
+            this.Controls.Add(this.pictureBox_6);
+            this.Controls.Add(this.pictureBox_5);
+            this.Controls.Add(this.pictureBox_4);
+            this.Controls.Add(this.pictureBox_3);
+            this.Controls.Add(this.pictureBox_2);
+            this.Controls.Add(this.pictureBox_1);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.lbl_turn);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -886,6 +972,13 @@
             this.Text = "TwoPlayer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TwoPlayer_FormClosing);
             this.tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_0)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_6)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -936,5 +1029,12 @@
         private RoundButton btn_2_6;
         private RoundButton btn_3_1;
         private RoundButton btn_3_0;
+        private System.Windows.Forms.PictureBox pictureBox_0;
+        private System.Windows.Forms.PictureBox pictureBox_1;
+        private System.Windows.Forms.PictureBox pictureBox_2;
+        private System.Windows.Forms.PictureBox pictureBox_3;
+        private System.Windows.Forms.PictureBox pictureBox_4;
+        private System.Windows.Forms.PictureBox pictureBox_5;
+        private System.Windows.Forms.PictureBox pictureBox_6;
     }
 }

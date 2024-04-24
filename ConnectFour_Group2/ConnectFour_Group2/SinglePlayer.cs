@@ -118,16 +118,13 @@ namespace ConnectFour_Group2
         {
             RoundButton button = (RoundButton)sender;
             Cell cell = gameBoard.getCellFromButton(button);
-
-            if (cell.getVal() == Cell.value.empty)
+            
+            int col = Board.getCoordFromButton(button).col;
+            foreach (RoundButton btn in tableLayoutPanel1.Controls.OfType<RoundButton>())
             {
-                int col = Board.getCoordFromButton(button).col;
-                foreach (RoundButton btn in tableLayoutPanel1.Controls.OfType<RoundButton>())
+                if (Board.getCoordFromButton(btn).col == col && gameBoard.getCellFromButton(btn).getVal() == Cell.value.empty)
                 {
-                    if (Board.getCoordFromButton(btn).col == col && gameBoard.getCellFromButton(btn).getVal() == Cell.value.empty)
-                    {
-                        btn.BackColor = Color.DarkGray;
-                    }
+                    btn.BackColor = Color.DarkGray;
                 }
             }
         }
