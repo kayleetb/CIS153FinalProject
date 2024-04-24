@@ -55,13 +55,13 @@
     <Compile Include="GameOver.Designer.cs">
       <DependentUpon>GameOver.cs</DependentUpon>
     </Compile>
-    <Compile Include="Player.cs" />
-    <Compile Include="SinglePlayer.cs">
+    <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SinglePlayer.Designer.cs">
-      <DependentUpon>SinglePlayer.cs</DependentUpon>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Player.cs" />
     <Compile Include="Stats.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -89,8 +89,8 @@
     <EmbeddedResource Include="GameOver.resx">
       <DependentUpon>GameOver.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SinglePlayer.resx">
-      <DependentUpon>SinglePlayer.cs</DependentUpon>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Stats.resx">
       <DependentUpon>Stats.cs</DependentUpon>
@@ -122,9 +122,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Stats.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

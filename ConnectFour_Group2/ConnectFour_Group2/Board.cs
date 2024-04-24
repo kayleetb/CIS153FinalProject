@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Drawing;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 
 
@@ -88,11 +86,14 @@ namespace ConnectFour_Group2
             if (value == Cell.value.empty)
                 return false;
 
+			/* Guard against full column. */
+			if (internalBoard[0, col].getVal() != Cell.value.empty)
+				return false;
+
             /* Find the first instance of a non-empty cell (or the last cell). */
             for (r = 0; r < NUM_ROWS && internalBoard[r, col].getVal() == Cell.value.empty; ++r) ;
 
             /* The prior loop overshoots the index by one. */
-			/* Apparently not?? */
             --r;
 
 			if (r < 0)
@@ -283,13 +284,6 @@ namespace ConnectFour_Group2
                 this.setGameBoardCell(c, coord.row, coord.col);
             }
 
-        }
-
-        public void LoadGameOverForm(Cell.value winner, Form parentForm)
-        {
-            GameOver formToLoad = new GameOver(parentForm);
-            formToLoad.SetGameOutCome(winner);
-            formToLoad.Show();
         }
 
         //function below currently doesn't work with the gameover form 

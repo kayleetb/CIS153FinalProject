@@ -4,15 +4,10 @@
 //Desc:             Final Project Connect 4
 //====================================================================================
 
+
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+
 
 namespace ConnectFour_Group2
 {
@@ -23,40 +18,23 @@ namespace ConnectFour_Group2
             InitializeComponent();
         }
 
+
         //SINGLE PLAYER
         private void btn_singlePlayer_Click(object sender, EventArgs e)
         {
-            loadSinglePlayerForm();
-            this.Hide();
-        }
-        public void loadSinglePlayerForm()
-        {
-            SinglePlayer formToLoad = new SinglePlayer(this);
-            formToLoad.Show();
+			MainForm.load(new TwoPlayer(true));
         }
 
         //TWO PLAYER
         private void btn_twoPlayer_Click(object sender, EventArgs e)
         {
-            loadTwoPlayerForm();
-            this.Hide();
-        }
-        public void loadTwoPlayerForm()
-        {
-            TwoPlayer formToLoad = new TwoPlayer(this);
-            formToLoad.Show();
+			MainForm.load(new TwoPlayer(false));
         }
 
         //STATS
         private void btn_Stats_Click(object sender, EventArgs e)
         {
-            loadStatsForm();
-            this.Hide();
-        }
-        public void loadStatsForm()
-        {
-            Stats formToLoad = new Stats(this);
-            formToLoad.Show();
+			MainForm.load(new Stats());
         }
     }
 }

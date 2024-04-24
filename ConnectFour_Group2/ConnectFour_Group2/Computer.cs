@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConnectFour_Group2
 {
@@ -25,18 +19,18 @@ namespace ConnectFour_Group2
             if (board.getCell(5, 3).getVal() == Cell.value.empty)
             {
                 Console.WriteLine("comp if");
-                board.playMove(Cell.value.Ai, 3);
+                board.playMove(Cell.value.ai, 3);
             }
             else if (horzBlock(board))
             {
                 Console.WriteLine("comp else if");
-                board.playMove(Cell.value.Ai, move);
+                board.playMove(Cell.value.ai, move);
             }
             else
             {
                 Console.WriteLine("comp else");
                 move = rnd.Next(0, 6);
-                board.playMove(Cell.value.Ai, move);
+                board.playMove(Cell.value.ai, move);
             }
         }
 

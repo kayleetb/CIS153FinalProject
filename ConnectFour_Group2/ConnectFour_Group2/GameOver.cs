@@ -1,99 +1,44 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+
 
 namespace ConnectFour_Group2
 {
     public partial class GameOver : Form
     {
-        private WelcomePage sform;
-        private Cell.value winner;
-        private Form previousForm;
+		private TwoPlayer gameForm;
 
-        static private int game;
 
-        public GameOver(Form parentForm)
+        public GameOver(TwoPlayer gameForm, Cell.value winner)
         {
             InitializeComponent();
-            previousForm = parentForm;
 
-        }
-        private void GameOver_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            //if the x in the corner is pressed it will close the whole application
-            Application.Exit();
+			this.gameForm = gameForm;
+
+			/* Potentially implement a new variable in the Player class for victory statement. */
+			lbl_gameOutcome.Text = Player.PLAYERS[(int)winner].getName() + " has won!";
         }
 
-        //this will have to be changed once single player is finished
-        public void SetGameOutCome(Cell.value winner) 
-        {
-            string file = @"../../Stats.txt";
-            Stats stats = new Stats();
 
-            this.winner = winner;
-
-            if(winner == Cell.value.p1)
-            {
-                lbl_gameOutCome.Text = "Player 1 has won!";
-
-                File.AppendAllText(file, "\r\n" + stats.getGame() + "," + "p1" + ",");
-            }
-            else if(winner == Cell.value.p2) 
-            {
-                lbl_gameOutCome.Text = "Player 2 has won!";
-
-                //will need to move to if AI wins
-                File.AppendAllText(file, "\r\n" + stats.getGame() + "," + "ai" + ",");
-            }
-            //if AI won, display you lost
-            else
-            {
-                lbl_gameOutCome.Text = "It's a draw!";
-
-                File.AppendAllText(file, "\r\n" + stats.getGame() + "," + "tie" + ",");
-            }
-        }
-
+		/* WARNING: UNABLE TO RETURN BACK TO ANY OTHER SCREEN! */
         private void btn_reviewGame_Click(object sender, EventArgs e)
         {
-            ((TwoPlayer)previousForm).getBoard().disableAllCells();
-            previousForm.Show();
+            gameForm.getBoard().disableAllCells();
+			MainForm.load(gameForm);
         }
 
         private void btn_playAgain_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            previousForm.Hide();
-            if (previousForm is SinglePlayer)
-            {
-                SinglePlayer newGame = new SinglePlayer(sform);
-                newGame.Show();
-            }
-            if (previousForm is TwoPlayer)
-            {
-                TwoPlayer newGame = new TwoPlayer(sform);
-                newGame.Show();
-            }
-
+			gameForm.reset();
+			MainForm.load(gameForm);
         }
 
         //STATS
         private void btn_StatsGO_Click(object sender, EventArgs e)
         {
-            loadStatsFormGO();
-            this.Hide();
-        }
-        public void loadStatsFormGO()
-        {
-            Stats formToLoad = new Stats(sform);
-            formToLoad.Show();
+			Stats formToLoad = new Stats();
+			formToLoad.ShowDialog(this);
         }
     }
 }

@@ -1,42 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+
 
 namespace ConnectFour_Group2
 {
     public partial class Stats : Form
     {
+		private const string PATH_SAVE = "../../Stats.txt";
         private int game;
 
-        WelcomePage sform;
         public Stats()
         {
             InitializeComponent();
-        }
-        public Stats(WelcomePage sf)
-        {
-            InitializeComponent();
-            readTextFile();
-            sform = sf;
-        }
-
-        private void Stats_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            //if the x in the corner is pressed it will close the whole application
-            Application.Exit();
+			readTextFile();
         }
 
         private void readTextFile()
         {
-            StreamReader file = new StreamReader("../../Stats.txt");
-            String line = file.ReadLine();
+			StreamReader file;
+			String line;
 
             string gamesPlayed = "0";
             string winner = "";
@@ -48,8 +31,13 @@ namespace ConnectFour_Group2
             int comma;
             char delim = ',';
 
+			if (!File.Exists(PATH_SAVE))
+				File.Create(PATH_SAVE).Close();
+
+			file = new StreamReader(PATH_SAVE);
+
             line = file.ReadLine();
-            while (line != null)
+            while ((line = file.ReadLine()) != null)
             {
                 comma = line.IndexOf(delim);
                 gamesPlayed = line.Substring(0, comma);
@@ -73,8 +61,6 @@ namespace ConnectFour_Group2
                     ties++;
                     intGames++;
                 }
-
-                line = file.ReadLine();
             }
             file.Close();
 
@@ -97,7 +83,7 @@ namespace ConnectFour_Group2
         
         public int getGame() 
         {
-            StreamReader file = new StreamReader("../../Stats.txt");
+            StreamReader file = new StreamReader(PATH_SAVE);
             String line = file.ReadLine();
 
             string gamesPlayed = "0";

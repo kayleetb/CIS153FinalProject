@@ -199,7 +199,6 @@
             this.Name = "Stats";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Stats";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Stats_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

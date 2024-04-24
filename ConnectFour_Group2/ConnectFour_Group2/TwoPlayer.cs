@@ -8,22 +8,19 @@ namespace ConnectFour_Group2
 {
     public partial class TwoPlayer : Form
     {
-        private WelcomePage sform;
         private Board gameBoard;
 		private GameDriver gameDriver;
+		private Computer ai;
+		private bool botGame;
 
-        public TwoPlayer(WelcomePage sf)
+
+        public TwoPlayer(bool botGame)
         {
             InitializeComponent();
-            sform = sf;
-            gameBoard = new Board();
-			gameDriver = new GameDriver(lbl_turn);
-
-
-            gameBoard.initialize(tableLayoutPanel1.Controls.OfType<RoundButton>());
-			gameDriver.setTurn(Cell.value.p1);
-            //gameBoard.DisplayBoardToConsole();
+			this.botGame = botGame;
+			this.reset();
         }
+
 
         private void TwoPlayer_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -34,16 +31,24 @@ namespace ConnectFour_Group2
 
         private void RoundButton_Click(object sender, EventArgs e)
         {
+			Cell.value winner;
+
+			/* Note: only executes if the player makes a valid move (according to Board.playMove())! */
 			if (gameBoard.playMove(gameDriver.getTurn(), Board.getCoordFromButton((RoundButton)sender).col))
 			{
 				gameDriver.nextTurn();
+
+				if (botGame)
+				{
+					lbl_turn.Visible = false;
+					ai.compMove(gameBoard);
+					lbl_turn.Visible = true;
+				}
 			}
 
-			if (gameBoard.getWinner() != Cell.value.empty)
+			if ((winner = gameBoard.getWinner()) != Cell.value.empty)
 			{
-                //once a player wins we will hide this form and display the gameOver form
-                this.Hide();
-                loadGameOverForm(gameBoard.getWinner());
+				MainForm.load(new GameOver(this, winner));
 			}
         }
         private void RoundButton_MouseEnter(object sender, EventArgs e)
@@ -62,6 +67,7 @@ namespace ConnectFour_Group2
                 }
             }
         }
+
         private void RoundButton_MouseLeave(object sender, EventArgs e)
         {
             RoundButton button = (RoundButton)sender;
@@ -80,12 +86,31 @@ namespace ConnectFour_Group2
             }
         }
 
-        public void loadGameOverForm(Cell.value winner)
-        {
-            GameOver formToLoad = new GameOver(this);
-            formToLoad.SetGameOutCome(winner);
-            formToLoad.Show();
-        }
+
+		/*
+		 * reset	Reset
+		 * ARG		NONE
+		 * RET		NONE
+		 * DES		Resets the game to starting conditions.
+		 */
+		public void reset()
+		{
+			gameBoard = new Board();
+			gameDriver = new GameDriver(lbl_turn);
+
+			if (this.botGame)
+				ai = new Computer();
+
+            gameBoard.initialize(tableLayoutPanel1.Controls.OfType<RoundButton>());
+			gameDriver.setTurn(Cell.value.p1);
+
+			tableLayoutPanel1.Refresh();
+		}
+
+		public bool getBotGame()
+		{
+			return botGame;
+		}
 
         public Board getBoard()
         {
