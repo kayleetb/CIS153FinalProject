@@ -47,6 +47,14 @@ namespace ConnectFour_Group2
             {
                 return true;
             }
+            if(upperRightWin(board))
+            {
+                return true;
+            }
+            if(upperLeftWin(board))
+            {
+                return true;
+            }
             if(vertBlock(board))
             {
                 return true;
