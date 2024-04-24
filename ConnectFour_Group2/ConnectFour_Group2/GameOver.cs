@@ -92,7 +92,7 @@ namespace ConnectFour_Group2
         }
         public void loadStatsFormGO()
         {
-            Stats formToLoad = new Stats(sform);
+            Stats formToLoad = new Stats(this);
             formToLoad.Show();
         }
     }

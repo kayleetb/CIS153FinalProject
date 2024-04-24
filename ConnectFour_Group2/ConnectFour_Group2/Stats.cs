@@ -16,6 +16,7 @@ namespace ConnectFour_Group2
         private int game;
 
         WelcomePage sform;
+        GameOver pform;
         public Stats()
         {
             InitializeComponent();
@@ -25,6 +26,13 @@ namespace ConnectFour_Group2
             InitializeComponent();
             readTextFile();
             sform = sf;
+        }
+
+        public Stats(GameOver pf)
+        {
+            InitializeComponent();
+            readTextFile();
+            pform = pf;
         }
 
         private void Stats_FormClosing(object sender, FormClosingEventArgs e)
@@ -86,10 +94,10 @@ namespace ConnectFour_Group2
 
             double p1WinPercent = (((double)p1Wins) / ((double)intGames)) * 100;
             p1WinPercent = Math.Round(p1WinPercent, 2);
-            Console.WriteLine("p1 win %: " + p1Wins + " / " + intGames + " = " + p1WinPercent);
+            //Console.WriteLine("p1 win %: " + p1Wins + " / " + intGames + " = " + p1WinPercent);
             double aiWinPercent = (((double)aiWins) / ((double)intGames)) * 100;
             aiWinPercent = Math.Round(aiWinPercent, 2);
-            Console.WriteLine("ai win %: " + aiWins + " / " + intGames + " = " + aiWinPercent);
+            //Console.WriteLine("ai win %: " + aiWins + " / " + intGames + " = " + aiWinPercent);
 
             label10.Text = p1WinPercent.ToString() + "%";
             label11.Text = aiWinPercent.ToString() + "%";
@@ -123,6 +131,19 @@ namespace ConnectFour_Group2
             int games = Convert.ToInt32(gamesPlayed);
 
             return games + 1;
+        }
+
+        private void back_BTN_Click(object sender, EventArgs e)
+        {
+            if (sform == null)
+            {
+                pform.Show();
+            }
+            else if (pform == null)
+            {
+                sform.Show();
+            }
+            this.Hide();
         }
     }
 }
