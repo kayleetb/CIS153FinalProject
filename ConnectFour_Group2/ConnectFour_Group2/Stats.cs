@@ -7,8 +7,9 @@ namespace ConnectFour_Group2
 {
     public partial class Stats : Form
     {
-		private const string PATH_SAVE = "../../Stats.txt";
+		public const string PATH_SAVE = "../../Stats.txt";
         private int game;
+
 
         public Stats()
         {
@@ -16,10 +17,11 @@ namespace ConnectFour_Group2
 			readTextFile();
         }
 
+
         private void readTextFile()
         {
 			StreamReader file;
-			String line;
+			string line;
 
             string gamesPlayed = "0";
             string winner = "";
@@ -45,6 +47,20 @@ namespace ConnectFour_Group2
                 line = line.Substring(comma + 1);
                 comma = line.IndexOf(delim);
                 winner = line.Substring(0, comma);
+
+				switch (int.Parse(winner))
+				{
+					case (int)Cell.value.p1:
+						++p1Wins;
+						break;
+					case (int)Cell.value.ai:
+						++aiWins;
+						break;
+					case (int)Cell.value.empty:
+						++ties;
+						break;
+				}
+				++intGames;
 
                 if (winner == "p1")
                 {
@@ -81,16 +97,22 @@ namespace ConnectFour_Group2
             label11.Text = aiWinPercent.ToString() + "%";
         }
         
-        public int getGame() 
+        public static int getGame() 
         {
-            StreamReader file = new StreamReader(PATH_SAVE);
-            String line = file.ReadLine();
+			StreamReader file;
+			String line;
 
             string gamesPlayed = "0";
             string winner = "";
 
             int comma;
             char delim = ',';
+
+			if (!File.Exists(Stats.PATH_SAVE))
+				File.Create(Stats.PATH_SAVE).Close();
+
+            file = new StreamReader(PATH_SAVE);
+            line = file.ReadLine();
 
             line = file.ReadLine();
             while (line != null)

@@ -12,6 +12,7 @@ namespace ConnectFour_Group2
 		private Label lbl_turn;
 		private Cell.value currentTurn;
 
+
 		public GameDriver(Label lbl_turn)
 		{
 			this.lbl_turn = lbl_turn;

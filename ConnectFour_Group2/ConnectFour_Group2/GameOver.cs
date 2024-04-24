@@ -17,6 +17,7 @@ namespace ConnectFour_Group2
 			this.gameForm = gameForm;
 
 			/* Potentially implement a new variable in the Player class for victory statement. */
+			File.AppendAllText(Stats.PATH_SAVE, "\r\n" + Stats.getGame() + "," + (int)winner + ",");
 			lbl_gameOutcome.Text = Player.PLAYERS[(int)winner].getName() + " has won!";
         }
 

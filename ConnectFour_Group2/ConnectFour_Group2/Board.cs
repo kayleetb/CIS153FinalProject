@@ -265,6 +265,7 @@ namespace ConnectFour_Group2
 
             }
         }
+
         /*
 		 * initialize	Initialize
 		 * ARG	NONE
@@ -295,6 +296,7 @@ namespace ConnectFour_Group2
                 cell.getBtn().Enabled = false;
             }
         }
+
         /*
 		 * DisplayBoardToConsole	Display Board to Console
 		 * ARG	NONE

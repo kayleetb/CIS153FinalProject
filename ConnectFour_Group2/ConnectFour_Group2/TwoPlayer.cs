@@ -51,6 +51,7 @@ namespace ConnectFour_Group2
 				MainForm.load(new GameOver(this, winner));
 			}
         }
+
         private void RoundButton_MouseEnter(object sender, EventArgs e)
         {
             RoundButton button = (RoundButton)sender;

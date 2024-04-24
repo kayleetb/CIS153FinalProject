@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-namespace ConnectFour_Group2
+﻿namespace ConnectFour_Group2
 {
 	public class Cell
     {
@@ -9,11 +7,13 @@ namespace ConnectFour_Group2
         private Cell.value val;
         private RoundButton btn;
 
-        public Cell(Cell.value v, RoundButton b/*, int r, int c */)
+
+        public Cell(Cell.value v, RoundButton b)
         {
             val = v;
             btn = b;
         }
+
 
         //======GETTERS=========
         public RoundButton getBtn()
@@ -36,7 +36,6 @@ namespace ConnectFour_Group2
         {
             val = v;
         }
-
     }
 
 }
