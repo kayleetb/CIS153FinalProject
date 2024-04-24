@@ -17,7 +17,9 @@ namespace ConnectFour_Group2
 
         public void compMove(Board board)
         {
-            Cell cell;
+            //int move;
+            //move = evalMove(board);
+            //Console.WriteLine("move: " + move);
 
             //computer always takes 5,3 first so player can not get 4 on bottom row (unless player takes it first)
             if (board.getCell(5, 3).getVal() == Cell.value.empty)
@@ -33,52 +35,43 @@ namespace ConnectFour_Group2
             else
             {
                 Console.WriteLine("comp else");
-                //move = rnd.Next(0, 6);
-                //cell = board.getCell(0, move);
-
-                //while(cell.getVal() != Cell.value.empty)
-                //{
-                //    Console.WriteLine("full");
-                //    move = rnd.Next(0, 6);
-                //    cell = board.getCell(0, move);
-                //}
-                
-                //board.playMove(Cell.value.Ai, move);
+                move = rnd.Next(0, 6);
+                board.playMove(Cell.value.Ai, move);
             }
         }
 
         public bool evalMove(Board board)
         {
 
-            if (vertWin(board))
+            if(vertWin(board))
             {
                 return true;
             }
-            if (upperRightWin(board))
+            if(upperRightWin(board))
             {
                 return true;
             }
-            if (upperLeftWin(board))
+            if(upperLeftWin(board))
             {
                 return true;
             }
-            if (vertBlock(board))
+            if(vertBlock(board))
             {
                 return true;
             }
-            if (horzBlock(board))
+            if(horzBlock(board))
             {
                 return true;
             }
-            if (upperRightBlock(board))
+            if(upperRightBlock(board))
             {
                 return true;
             }
-            if (upperLeftBlock(board))
+            if(upperLeftBlock(board))
             {
                 return true;
             }
-
+            
             return false;
         }
 
@@ -96,7 +89,7 @@ namespace ConnectFour_Group2
                 {
                     cell = board.getCell(r, c);
 
-                    if (r - 1> 0 && cell.getVal() == Cell.value.p1)
+                    if (cell.getVal() == Cell.value.p1)
                     {
                         coord.row = r;
                         coord.col = c;
@@ -105,7 +98,7 @@ namespace ConnectFour_Group2
 
                         cell = board.getCell(r - 1, c);
 
-                        if (r - 2 > 0 && cell.getVal() == Cell.value.p1)
+                        if (cell.getVal() == Cell.value.p1)
                         {
                             coord.row = r - 1;
                             coord.col = c;
@@ -529,7 +522,7 @@ namespace ConnectFour_Group2
                 {
                     cell = board.getCell(r, c);
 
-                    if (r - 1 > 0 && cell.getVal() == Cell.value.Ai)
+                    if (cell.getVal() == Cell.value.Ai)
                     {
                         coord.row = r;
                         coord.col = c;
@@ -538,7 +531,7 @@ namespace ConnectFour_Group2
 
                         cell = board.getCell(r - 1, c);
 
-                        if (r - 2 > 0 && cell.getVal() == Cell.value.Ai)
+                        if (cell.getVal() == Cell.value.Ai)
                         {
                             coord.row = r - 1;
                             coord.col = c;
