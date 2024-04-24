@@ -100,7 +100,8 @@ namespace ConnectFour_Group2
                 return false;
 
 			internalBoard[r, col].setVal(value);
-			internalBoard[r, col].getBtn().BackColor = Player.PLAYERS[(int)value].getColor();
+            internalBoard[r, col].getBtn().BackgroundImageLayout = ImageLayout.Stretch;
+			internalBoard[r, col].getBtn().BackgroundImage = Player.PLAYERS[(int)value].getBackgroundImage();
 
             return true;
         }
