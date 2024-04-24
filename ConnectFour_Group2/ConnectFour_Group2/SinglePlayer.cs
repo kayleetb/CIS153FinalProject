@@ -70,8 +70,6 @@ namespace ConnectFour_Group2
 
             }
 
-            //maybe needs different placement?
-            //Thread.Sleep(3000);
 
             if (!isPlayer1Turn) 
             {
