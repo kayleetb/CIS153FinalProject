@@ -21,7 +21,7 @@ namespace ConnectFour_Group2
                 Console.WriteLine("comp if");
                 board.playMove(Cell.value.ai, 3);
             }
-            else if (horzBlock(board))
+            else if (upperRightBlock(board))
             {
                 Console.WriteLine("comp else if");
                 board.playMove(Cell.value.ai, move);
@@ -29,68 +29,14 @@ namespace ConnectFour_Group2
             else
             {
                 Console.WriteLine("comp else");
-                move = rnd.Next(0, 6);
-                board.playMove(Cell.value.ai, move);
+                //move = rnd.Next(0, 6);
+                //board.playMove(Cell.value.ai, move);
             }
         }
 
         //public int evalMove(Board board)
         //{
-        //    //Cell[,] internalBoard = new Cell[6, 7];
-        //    Cell cell;
-        //    List<CoordRC> pattern = new List<CoordRC>();
-        //    CoordRC coord;
-        //    int consecutive = 0;
-
-
-        //    //vertical check
-        //    for (int c = 0; c < 7; c++)
-        //    {
-        //        for (int r = 0; r < 6; r++)
-        //        {
-        //            cell = board.getCell(r, c);
-
-        //            if (cell.getVal() == Cell.value.Ai )
-        //            {
-        //                break;
-
-        //            }
-        //            else if (cell.getVal() == Cell.value.p1)
-        //            {
-        //                coord.row = r;
-        //                coord.col = c;
-
-        //                pattern.Add(coord);
-
-        //                consecutive++;
-
-        //            }
-        //            else
-        //            {
-        //                pattern.Clear();
-        //                consecutive = 0;
-        //            }
-
-        //            if (consecutive == 3)
-        //            {
-        //                Console.WriteLine("Consecutive 3");
-
-        //                if (pattern[0].row == 0)
-        //                {
-        //                    Console.WriteLine("if");
-        //                    colMove = rnd.Next(0, 6);
-        //                }
-        //                else
-        //                {
-        //                    Console.WriteLine("else" + pattern[0].col);
-        //                    colMove = pattern[0].col;
-        //                }
-        //                return colMove;
-        //            }
-        //        }
-        //    }
-
-        //    return -1;
+        //
         //}
 
         public bool vertBlock(Board board)
@@ -329,5 +275,185 @@ namespace ConnectFour_Group2
 
             return false;
         }
+
+        public bool upperRightBlock(Board board)
+        {
+
+            Cell cell;
+            List<CoordRC> pattern = new List<CoordRC>();
+            CoordRC coord;
+            bool consecutive = false;
+
+            for (int r = 5; r >=0; r--)
+            {
+                for(int c = 0; c < 7; c++)
+                {
+                    cell = board.getCell(r, c);
+
+                    if (r-1 > 1 && c + 1 < 6 && cell.getVal() == Cell.value.p1)
+                    {
+                        coord.row = r;
+                        coord.col = c;
+                        pattern.Add(coord);
+
+                        cell = board.getCell(r - 1, c + 1);
+
+                        if(r - 2 > 1 && c + 2 < 6 && cell.getVal() == Cell.value.p1)
+                        {
+                            coord.row = r - 1;
+                            coord.col = c + 1;
+                            pattern.Add(coord);
+
+                            cell = board.getCell(r - 2, c + 2);
+
+                            if(cell.getVal() == Cell.value.p1)
+                            {
+                                coord.row = r - 2;
+                                coord.col = c + 2;
+                                pattern.Add(coord);
+
+                                consecutive = true;
+                            }
+                            else
+                            {
+                                pattern.Clear();
+                                
+                            }
+                        }
+                        else
+                        {
+                            pattern.Clear();
+                            
+                        }
+
+                        if(consecutive)
+                        {
+                            cell = board.getCell(pattern[2].row - 1, pattern[2].col + 1);
+
+                            if(cell.getVal() == Cell.value.empty)
+                            {
+                                cell = board.getCell(pattern[2].row, pattern[2].col + 1);
+
+                                if(cell.getVal() == Cell.value.empty)
+                                {
+                                    pattern.Clear();
+                                    consecutive = false;
+                                    
+                                }
+                                else
+                                {
+                                    move = pattern[2].col + 1;
+                                    return true;
+                                }
+                            }
+                            else
+                            {
+                                pattern.Clear();
+                                consecutive = false;
+                                
+                            }
+                        }
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public bool upperLeftBlock(Board board)
+        {
+
+            Cell cell;
+            List<CoordRC> pattern = new List<CoordRC>();
+            CoordRC coord;
+            bool consecutive = false;
+
+
+            for(int r = 5; r >= 0; r--)
+            {
+                for(int c = 0; c < 7; c++)
+                {
+                    cell = board.getCell(r, c);
+
+                    if(r - 1 > 0 && c - 1 > 0 && cell.getVal() == Cell.value.p1)
+                    {
+                        Console.WriteLine("R: " + r + ", C: "+ c);
+
+                        coord.row = r;
+                        coord.col = c;
+                        pattern.Add(coord);
+
+                        cell = board.getCell(r - 1, c - 1);
+
+                        if(r - 2 > 0 && c - 2 > 0 && cell.getVal() == Cell.value.p1)
+                        {
+                            Console.WriteLine("R2: " + (r - 1)+ ", C2: " + (c - 1));
+
+                            coord.row = r - 1;
+                            coord.col = c - 1;
+                            pattern.Add(coord);
+
+                            cell = board.getCell(r - 2, c - 2);
+
+                            if (cell.getVal() == Cell.value.p1)
+                            {
+                                coord.row = r - 2;
+                                coord.col = c - 2;
+                                pattern.Add(coord);
+
+                                consecutive = true;
+                            }
+                            else
+                            {
+                                pattern.Clear();
+                            }
+
+                        }
+                        else
+                        {
+                            Console.WriteLine("Clear");
+                            pattern.Clear();
+                        }
+
+                        if (consecutive)
+                        {
+                            Console.WriteLine("consecutive");
+
+                            cell = board.getCell(pattern[2].row - 1, pattern[2].col - 1);
+
+                            if (cell.getVal() == Cell.value.empty)
+                            {
+                                cell = board.getCell(pattern[2].row, pattern[2].col - 1);
+
+                                if (cell.getVal() == Cell.value.empty)
+                                {
+                                    pattern.Clear();
+                                    consecutive = false;
+                                    
+                                }
+                                else
+                                {
+                                    move = pattern[2].col - 1;
+                                    return true;
+                                }
+                            }
+                            else
+                            {
+                                pattern.Clear();
+                                consecutive = false;
+                                
+                            }
+                        }
+
+                    }
+                }
+
+            }
+
+            return false;
+        }
     }
 }
+
+
+
