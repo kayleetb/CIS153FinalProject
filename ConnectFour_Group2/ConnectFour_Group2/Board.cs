@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
-using System.Linq;
 
 
 namespace ConnectFour_Group2
@@ -15,9 +14,38 @@ namespace ConnectFour_Group2
     {
         public const int NUM_ROWS = 6;
         public const int NUM_COLS = 7;
+		public const int WINNER_NONE = -1;
         private const int WIN_CONDITION = 4;
-        private Cell[,] internalBoard = new Cell[NUM_ROWS, NUM_COLS];
-        private TableLayoutPanel tableLayoutPanel;
+		private Cell[,] internalBoard;
+		private TableLayoutPanel table;
+
+
+		public Board(TableLayoutPanel table)
+		{
+			TableLayoutControlCollection tableCells;
+			/* register */ int i;
+			this.table = table;
+
+			tableCells = this.table.Controls;
+
+			/* Check to make sure that the table is the same size as our board. */
+			if (table.ColumnCount != NUM_COLS || table.RowCount != NUM_ROWS || tableCells.Count != NUM_ROWS * NUM_COLS)
+				throw new ArgumentException("TableLayoutPanel argument must have " + NUM_ROWS + " rows and " + NUM_COLS + "columns. Instead, a TableLayoutPanel with " + table.RowCount + " rows and " + table.ColumnCount + " columns was provided.");
+
+			internalBoard = new Cell[NUM_ROWS, NUM_COLS];
+
+			for (i = 0; i < tableCells.Count; ++i)
+			{
+				TableLayoutPanelCellPosition pos;
+
+				pos = table.GetCellPosition(tableCells[i]);
+
+				tableCells[i].BackgroundImage = null;
+				tableCells[i].BackColor = Player.PLAYERS[(int)Cell.value.empty].getColor();
+				internalBoard[pos.Row, pos.Column] = new Cell(Cell.value.empty, (RoundButton)tableCells[i]);
+			}
+		}
+
 
         //========GETTERS==========
         public Cell getCell(int r, int c)
@@ -25,49 +53,12 @@ namespace ConnectFour_Group2
             return internalBoard[r, c];
         }
 
-		public Cell getCellFromButton(RoundButton button)
-        {
-			CoordRC coord;
-
-			coord = Board.getCoordFromButton(button);
-
-            return internalBoard[coord.row, coord.col];
-        }
-
-		/*
-		 * getCoordFromButton:	Get Coord From Button
-		 * ARG:	button	RoundButton
-		 * RET:	coord	CoordRC
-		 * DES:	Uses the name of the RoundButton control to find it's coordinates.
-		 */
-		public static CoordRC getCoordFromButton(RoundButton button)
+		public TableLayoutPanel getTable()
 		{
-			const char DELIM = '_';
-			CoordRC coord;
-			string name;
-			int posDelim;
-
-			coord = new CoordRC();
-
-            name = button.Name;
-            posDelim = name.IndexOf(DELIM);
-            coord.row = Int32.Parse(name.Substring(posDelim + 1, 1));
-            name = name.Substring(posDelim + 2);
-            posDelim = name.IndexOf(DELIM);
-            coord.col = Int32.Parse(name.Substring(posDelim + 1));
-
-            /* coord.row = button.row;
-			coord.col = button.col; */
-            /* Console.WriteLine(coord.col +" " + coord.row); */
-			return coord;
+			return table;
 		}
 
         //========SETTERS==========
-        public void setGameBoardCell(Cell cell, int row, int col)
-        {
-            internalBoard[row, col] = cell;
-        }
-
         /*
          * playMove: Play Move
          * ARG:	value	Cell.value
@@ -81,17 +72,14 @@ namespace ConnectFour_Group2
 #endif
 
 			/* register */ int r;
+			RoundButton btn;
 
-            /* Guard against no one trying to play. */
-            if (value == Cell.value.empty)
+            /* Guard against no one trying to play, bad input, and full colum. */
+            if (value == Cell.value.empty || col < 0 || col >= NUM_COLS || internalBoard[0, col].getVal() != Cell.value.empty)
                 return false;
 
-			/* Guard against full column. */
-			if (internalBoard[0, col].getVal() != Cell.value.empty)
-				return false;
-
             /* Find the first instance of a non-empty cell (or the last cell). */
-            for (r = 0; r < NUM_ROWS && internalBoard[r, col].getVal() == Cell.value.empty; ++r) ;
+            for (r = 0; r < NUM_ROWS && internalBoard[r, col].getVal() == Cell.value.empty; ++r);
 
             /* The prior loop overshoots the index by one. */
             --r;
@@ -99,9 +87,13 @@ namespace ConnectFour_Group2
 			if (r < 0)
                 return false;
 
+			btn = internalBoard[r, col].getBtn();
+
 			internalBoard[r, col].setVal(value);
-            internalBoard[r, col].getBtn().BackgroundImageLayout = ImageLayout.Stretch;
+            btn.BackgroundImageLayout = ImageLayout.Stretch;
 			internalBoard[r, col].getBtn().BackgroundImage = Player.PLAYERS[(int)value].getBackgroundImage();
+			/* btn.BackgroundImage = Properties.Resources.connectfourpiece_generic;
+			btn.BackColor = Player.PLAYERS[(int)value].getColor(); */
 
             return true;
         }
@@ -110,10 +102,11 @@ namespace ConnectFour_Group2
 		/*
 		 * getWinner	Get Winner
 		 * ARG	NONE
-		 * RET	WINNER	Cell.value
-		 * INF	Find and returns the player who has won. Returns Cell.value.empty if no winner was found.
+		 * RET	WINNER	int
+		 * INF	Find and returns the player who has won. Returns Cell.value.empty if the result is a tie.
+		 *		Returns -1 if no winner was found. 
 		 */
-		public Cell.value getWinner()
+		public int getWinner()
 		{
             Cell cell;
             Cell.value pattern;
@@ -125,13 +118,23 @@ namespace ConnectFour_Group2
              * Because I am lazy...
              */
 
+			/* Find ties (a tie occurs when the board is filled). */
+			for (consecutive = c = 0; c < NUM_COLS; ++c)
+			{
+				if (internalBoard[0, c].getVal() != Cell.value.empty)
+					++consecutive;
+			}
+
+			if (consecutive == NUM_COLS)
+				return (int)Cell.value.empty;
+
             /* VERTICAL */
 			for (r = 0; r < NUM_ROWS; ++r)
 			{
                 pattern = Cell.value.empty;
                 for (consecutive = c = 0; c < NUM_COLS; ++c)
                 {
-                    cell = internalBoard[r, c];
+					cell = internalBoard[r, c];
 
                     if (cell.getVal() == Cell.value.empty)
                     {
@@ -151,7 +154,7 @@ namespace ConnectFour_Group2
 					++consecutive;
 
 					if (consecutive >= WIN_CONDITION)
-						return pattern;
+						return (int)pattern;
                 }
 			}
 
@@ -181,7 +184,7 @@ namespace ConnectFour_Group2
                     ++consecutive;
 
                     if (consecutive >= WIN_CONDITION)
-                        return pattern;
+                        return (int)pattern;
                 }
             }
 
@@ -217,7 +220,7 @@ namespace ConnectFour_Group2
                         ++consecutive;
 
                         if (consecutive >= WIN_CONDITION)
-                            return pattern;
+                            return (int)pattern;
                     }
 
                     /* DIAGONAL - DOWN+LEFT */
@@ -244,13 +247,13 @@ namespace ConnectFour_Group2
                         ++consecutive;
 
                         if (consecutive >= WIN_CONDITION)
-                            return pattern;
+                            return (int)pattern;
                     }
                 }
             }
 
             /* No winner was found. */
-            return Cell.value.empty;
+            return -1;
 		}
 
         /*
@@ -259,7 +262,7 @@ namespace ConnectFour_Group2
 		 * RET	NONE
 		 * INF	Initializes all cells in the Board with their RoundButtons.
 		 */
-        public void initialize(IEnumerable<RoundButton> buttons)
+        /* public void initialize()
         {
             Cell c;
             CoordRC coord;
@@ -267,22 +270,23 @@ namespace ConnectFour_Group2
             foreach (var button in buttons)
             {
 				button.BackgroundImage = null;
-                coord = Board.getCoordFromButton(button);
+				coord = 
                 c = new Cell(Cell.value.empty, button);
 
-                this.setGameBoardCell(c, coord.row, coord.col);
+				internalBoard[coord.row, coord.col] = new Cell(Cell.value.empty, button);
             }
 
-        }
+        } */
 
         //function below currently doesn't work with the gameover form 
         //says gameboard is null 
         public void disableAllCells()
         {
-            foreach (Cell cell in internalBoard)
+			table.Enabled = false;
+            /* foreach (Cell cell in internalBoard)
             {
                 cell.getBtn().Enabled = false;
-            }
+            } */
         }
 
         /*

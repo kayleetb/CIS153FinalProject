@@ -31,65 +31,65 @@ namespace ConnectFour_Group2
 
         private void RoundButton_Click(object sender, EventArgs e)
         {
-			Cell.value winner;
+			int winner;
 			int col;
 
+			col = tableLayoutPanel1.GetColumn((Control)sender);
+
 			/* Note: only executes if the player makes a valid move (according to Board.playMove())! */
-			if (gameBoard.playMove(gameDriver.getTurn(), Board.getCoordFromButton((RoundButton)sender).col))
+			if (gameBoard.playMove(gameDriver.getTurn(), col))
 			{
 				gameDriver.nextTurn();
-
-				col = Board.getCoordFromButton((RoundButton)sender).col;
-
-                UpdateColumnPictureBox(col);
-                colPictureBoxes[col].BackgroundImage = Player.PLAYERS[(int)gameDriver.getTurn()].getBackgroundImage();
-                colPictureBoxes[col].BackgroundImageLayout = ImageLayout.Stretch;
 
 				if (botGame)
 				{
 					lbl_turn.Visible = false;
-					ai.compMove(gameBoard);
+					gameBoard.playMove(gameDriver.getTurn(), ai.compMove(gameBoard));
+					gameDriver.nextTurn();
 					lbl_turn.Visible = true;
 				}
+
+				/* A bad fix for the chip not updating until the mouse leaves the cell... */
+				RoundButton_MouseEnter(sender, null);
 			}
 
-			if ((winner = gameBoard.getWinner()) != Cell.value.empty)
+			if ((winner = gameBoard.getWinner()) != Board.WINNER_NONE)
 			{
-				MainForm.load(new GameOver(this, winner));
+				MainForm.load(new GameOver(this, (Cell.value)winner));
 			}
         }
 
         private void RoundButton_MouseEnter(object sender, EventArgs e)
         {
-            RoundButton button = (RoundButton)sender;
-            Cell cell = gameBoard.getCellFromButton(button);
-            if (cell.getVal() == Cell.value.empty || cell.getVal() == Cell.value.p1 || cell.getVal() == Cell.value.p2)
-            {
-                int col = Board.getCoordFromButton(button).col;
-                foreach (RoundButton btn in tableLayoutPanel1.Controls.OfType<RoundButton>())
-                {
-                    if (Board.getCoordFromButton(btn).col == col && gameBoard.getCellFromButton(btn).getVal() == Cell.value.empty)
-                    {
-                        btn.BackColor = Color.White;
+			int r, c;
 
-                        colPictureBoxes[col].BackgroundImage = Player.PLAYERS[(int)gameDriver.getTurn()].getBackgroundImage();
-                        colPictureBoxes[col].BackgroundImageLayout = ImageLayout.Stretch;
-                    }
-                }
-            }
+			c = gameBoard.getTable().GetColumn((Control)sender);
+
+			if (c < 0)
+				return;
+
+			for (r = 0; r < Board.NUM_ROWS; ++r)
+				if (gameBoard.getCell(r, c).getVal() == Cell.value.empty)
+					gameBoard.getCell(r, c).getBtn().BackColor = Color.White;
+
+			colPictureBoxes[c].BackgroundImage = Player.PLAYERS[(int)gameDriver.getTurn()].getBackgroundImage();
         }
 
         private void RoundButton_MouseLeave(object sender, EventArgs e)
         {
-            RoundButton button = (RoundButton)sender;
-            Cell cell = gameBoard.getCellFromButton(button);
-            
-            int col = Board.getCoordFromButton(button).col;
-            foreach (RoundButton btn in tableLayoutPanel1.Controls.OfType<RoundButton>())
-            {
-				btn.BackColor = Color.DarkGray;
-				UpdateColumnPictureBox(col);
-            }
+			int r, c;
+
+			c = gameBoard.getTable().GetColumn((Control)sender);
+
+			if (c < 0)
+				return;
+
+			for (r = 0; r < Board.NUM_ROWS; ++r)
+				if (gameBoard.getCell(r, c).getVal() == Cell.value.empty)
+					gameBoard.getCell(r, c).getBtn().BackColor = Player.PLAYERS[(int)Cell.value.empty].getColor();
+
+			/* Clear the hover chip. */
+			colPictureBoxes[c].BackgroundImage = null;
         }
 
 
@@ -101,29 +101,21 @@ namespace ConnectFour_Group2
 		 */
 		public void reset()
 		{
-			gameBoard = new Board();
+			gameBoard = new Board(tableLayoutPanel1);
 			gameDriver = new GameDriver(lbl_turn);
 
 			if (this.botGame)
 				ai = new Computer();
 
-            gameBoard.initialize(tableLayoutPanel1.Controls.OfType<RoundButton>());
 			gameDriver.setTurn(Cell.value.p1);
 
 			tableLayoutPanel1.Refresh();
-
-			gameBoard.DisplayBoardToConsole();
 		}
 
 		public bool getBotGame()
 		{
 			return botGame;
 		}
-
-        private void UpdateColumnPictureBox(int col)
-        {
-            colPictureBoxes[col].BackgroundImage = null;
-        }
 
         public Board getBoard()
         {

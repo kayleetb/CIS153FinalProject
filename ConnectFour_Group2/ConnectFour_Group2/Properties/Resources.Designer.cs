@@ -63,6 +63,16 @@ namespace ConnectFour_Group2.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap connectfourpiece_generic {
+            get {
+                object obj = ResourceManager.GetObject("connectfourpiece_generic", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap lightblueconnectfourboard {
             get {
                 object obj = ResourceManager.GetObject("lightblueconnectfourboard", resourceCulture);

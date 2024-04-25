@@ -6,10 +6,10 @@ namespace ConnectFour_Group2
     internal class Computer
     {
         private int move;
-        private  Random rnd = new Random();
+        private Random rnd = new Random();
 
 
-        public void compMove(Board board)
+        public int compMove(Board board)
         {
             //int move;
             //move = evalMove(board);
@@ -19,19 +19,19 @@ namespace ConnectFour_Group2
             if (board.getCell(5, 3).getVal() == Cell.value.empty)
             {
                 Console.WriteLine("comp if");
-                board.playMove(Cell.value.ai, 3);
+				return 3;
             }
-            else if (evalMove(board))
+
+            if (evalMove(board))
             {
                 Console.WriteLine("comp else if");
-                board.playMove(Cell.value.ai, move);
+				return move;
             }
-            else
-            {
-                Console.WriteLine("comp else");
-                //move = rnd.Next(0, 6);
-                //board.playMove(Cell.value.ai, move);
-            }
+
+			Console.WriteLine("comp else");
+			//return rnd.Next(0, 6);
+
+			return -1;
         }
 
         public bool evalMove(Board board)

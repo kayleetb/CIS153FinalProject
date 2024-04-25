@@ -134,7 +134,7 @@ namespace ConnectFour_Group2
 
         private void back_BTN_Click(object sender, EventArgs e)
         {
-            /* if (sform == null)
+			/* if (sform == null)
             {
                 pform.Show();
             }
@@ -143,6 +143,8 @@ namespace ConnectFour_Group2
                 sform.Show();
             }
             this.Hide(); */
+
+			this.Close();
         }
     }
 }
