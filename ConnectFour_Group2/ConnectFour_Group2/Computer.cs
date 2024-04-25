@@ -516,7 +516,7 @@ namespace ConnectFour_Group2
                 {
                     cell = board.getCell(r, c);
 
-                    if (r - 1 > 0 && cell.getVal() == Cell.value.Ai)
+                    if (r - 1 > 0 && cell.getVal() == Cell.value.ai)
                     {
                         coord.row = r;
                         coord.col = c;
@@ -525,7 +525,7 @@ namespace ConnectFour_Group2
 
                         cell = board.getCell(r - 1, c);
 
-                        if (r - 2 > 0 && cell.getVal() == Cell.value.Ai)
+                        if (r - 2 > 0 && cell.getVal() == Cell.value.ai)
                         {
                             coord.row = r - 1;
                             coord.col = c;
@@ -534,7 +534,7 @@ namespace ConnectFour_Group2
 
                             cell = board.getCell(r - 2, c);
 
-                            if (cell.getVal() == Cell.value.Ai)
+                            if (cell.getVal() == Cell.value.ai)
                             {
 
                                 coord.row = r - 2;
@@ -601,7 +601,7 @@ namespace ConnectFour_Group2
                 {
                     cell = board.getCell(r, c);
 
-                    if (r - 1 > 1 && c + 1 < 6 && cell.getVal() == Cell.value.Ai)
+                    if (r - 1 > 1 && c + 1 < 6 && cell.getVal() == Cell.value.ai)
                     {
                         coord.row = r;
                         coord.col = c;
@@ -609,7 +609,7 @@ namespace ConnectFour_Group2
 
                         cell = board.getCell(r - 1, c + 1);
 
-                        if (r - 2 > 1 && c + 2 < 6 && cell.getVal() == Cell.value.Ai)
+                        if (r - 2 > 1 && c + 2 < 6 && cell.getVal() == Cell.value.ai)
                         {
                             coord.row = r - 1;
                             coord.col = c + 1;
@@ -617,7 +617,7 @@ namespace ConnectFour_Group2
 
                             cell = board.getCell(r - 2, c + 2);
 
-                            if (cell.getVal() == Cell.value.Ai)
+                            if (cell.getVal() == Cell.value.ai)
                             {
                                 coord.row = r - 2;
                                 coord.col = c + 2;
@@ -686,7 +686,7 @@ namespace ConnectFour_Group2
                 {
                     cell = board.getCell(r, c);
 
-                    if (r - 1 > 0 && c - 1 > 0 && cell.getVal() == Cell.value.Ai)
+                    if (r - 1 > 0 && c - 1 > 0 && cell.getVal() == Cell.value.ai)
                     {
                         coord.row = r;
                         coord.col = c;
@@ -694,7 +694,7 @@ namespace ConnectFour_Group2
 
                         cell = board.getCell(r - 1, c - 1);
 
-                        if (r - 2 > 0 && c - 2 > 0 && cell.getVal() == Cell.value.Ai)
+                        if (r - 2 > 0 && c - 2 > 0 && cell.getVal() == Cell.value.ai)
                         {
 
                             coord.row = r - 1;
@@ -703,7 +703,7 @@ namespace ConnectFour_Group2
 
                             cell = board.getCell(r - 2, c - 2);
 
-                            if (cell.getVal() == Cell.value.Ai)
+                            if (cell.getVal() == Cell.value.ai)
                             {
                                 coord.row = r - 2;
                                 coord.col = c - 2;

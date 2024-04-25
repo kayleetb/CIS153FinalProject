@@ -22,13 +22,13 @@ namespace ConnectFour_Group2
         //SINGLE PLAYER
         private void btn_singlePlayer_Click(object sender, EventArgs e)
         {
-			MainForm.load(new TwoPlayer(true));
+			MainForm.load(new Game(true));
         }
 
         //TWO PLAYER
         private void btn_twoPlayer_Click(object sender, EventArgs e)
         {
-			MainForm.load(new TwoPlayer(false));
+			MainForm.load(new Game(false));
         }
 
         //STATS

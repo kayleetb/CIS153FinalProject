@@ -7,10 +7,10 @@ namespace ConnectFour_Group2
 {
     public partial class GameOver : Form
     {
-		private TwoPlayer gameForm;
+		private Game gameForm;
 
 
-        public GameOver(TwoPlayer gameForm, Cell.value winner)
+        public GameOver(Game gameForm, Cell.value winner)
         {
             InitializeComponent();
 

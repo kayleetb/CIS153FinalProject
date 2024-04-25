@@ -58,7 +58,7 @@ namespace ConnectFour_Group2
 
             /* coord.row = button.row;
 			coord.col = button.col; */
-            Console.WriteLine(coord.col +" " + coord.row);
+            /* Console.WriteLine(coord.col +" " + coord.row); */
 			return coord;
 		}
 
@@ -253,20 +253,6 @@ namespace ConnectFour_Group2
             return Cell.value.empty;
 		}
 
-        public void initializetable(TableLayoutPanel tblp)
-        {
-            Cell c;
-            CoordRC coord;
-
-            foreach (RoundButton button in tableLayoutPanel.Controls.OfType<RoundButton>())
-            {
-                coord = getCoordFromButton(button);
-                c = new Cell(Cell.value.empty, button);
-                this.setGameBoardCell(c, coord.row, coord.col);
-
-            }
-        }
-
         /*
 		 * initialize	Initialize
 		 * ARG	NONE
@@ -280,6 +266,7 @@ namespace ConnectFour_Group2
 
             foreach (var button in buttons)
             {
+				button.BackgroundImage = null;
                 coord = Board.getCoordFromButton(button);
                 c = new Cell(Cell.value.empty, button);
 
@@ -330,8 +317,9 @@ namespace ConnectFour_Group2
                     buf += " \n";
                 }
 
-                buf += "\n============================\n";
             }
+
+			buf += "\n============================\n";
 
             Console.Write(buf);
         }
