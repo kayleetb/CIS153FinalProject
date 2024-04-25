@@ -10,7 +10,6 @@ namespace ConnectFour_Group2
 		public const string PATH_SAVE = "../../Stats.txt";
         private int game;
 
-
         public Stats()
         {
             InitializeComponent();
