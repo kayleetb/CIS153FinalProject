@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Security.Cryptography;
 using System.Windows.Forms;
 
 
@@ -8,6 +9,8 @@ namespace ConnectFour_Group2
     public partial class GameOver : Form
     {
 		private Game gameForm;
+        private Stats stats;
+        private GameDriver driver;
 
 
         public GameOver(Game gameForm, Cell.value winner)
@@ -18,7 +21,7 @@ namespace ConnectFour_Group2
 
 			/* Potentially implement a new variable in the Player class for victory statement. */
 			File.AppendAllText(Stats.PATH_SAVE, "\r\n" + Stats.getGame() + "," + (int)winner + ",");
-			lbl_gameOutcome.Text = Player.PLAYERS[(int)winner].getName() + " has won!";
+            lbl_gameOutcome.Text = Player.PLAYERS[(int)winner].getName() + "  W O N !";
         }
 
 
@@ -38,8 +41,8 @@ namespace ConnectFour_Group2
         //STATS
         private void btn_StatsGO_Click(object sender, EventArgs e)
         {
-			Stats formToLoad = new Stats();
-			formToLoad.ShowDialog(this);
+            Stats formToLoad = new Stats();
+            formToLoad.ShowDialog(this);
         }
     }
 }

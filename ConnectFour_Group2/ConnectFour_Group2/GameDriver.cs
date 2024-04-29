@@ -28,7 +28,7 @@ namespace ConnectFour_Group2
 		public void setTurn(Cell.value turn)
 		{
 			currentTurn = turn;
-			lbl_turn.Text = Player.PLAYERS[(int)currentTurn].getName() + "'s Turn";
+			lbl_turn.Text = Player.PLAYERS[(int)currentTurn].getName() + "' S   T U R N";
 			lbl_turn.ForeColor = Player.PLAYERS[(int)currentTurn].getColor();
 		}
 

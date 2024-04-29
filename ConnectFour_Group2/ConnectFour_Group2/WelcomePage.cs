@@ -18,7 +18,6 @@ namespace ConnectFour_Group2
             InitializeComponent();
         }
 
-
         //SINGLE PLAYER
         private void btn_singlePlayer_Click(object sender, EventArgs e)
         {

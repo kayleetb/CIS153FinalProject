@@ -13,10 +13,10 @@ namespace ConnectFour_Group2
 		/* This array should be as long as there are entries in Cell.value. */
 		public static readonly Player[] PLAYERS =
 		{
-			new Player(Color.Gray,   "", null),
-			new Player(Color.Red,    "Player 1", Properties.Resources.redconnectfourpiece),
-			new Player(Color.Yellow, "Player 2", Properties.Resources.yellowconnectfourpiece),
-			new Player(Color.Yellow, "Computer", Properties.Resources.yellowconnectfourpiece)
+			new Player(Color.Transparent,   "", Properties.Resources.graybackground),
+			new Player(Color.Firebrick,"P L A Y E R   1", Properties.Resources.redconnectfourpiece),
+			new Player(Color.Gold, "P L A Y E R   2", Properties.Resources.yellowconnectfourpiece),
+			new Player(Color.Gold, "C O M P U T E R", Properties.Resources.yellowconnectfourpiece)
 		};
 		private Color color;
 		private string name;

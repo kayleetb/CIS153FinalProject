@@ -278,8 +278,6 @@ namespace ConnectFour_Group2
 
         } */
 
-        //function below currently doesn't work with the gameover form 
-        //says gameboard is null 
         public void disableAllCells()
         {
 			table.Enabled = false;
