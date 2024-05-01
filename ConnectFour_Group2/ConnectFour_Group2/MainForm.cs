@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 
 
@@ -17,10 +18,10 @@ namespace ConnectFour_Group2
 
 			InitializeComponent();
 
-			load(new WelcomePage());
+			load(new WelcomePage(), false);
 		}
 
-		public static void load(Form form)
+		public static void load(Form form, bool isReview)
 		{
 			if (main == null)
 				return;
@@ -34,13 +35,24 @@ namespace ConnectFour_Group2
 			/* Steal GUI settings from the child for the parent. */
 			main.ClientSize = form.ClientSize;
 			main.BackColor = form.BackColor;
-			main.Text = "Connect Four - " + form.Text;
+
+			if (isReview)
+			{
+                main.Text = "Connect Four - " + form.Text + " - Review";
+
+            }
+			else
+			{
+                main.Text = "Connect Four - " + form.Text;
+
+            }
 			main.Icon = form.Icon;
 
 			/* Add the specified form as a control. */
 			form.TopLevel = false;
 			main.Controls.Add(form);
 			form.Show();
+
 		}
 	}
 }

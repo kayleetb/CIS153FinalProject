@@ -44,10 +44,6 @@ namespace ConnectFour_Group2
                     lbl_gameOutcome.Text = "You Lost";
                     lbl_gameOutcome.BackColor = Color.Red;
                     break;
-            }
-            //if (gameForm.getBoard().isBoardFull())
-            //{
-            //}
 
         }
 
