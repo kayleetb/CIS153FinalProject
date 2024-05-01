@@ -11,9 +11,7 @@ namespace ConnectFour_Group2
 
         public int compMove(Board board)
         {
-            //int move;
-            //move = evalMove(board);
-            //Console.WriteLine("move: " + move);
+
 
             //computer always takes 5,3 first so player can not get 4 on bottom row (unless player takes it first)
             if (board.getCell(5, 3).getVal() == Cell.value.empty)
@@ -21,15 +19,18 @@ namespace ConnectFour_Group2
                 Console.WriteLine("comp if");
 				return 3;
             }
-
+            
             if (evalMove(board))
             {
                 Console.WriteLine("comp else if");
 				return move;
             }
+            else 
+            {
+                Console.WriteLine("comp else");
+                //return move = rnd.Next(0, 6);
 
-			Console.WriteLine("comp else");
-			//return rnd.Next(0, 6);
+            }
 
 			return -1;
         }
@@ -161,7 +162,7 @@ namespace ConnectFour_Group2
             Cell rCell;
             List<CoordRC> pattern = new List<CoordRC>();
             CoordRC coord;
-            int consecutive = 0;
+            bool consecutive = false;
 
 
 
@@ -171,158 +172,206 @@ namespace ConnectFour_Group2
                 {
                     cell = board.getCell(r, c);
 
-                    if (cell.getVal() == Cell.value.p1)
+                    if (c + 1 < 7 && cell.getVal() == Cell.value.p1)
                     {
+                        pattern.Clear();
                         coord.row = r;
                         coord.col = c;
 
                         pattern.Add(coord);
-                        consecutive++;
-                    }
-                    else
-                    {
-                        pattern.Clear();
-                        consecutive = 0;
-                    }
 
-                    if (consecutive == 3)
-                    {
+                        cell = board.getCell(r, c + 1);
 
-                        // if consecutive 3 starts at col 0 dont need to check left side of pattern
-                        if (pattern[0].col == 0)
+                        if(c + 2 < 7 && cell.getVal() == Cell.value.p1)
                         {
+                            coord.row = r;
+                            coord.col = c + 1;
 
-                            Console.WriteLine("0");
-                            rCell = board.getCell(pattern[2].row, pattern[2].col + 1);
+                            pattern.Add(coord);
 
-                            if(rCell.getVal() != Cell.value.empty)
+                            cell = board.getCell(r, c + 2);
+
+                            if(cell.getVal() == Cell.value.p1)
                             {
-                                pattern.Clear();
-                                consecutive = 0;
-                                break;
-                            }
+                                coord.row = r;
+                                coord.col = c + 2;
 
-                            if (pattern[2].row == 0)
-                            {
-                                if (rCell.getVal() == Cell.value.empty)
-                                {
-                                    move = pattern[2].col + 1;
-                                }
-                            }
-                            // if consecutive is not on bottom row and down to the right is open dont need to block
-                            else
-                            {
+                                pattern.Add(coord);
 
-                                rCell = board.getCell(pattern[2].row + 1, pattern[2].col + 1);
-                                if (rCell.getVal() == Cell.value.empty)
-                                {
-                                    move = rnd.Next(0, 6);
-                                }
-                                else
-                                {
-                                    move = pattern[2].col + 1;
-                                }
-                            }
-                        }
-                        //if consecutive 3 end at col 6 dont need to check right side of pattern
-                        else if (pattern[2].col == 6)
-                        {
-                            Console.WriteLine("1");
-                            lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
-
-                            if (lCell.getVal() != Cell.value.empty)
-                            {
-                                pattern.Clear();
-                                consecutive = 0;
-                                break;
-                            }
-
-                            if (pattern[0].row == 0)
-                            {
-                                if (lCell.getVal() == Cell.value.empty)
-                                {
-                                    move = pattern[0].col - 1;
-                                }
+                                consecutive = true;
                             }
                             else
                             {
-
-                                lCell = board.getCell(pattern[0].row + 1, pattern[0].col - 1);
-                                // if consecutive is not on bottom row and down to the left is open dont need to block
-                                if (lCell.getVal() == Cell.value.empty)
-                                {
-                                    move = rnd.Next(0, 6);
-                                }
-                                else
-                                {
-                                    move = pattern[0].col - 1;
-                                }
+                                pattern.Clear();
                             }
                         }
-                        //if 3 consecutive in middle of board need to evaluate both right and left to check for valid move
                         else
                         {
-                            Console.WriteLine("2");
-                            lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
-                            rCell = board.getCell(pattern[2].row, pattern[2].col + 1);
+                            pattern.Clear();
+                        }
 
-                            if (lCell.getVal() != Cell.value.empty )
+                        if (consecutive)
+                        {
+                            //checks for block on bottom row
+                            if(pattern[0].row == 5)
                             {
-                                pattern.Clear();
-                                consecutive = 0;
-                                break;
-                            }
-                            else if (rCell.getVal() != Cell.value.empty)
-                            {
-                                pattern.Clear();
-                                consecutive = 0;
-                                break;
-                            }
-                           
-                            //if the computer is doing its job you should never be here but need to check just in case (see line 24)
-                            if (pattern[0].row == 0)
-                            {
+                               
+                                if(pattern[0].col == 0)
+                                {
+                                    rCell = board.getCell(pattern[2].row, pattern[2].col + 1);
 
-                                if (lCell.getVal() == Cell.value.empty)
-                                {
-                                    move = pattern[0].col - 1;
-                                }
-                                else if (rCell.getVal() == Cell.value.empty)
-                                {
-                                    move = pattern[2].col + 1;
-                                }
-                                else
-                                {
-                                    move = rnd.Next(0, 6);
-                                }
-                            }
-                            //if not on bottom row check down diagonal to see if computer should block
-                            else
-                            {
-                                lCell = board.getCell(pattern[0].row + 1, pattern[0].col - 1);
-                                rCell = board.getCell(pattern[2].row + 1, pattern[2].col + 1);
-
-                                if (lCell.getVal() == Cell.value.empty)
-                                {
-                                    Console.WriteLine("left");
-                                    if (rCell.getVal() == Cell.value.empty)
+                                    if(rCell.getVal() == Cell.value.empty)
                                     {
-                                        Console.WriteLine("right");
-                                        move = rnd.Next(0, 6);
+                                        move = pattern[2].col + 1;
+                                        return true;
                                     }
                                     else
                                     {
-                                        move = pattern[2].col + 1;
+                                        pattern.Clear();
+                                        consecutive = false;
+                                    }
+                                }
+                                else if(pattern[2].col == 6)
+                                {
+                                    lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
+
+                                    if (lCell.getVal() == Cell.value.empty)
+                                    {
+                                        move = pattern[0].col - 1;
+                                        return true;
+                                    }
+                                    else
+                                    {
+                                        pattern.Clear();
+                                        consecutive = false;
                                     }
                                 }
                                 else
                                 {
-                                    Console.WriteLine("move");
-                                    move = pattern[0].col - 1;
+                                    lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
+                                    rCell = board.getCell(pattern[2].row, pattern[2].col + 1);
+
+                                    if (lCell.getVal() == Cell.value.empty)
+                                    {
+                                        move = pattern[0].col - 1;
+                                        return true;
+                                    }
+                                    else if(rCell.getVal() == Cell.value.empty)
+                                    {
+                                        move = pattern[2].col + 1;
+                                        return true;
+                                    }
+                                    else
+                                    {
+                                        pattern.Clear();
+                                        consecutive = false;
+                                        
+                                    }
+
+
+                                }
+                            }
+                            //check block if not on bottom row
+                            else
+                            {
+                                if (pattern[0].col == 0)
+                                {
+                                    rCell = board.getCell(pattern[2].row, pattern[2].col + 1);
+
+                                    if (rCell.getVal() == Cell.value.empty)
+                                    {
+
+                                        rCell = board.getCell(pattern[2].row + 1, pattern[2].col + 1);
+
+                                        if(rCell.getVal() != Cell.value.empty)
+                                        {
+                                            move = pattern[2].col + 1;
+                                            return true;
+                                        }
+                                        else
+                                        {
+                                            pattern.Clear();
+                                            consecutive = false;
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        pattern.Clear();
+                                        consecutive = false;
+                                    }
+                                }
+                                else if (pattern[2].col == 6)
+                                {
+                                    lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
+
+                                    if (lCell.getVal() == Cell.value.empty)
+                                    {
+                                        lCell = board.getCell(pattern[0].row + 1, pattern[0].col - 1);
+
+                                        if (lCell.getVal() != Cell.value.empty)
+                                        {
+                                            move = pattern[0].col - 1;
+                                            return true;
+                                        }
+                                        else
+                                        {
+                                            pattern.Clear();
+                                            consecutive = false;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        pattern.Clear();
+                                        consecutive = false;
+                                    }
+                                }
+                                else
+                                {
+                                    lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
+                                    rCell = board.getCell(pattern[2].row, pattern[2].col + 1);
+
+                                    if (lCell.getVal() == Cell.value.empty)
+                                    {
+                                        lCell = board.getCell(pattern[0].row + 1, pattern[0].col - 1);
+                                        
+                                        if(lCell.getVal() != Cell.value.empty)
+                                        {
+                                            move = pattern[0].col - 1;
+                                            return true;
+                                        }
+                                        else if(rCell.getVal() == Cell.value.empty)
+                                        {
+                                            rCell = board.getCell(pattern[2].row + 1, pattern[2].col + 1);
+
+                                            if (rCell.getVal() != Cell.value.empty)
+                                            {
+                                                move = pattern[2].col + 1;
+                                                return true;
+                                            }
+                                            else
+                                            {
+                                                pattern.Clear();
+                                                consecutive = false;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            pattern.Clear();
+                                            consecutive = false;
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        pattern.Clear();
+                                        consecutive = false;
+
+                                    }
                                 }
                             }
                         }
-                        return true;
+
                     }
                 }
 
@@ -582,6 +631,231 @@ namespace ConnectFour_Group2
 
 
                 }
+            }
+
+            return false;
+        }
+
+        public bool horzWin(Board board)
+        {
+            Cell cell;
+            Cell lCell;
+            Cell rCell;
+            List<CoordRC> pattern = new List<CoordRC>();
+            CoordRC coord;
+            bool consecutive = false;
+
+
+
+            for (int r = 5; r >= 0; r--)
+            {
+                for (int c = 0; c < 7; c++)
+                {
+                    cell = board.getCell(r, c);
+
+                    if (c + 1 < 7 && cell.getVal() == Cell.value.ai)
+                    {
+                        pattern.Clear();
+                        coord.row = r;
+                        coord.col = c;
+
+                        pattern.Add(coord);
+
+                        cell = board.getCell(r, c + 1);
+
+                        if (c + 2 < 7 && cell.getVal() == Cell.value.ai)
+                        {
+                            coord.row = r;
+                            coord.col = c + 1;
+
+                            pattern.Add(coord);
+
+                            cell = board.getCell(r, c + 2);
+
+                            if (cell.getVal() == Cell.value.ai)
+                            {
+                                coord.row = r;
+                                coord.col = c + 2;
+
+                                pattern.Add(coord);
+
+                                consecutive = true;
+                            }
+                            else
+                            {
+                                pattern.Clear();
+                            }
+                        }
+                        else
+                        {
+                            pattern.Clear();
+                        }
+
+                        if (consecutive)
+                        {
+                            //checks for block on bottom row
+                            if (pattern[0].row == 5)
+                            {
+
+                                if (pattern[0].col == 0)
+                                {
+                                    rCell = board.getCell(pattern[2].row, pattern[2].col + 1);
+
+                                    if (rCell.getVal() == Cell.value.empty)
+                                    {
+                                        move = pattern[2].col + 1;
+                                        return true;
+                                    }
+                                    else
+                                    {
+                                        pattern.Clear();
+                                        consecutive = false;
+                                    }
+                                }
+                                else if (pattern[2].col == 6)
+                                {
+                                    lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
+
+                                    if (lCell.getVal() == Cell.value.empty)
+                                    {
+                                        move = pattern[0].col - 1;
+                                        return true;
+                                    }
+                                    else
+                                    {
+                                        pattern.Clear();
+                                        consecutive = false;
+                                    }
+                                }
+                                else
+                                {
+                                    lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
+                                    rCell = board.getCell(pattern[2].row, pattern[2].col + 1);
+
+                                    if (lCell.getVal() == Cell.value.empty)
+                                    {
+                                        move = pattern[0].col - 1;
+                                        return true;
+                                    }
+                                    else if (rCell.getVal() == Cell.value.empty)
+                                    {
+                                        move = pattern[2].col + 1;
+                                        return true;
+                                    }
+                                    else
+                                    {
+                                        pattern.Clear();
+                                        consecutive = false;
+
+                                    }
+
+
+                                }
+                            }
+                            //check block if not on bottom row
+                            else
+                            {
+                                if (pattern[0].col == 0)
+                                {
+                                    rCell = board.getCell(pattern[2].row, pattern[2].col + 1);
+
+                                    if (rCell.getVal() == Cell.value.empty)
+                                    {
+
+                                        rCell = board.getCell(pattern[2].row + 1, pattern[2].col + 1);
+
+                                        if (rCell.getVal() != Cell.value.empty)
+                                        {
+                                            move = pattern[2].col + 1;
+                                            return true;
+                                        }
+                                        else
+                                        {
+                                            pattern.Clear();
+                                            consecutive = false;
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        pattern.Clear();
+                                        consecutive = false;
+                                    }
+                                }
+                                else if (pattern[2].col == 6)
+                                {
+                                    lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
+
+                                    if (lCell.getVal() == Cell.value.empty)
+                                    {
+                                        lCell = board.getCell(pattern[0].row + 1, pattern[0].col - 1);
+
+                                        if (lCell.getVal() != Cell.value.empty)
+                                        {
+                                            move = pattern[0].col - 1;
+                                            return true;
+                                        }
+                                        else
+                                        {
+                                            pattern.Clear();
+                                            consecutive = false;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        pattern.Clear();
+                                        consecutive = false;
+                                    }
+                                }
+                                else
+                                {
+                                    lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
+                                    rCell = board.getCell(pattern[2].row, pattern[2].col + 1);
+
+                                    if (lCell.getVal() == Cell.value.empty)
+                                    {
+                                        lCell = board.getCell(pattern[0].row + 1, pattern[0].col - 1);
+
+                                        if (lCell.getVal() != Cell.value.empty)
+                                        {
+                                            move = pattern[0].col - 1;
+                                            return true;
+                                        }
+                                        else if (rCell.getVal() == Cell.value.empty)
+                                        {
+                                            rCell = board.getCell(pattern[2].row + 1, pattern[2].col + 1);
+
+                                            if (rCell.getVal() != Cell.value.empty)
+                                            {
+                                                move = pattern[2].col + 1;
+                                                return true;
+                                            }
+                                            else
+                                            {
+                                                pattern.Clear();
+                                                consecutive = false;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            pattern.Clear();
+                                            consecutive = false;
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        pattern.Clear();
+                                        consecutive = false;
+
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                }
+
             }
 
             return false;
