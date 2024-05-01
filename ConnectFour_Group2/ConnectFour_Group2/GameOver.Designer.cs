@@ -40,14 +40,13 @@
             this.lbl_gameOutcome.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbl_gameOutcome.AutoSize = true;
             this.lbl_gameOutcome.BackColor = System.Drawing.Color.ForestGreen;
-            this.lbl_gameOutcome.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lbl_gameOutcome.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lbl_gameOutcome.Font = new System.Drawing.Font("Franklin Gothic Heavy", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_gameOutcome.ForeColor = System.Drawing.Color.White;
             this.lbl_gameOutcome.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.lbl_gameOutcome.Location = new System.Drawing.Point(184, 159);
+            this.lbl_gameOutcome.Location = new System.Drawing.Point(172, 161);
             this.lbl_gameOutcome.Name = "lbl_gameOutcome";
-            this.lbl_gameOutcome.Size = new System.Drawing.Size(519, 49);
+            this.lbl_gameOutcome.Size = new System.Drawing.Size(517, 47);
             this.lbl_gameOutcome.TabIndex = 0;
             this.lbl_gameOutcome.Text = "    P L A Y E R  \"\"  W O N !     ";
             this.lbl_gameOutcome.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -100,8 +99,6 @@
             this.Controls.Add(this.btn_playAgain);
             this.Controls.Add(this.lbl_gameOutcome);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "GameOver";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = " Game Over";

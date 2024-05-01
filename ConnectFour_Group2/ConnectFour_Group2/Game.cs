@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.Linq;
-using System.Reflection;
 using System.Windows.Forms;
 
 
@@ -14,6 +13,7 @@ namespace ConnectFour_Group2
 		private Computer ai;
 		private bool botGame;
         private PictureBox[] colPictureBoxes;
+
 
         public Game(bool botGame)
         {
@@ -54,7 +54,7 @@ namespace ConnectFour_Group2
 
 			if ((winner = gameBoard.getWinner()) != Board.WINNER_NONE)
 			{
-                MainForm.load(new GameOver(this, (Cell.value)winner), false);
+				MainForm.load(new GameOver(this, (Cell.value)winner));
 			}
         }
 
@@ -91,13 +91,14 @@ namespace ConnectFour_Group2
 			colPictureBoxes[c].BackgroundImage = null;
         }
 
-        /*
+
+		/*
 		 * reset	Reset
 		 * ARG		NONE
 		 * RET		NONE
 		 * DES		Resets the game to starting conditions.
 		 */
-        public void reset()
+		public void reset()
 		{
 			gameBoard = new Board(tableLayoutPanel1);
 			gameDriver = new GameDriver(lbl_turn);
@@ -110,11 +111,6 @@ namespace ConnectFour_Group2
 			tableLayoutPanel1.Refresh();
 		}
 
-		public void HideTurnLabel()
-		{
-			lbl_turn.Visible = false;
-		}
-
 		public bool getBotGame()
 		{
 			return botGame;
@@ -123,15 +119,6 @@ namespace ConnectFour_Group2
         public Board getBoard()
         {
             return gameBoard;
-        }
-
-        private void btn_Back_Click(object sender, EventArgs e)
-        {
-			//if the previous form was the welcome page open the welcome page again
-			//if the previous form was the game over form go back to that 
-			//Console.WriteLine("Previous Form: " + previousForm.GetType().Name);
-			
-			MainForm.load(new WelcomePage(), false);
         }
     }
 }

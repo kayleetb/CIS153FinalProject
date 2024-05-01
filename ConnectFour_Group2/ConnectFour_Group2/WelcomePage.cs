@@ -21,21 +21,21 @@ namespace ConnectFour_Group2
         //SINGLE PLAYER
         private void btn_singlePlayer_Click(object sender, EventArgs e)
         {
-			MainForm.load(new Game(true), false);
+			MainForm.load(new Game(true));
         }
 
         //TWO PLAYER
         private void btn_twoPlayer_Click(object sender, EventArgs e)
         {
-			MainForm.load(new Game(false), false);
+			MainForm.load(new Game(false));
         }
 
         //STATS
         private void btn_Stats_Click(object sender, EventArgs e)
         {
-
+            //MainForm.load(new Stats());
+            Stats formToLoad = new Stats();
+            formToLoad.ShowDialog(this);
         }
     }
 }
-
-

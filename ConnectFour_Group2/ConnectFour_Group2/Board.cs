@@ -153,11 +153,8 @@ namespace ConnectFour_Group2
                     /* Increment regardless of whether or not this is a new pattern. */
 					++consecutive;
 
-                    if (consecutive >= WIN_CONDITION)
-                    {
-                        return (int)pattern;
-                    }
-
+					if (consecutive >= WIN_CONDITION)
+						return (int)pattern;
                 }
 			}
 
@@ -258,8 +255,6 @@ namespace ConnectFour_Group2
             /* No winner was found. */
             return -1;
 		}
-
-
 
         /*
 		 * initialize	Initialize

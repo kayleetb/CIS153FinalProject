@@ -942,7 +942,6 @@
             this.btn_Back.TabIndex = 95;
             this.btn_Back.Text = "BACK";
             this.btn_Back.UseVisualStyleBackColor = false;
-            this.btn_Back.Click += new System.EventHandler(this.btn_Back_Click);
             // 
             // Game
             // 
