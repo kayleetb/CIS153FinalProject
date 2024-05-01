@@ -28,7 +28,7 @@ namespace ConnectFour_Group2
             else 
             {
                 Console.WriteLine("comp else");
-                //return move = rnd.Next(0, 6);
+                return move = rnd.Next(0, 6);
 
             }
 
@@ -39,6 +39,10 @@ namespace ConnectFour_Group2
         {
 
             if(vertWin(board))
+            {
+                return true;
+            }
+            if(horzWin(board))
             {
                 return true;
             }
@@ -58,15 +62,15 @@ namespace ConnectFour_Group2
             {
                 return true;
             }
-            if(upperRightBlock(board))
+            if (upperRightBlock(board))
             {
                 return true;
             }
-            if(upperLeftBlock(board))
+            if (upperLeftBlock(board))
             {
                 return true;
             }
-            
+
             return false;
         }
 
@@ -566,7 +570,7 @@ namespace ConnectFour_Group2
                         coord.col = c;
 
                         pattern.Add(coord);
-
+                        Console.WriteLine("Pattern 1");
                         cell = board.getCell(r - 1, c);
 
                         if (r - 2 > 0 && cell.getVal() == Cell.value.ai)
@@ -575,7 +579,7 @@ namespace ConnectFour_Group2
                             coord.col = c;
 
                             pattern.Add(coord);
-
+                            Console.WriteLine("Pattern 2");
                             cell = board.getCell(r - 2, c);
 
                             if (cell.getVal() == Cell.value.ai)
@@ -585,7 +589,7 @@ namespace ConnectFour_Group2
                                 coord.col = c;
 
                                 pattern.Add(coord);
-
+                                Console.WriteLine("Pattern 3");
                                 consecutive = true;
                             }
                             else
@@ -600,6 +604,7 @@ namespace ConnectFour_Group2
 
                         if (consecutive)
                         {
+                            Console.WriteLine("Vert Consecutive");
                             cell = board.getCell(pattern[2].row - 1, c);
 
                             if (cell.getVal() == Cell.value.empty)
@@ -679,11 +684,13 @@ namespace ConnectFour_Group2
                             else
                             {
                                 pattern.Clear();
+                                consecutive = false;
                             }
                         }
                         else
                         {
                             pattern.Clear();
+                            consecutive = false;
                         }
 
                         if (consecutive)

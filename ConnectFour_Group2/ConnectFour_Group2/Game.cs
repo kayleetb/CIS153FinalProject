@@ -43,7 +43,7 @@ namespace ConnectFour_Group2
 				if (botGame)
 				{
 					lbl_turn.Visible = false;
-					gameBoard.playMove(gameDriver.getTurn(), ai.compMove(gameBoard));
+					gameBoard.playMove(Cell.value.ai, ai.compMove(gameBoard));
 					gameDriver.nextTurn();
 					lbl_turn.Visible = true;
 				}
