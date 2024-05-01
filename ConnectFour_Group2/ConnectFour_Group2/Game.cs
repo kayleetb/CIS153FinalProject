@@ -54,8 +54,8 @@ namespace ConnectFour_Group2
 
 			if ((winner = gameBoard.getWinner()) != Board.WINNER_NONE)
 			{
-				MainForm.load(new GameOver(this, (Cell.value)winner));
-			}
+                MainForm.load(new GameOver(this, (Cell.value)winner), false);
+            }
         }
 
         private void RoundButton_MouseEnter(object sender, EventArgs e)
@@ -90,15 +90,18 @@ namespace ConnectFour_Group2
 			/* Clear the hover chip. */
 			colPictureBoxes[c].BackgroundImage = null;
         }
+        public void HideTurnLabel()
+        {
+            lbl_turn.Visible = false;
+        }
 
-
-		/*
+        /*
 		 * reset	Reset
 		 * ARG		NONE
 		 * RET		NONE
 		 * DES		Resets the game to starting conditions.
 		 */
-		public void reset()
+        public void reset()
 		{
 			gameBoard = new Board(tableLayoutPanel1);
 			gameDriver = new GameDriver(lbl_turn);
