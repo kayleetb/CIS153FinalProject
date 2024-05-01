@@ -21,10 +21,9 @@ namespace ConnectFour_Group2
 			this.botGame = botGame;
 			this.reset();
 
-			/* Use this line to change the window title for Versus AI and Versus Player. */
-			this.Text = botGame ? "Versus AI" : "Versus Human";
+			/* Use this line to change the window title */
+			this.Text = botGame ? "Single Player" : "Two Player";
 
-            //needs to be moved to work with both board but i have it here right now just to work with it
             colPictureBoxes = new PictureBox[] { pictureBox_0, pictureBox_1, pictureBox_2, pictureBox_3, pictureBox_4, pictureBox_5, pictureBox_6 };
         }
 

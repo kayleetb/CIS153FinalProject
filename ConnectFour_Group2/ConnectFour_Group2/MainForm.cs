@@ -8,7 +8,6 @@ namespace ConnectFour_Group2
 	{
 		private static MainForm main = null;
 
-
 		public MainForm()
 		{
 			if (main != null)
