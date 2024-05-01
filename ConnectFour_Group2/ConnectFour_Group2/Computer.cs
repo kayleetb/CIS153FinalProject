@@ -203,11 +203,13 @@ namespace ConnectFour_Group2
                             else
                             {
                                 pattern.Clear();
+                                consecutive = false;
                             }
                         }
                         else
                         {
                             pattern.Clear();
+                            consecutive = false;
                         }
 
                         if (consecutive)
@@ -340,25 +342,18 @@ namespace ConnectFour_Group2
                                             move = pattern[0].col - 1;
                                             return true;
                                         }
-                                        else if(rCell.getVal() == Cell.value.empty)
-                                        {
-                                            rCell = board.getCell(pattern[2].row + 1, pattern[2].col + 1);
 
-                                            if (rCell.getVal() != Cell.value.empty)
-                                            {
-                                                move = pattern[2].col + 1;
-                                                return true;
-                                            }
-                                            else
-                                            {
-                                                pattern.Clear();
-                                                consecutive = false;
-                                            }
-                                        }
-                                        else
+
+                                    }
+
+                                    if ( rCell.getVal() == Cell.value.empty)
+                                    {
+                                        rCell = board.getCell(pattern[2].row + 1, pattern[2].col + 1);
+
+                                        if (rCell.getVal() != Cell.value.empty)
                                         {
-                                            pattern.Clear();
-                                            consecutive = false;
+                                            move = pattern[2].col + 1;
+                                            return true;
                                         }
 
                                     }
@@ -821,25 +816,18 @@ namespace ConnectFour_Group2
                                             move = pattern[0].col - 1;
                                             return true;
                                         }
-                                        else if (rCell.getVal() == Cell.value.empty)
-                                        {
-                                            rCell = board.getCell(pattern[2].row + 1, pattern[2].col + 1);
 
-                                            if (rCell.getVal() != Cell.value.empty)
-                                            {
-                                                move = pattern[2].col + 1;
-                                                return true;
-                                            }
-                                            else
-                                            {
-                                                pattern.Clear();
-                                                consecutive = false;
-                                            }
-                                        }
-                                        else
+
+                                    }
+
+                                    if (rCell.getVal() == Cell.value.empty)
+                                    {
+                                        rCell = board.getCell(pattern[2].row + 1, pattern[2].col + 1);
+
+                                        if (rCell.getVal() != Cell.value.empty)
                                         {
-                                            pattern.Clear();
-                                            consecutive = false;
+                                            move = pattern[2].col + 1;
+                                            return true;
                                         }
 
                                     }
