@@ -19,9 +19,12 @@ namespace ConnectFour_Group2
             InitializeComponent();
 
 			this.gameForm = gameForm;
-
-			/* Potentially implement a new variable in the Player class for victory statement. */
-			File.AppendAllText(Stats.PATH_SAVE, "\r\n" + Stats.getGame() + "," + (int)winner + ",");
+            
+            if(gameForm.isBotGame())
+            {
+                /* Potentially implement a new variable in the Player class for victory statement. */
+                File.AppendAllText(Stats.PATH_SAVE, "\r\n" + Stats.getGame() + "," + (int)winner + ",");
+            }
             SetVictoryStatment(winner);
         }
         public void SetVictoryStatment(Cell.value winner)

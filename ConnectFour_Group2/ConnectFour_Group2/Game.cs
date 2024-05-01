@@ -123,5 +123,10 @@ namespace ConnectFour_Group2
         {
             return gameBoard;
         }
+
+		public bool isBotGame()
+		{
+			return botGame;
+		}
     }
 }
