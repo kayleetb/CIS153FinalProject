@@ -33,9 +33,7 @@ namespace ConnectFour_Group2
         //STATS
         private void btn_Stats_Click(object sender, EventArgs e)
         {
-            //MainForm.load(new Stats());
-            Stats formToLoad = new Stats();
-            formToLoad.ShowDialog(this);
+            MainForm.load(new Stats(), false);
         }
     }
 }

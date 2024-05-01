@@ -65,8 +65,7 @@ namespace ConnectFour_Group2
         //STATS
         private void btn_StatsGO_Click(object sender, EventArgs e)
         {
-            Stats formToLoad = new Stats();
-            formToLoad.ShowDialog(this);
+            MainForm.load(new Stats(), false);
         }
     }
 }

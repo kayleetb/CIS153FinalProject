@@ -6,6 +6,7 @@ namespace ConnectFour_Group2
 {
 	public partial class MainForm : Form
 	{
+        private static Form previousForm;
 		private static MainForm main = null;
 
 		public MainForm()
@@ -24,6 +25,9 @@ namespace ConnectFour_Group2
         {
             if (main == null)
 				return;
+
+            if (main.Controls.Count > 0)
+                previousForm = (Form)main.Controls[0];
 
 			/* Remove anything and everything. */
 			main.Controls.Clear();
@@ -50,5 +54,14 @@ namespace ConnectFour_Group2
 			main.Controls.Add(form);
 			form.Show();
 		}
-	}
+
+        public static void loadPrevious()
+        {
+            Form tmp;
+
+            tmp = (Form)main.Controls[0];
+            MainForm.load(previousForm, false);
+            previousForm = tmp;
+        }
+    }
 }
