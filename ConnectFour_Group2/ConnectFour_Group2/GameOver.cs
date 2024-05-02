@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
+using System.Media;
 using System.Security.Cryptography;
 using System.Windows.Forms;
+using ConnectFour_Group2.Properties;
 
 
 namespace ConnectFour_Group2
@@ -12,7 +14,9 @@ namespace ConnectFour_Group2
 		private Game gameForm;
         private Stats stats;
         private GameDriver driver;
-
+        
+        Stream soundFile;
+        SoundPlayer player;
 
         public GameOver(Game gameForm, Cell.value winner)
         {
@@ -61,8 +65,17 @@ namespace ConnectFour_Group2
 
         private void btn_playAgain_Click(object sender, EventArgs e)
         {
-			gameForm.reset();
+            soundFile = Properties.Resources.chipsFalling;
+            player = new SoundPlayer(soundFile);
+            playSound();
+
+            gameForm.reset();
 			MainForm.load(gameForm, false);
+        }
+
+        private void playSound()
+        {
+            player.Play();
         }
 
         //STATS

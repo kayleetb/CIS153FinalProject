@@ -133,5 +133,8 @@
   <ItemGroup>
     <None Include="Resources\graybackground.JPG" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\chipsFalling.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
