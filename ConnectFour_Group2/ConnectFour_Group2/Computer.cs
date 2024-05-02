@@ -381,8 +381,9 @@ namespace ConnectFour_Group2
 
         public bool upperRightBlock(Board board)
         {
-
             Cell cell;
+            Cell lCell;
+            Cell rCell;
             List<CoordRC> pattern = new List<CoordRC>();
             CoordRC coord;
             bool consecutive = false;
@@ -393,7 +394,7 @@ namespace ConnectFour_Group2
                 {
                     cell = board.getCell(r, c);
 
-                    if (r-1 > 1 && c + 1 < 6 && cell.getVal() == Cell.value.p1)
+                    if (r - 1 > 1 && c + 1 < 6 && cell.getVal() == Cell.value.p1)
                     {
                         coord.row = r;
                         coord.col = c;
@@ -431,23 +432,31 @@ namespace ConnectFour_Group2
 
                         if(consecutive)
                         {
-                            cell = board.getCell(pattern[2].row - 1, pattern[2].col + 1);
+                            rCell = board.getCell(pattern[2].row - 1, pattern[2].col + 1);
 
-                            if(cell.getVal() == Cell.value.empty)
+                            if(rCell.getVal() == Cell.value.empty)
                             {
-                                cell = board.getCell(pattern[2].row, pattern[2].col + 1);
+                                rCell = board.getCell(pattern[2].row, pattern[2].col + 1);
 
-                                if(cell.getVal() == Cell.value.empty)
-                                {
-                                    pattern.Clear();
-                                    consecutive = false;
-                                    
-                                }
-                                else
+                                if(rCell.getVal() != Cell.value.empty)
                                 {
                                     move = pattern[2].col + 1;
                                     return true;
+
                                 }
+
+                            }
+
+                            if(pattern[0].row < 5)
+                            {
+                                lCell = board.getCell(pattern[0].row + 1, pattern[0].col - 1);
+
+                                if (lCell.getVal() == Cell.value.empty)
+                                {
+                                    move = pattern[0].col - 1;
+                                    return true;
+                                }
+
                             }
                             else
                             {
@@ -467,6 +476,8 @@ namespace ConnectFour_Group2
         {
 
             Cell cell;
+            Cell lCell;
+            Cell rCell;
             List<CoordRC> pattern = new List<CoordRC>();
             CoordRC coord;
             bool consecutive = false;
@@ -516,21 +527,28 @@ namespace ConnectFour_Group2
 
                         if (consecutive)
                         {
-                            cell = board.getCell(pattern[2].row - 1, pattern[2].col - 1);
+                            lCell = board.getCell(pattern[2].row - 1, pattern[2].col - 1);
 
-                            if (cell.getVal() == Cell.value.empty)
+                            if (lCell.getVal() == Cell.value.empty)
                             {
-                                cell = board.getCell(pattern[2].row, pattern[2].col - 1);
+                                lCell = board.getCell(pattern[2].row, pattern[2].col - 1);
 
-                                if (cell.getVal() == Cell.value.empty)
-                                {
-                                    pattern.Clear();
-                                    consecutive = false;
-                                    
-                                }
-                                else
+                                if (lCell.getVal() != Cell.value.empty)
                                 {
                                     move = pattern[2].col - 1;
+                                    return true;
+
+                                }
+
+                            }
+
+                            if(pattern[2].row > 5 && pattern[0].col < 7)
+                            {
+                                rCell = board.getCell(pattern[0].row + 1, pattern[0].col + 1);
+
+                                if (rCell.getVal() == Cell.value.empty)
+                                {
+                                    move = pattern[0].col + 1;
                                     return true;
                                 }
                             }
@@ -570,7 +588,7 @@ namespace ConnectFour_Group2
                         coord.col = c;
 
                         pattern.Add(coord);
-                        Console.WriteLine("Pattern 1");
+
                         cell = board.getCell(r - 1, c);
 
                         if (r - 2 > 0 && cell.getVal() == Cell.value.ai)
@@ -579,7 +597,7 @@ namespace ConnectFour_Group2
                             coord.col = c;
 
                             pattern.Add(coord);
-                            Console.WriteLine("Pattern 2");
+
                             cell = board.getCell(r - 2, c);
 
                             if (cell.getVal() == Cell.value.ai)
@@ -589,7 +607,7 @@ namespace ConnectFour_Group2
                                 coord.col = c;
 
                                 pattern.Add(coord);
-                                Console.WriteLine("Pattern 3");
+
                                 consecutive = true;
                             }
                             else
@@ -604,7 +622,7 @@ namespace ConnectFour_Group2
 
                         if (consecutive)
                         {
-                            Console.WriteLine("Vert Consecutive");
+
                             cell = board.getCell(pattern[2].row - 1, c);
 
                             if (cell.getVal() == Cell.value.empty)
@@ -860,6 +878,8 @@ namespace ConnectFour_Group2
         {
 
             Cell cell;
+            Cell lCell;
+            Cell rCell;
             List<CoordRC> pattern = new List<CoordRC>();
             CoordRC coord;
             bool consecutive = false;
@@ -908,23 +928,31 @@ namespace ConnectFour_Group2
 
                         if (consecutive)
                         {
-                            cell = board.getCell(pattern[2].row - 1, pattern[2].col + 1);
+                            rCell = board.getCell(pattern[2].row - 1, pattern[2].col + 1);
 
-                            if (cell.getVal() == Cell.value.empty)
+                            if (rCell.getVal() == Cell.value.empty)
                             {
-                                cell = board.getCell(pattern[2].row, pattern[2].col + 1);
+                                rCell = board.getCell(pattern[2].row, pattern[2].col + 1);
 
-                                if (cell.getVal() == Cell.value.empty)
-                                {
-                                    pattern.Clear();
-                                    consecutive = false;
-
-                                }
-                                else
+                                if (rCell.getVal() != Cell.value.empty)
                                 {
                                     move = pattern[2].col + 1;
                                     return true;
+
                                 }
+
+                            }
+
+                            if (pattern[0].row < 5)
+                            {
+                                lCell = board.getCell(pattern[0].row + 1, pattern[0].col - 1);
+
+                                if (lCell.getVal() == Cell.value.empty)
+                                {
+                                    move = pattern[0].col - 1;
+                                    return true;
+                                }
+
                             }
                             else
                             {
@@ -944,6 +972,8 @@ namespace ConnectFour_Group2
         {
 
             Cell cell;
+            Cell lCell;
+            Cell rCell;
             List<CoordRC> pattern = new List<CoordRC>();
             CoordRC coord;
             bool consecutive = false;
@@ -993,21 +1023,28 @@ namespace ConnectFour_Group2
 
                         if (consecutive)
                         {
-                            cell = board.getCell(pattern[2].row - 1, pattern[2].col - 1);
+                            lCell = board.getCell(pattern[2].row - 1, pattern[2].col - 1);
 
-                            if (cell.getVal() == Cell.value.empty)
+                            if (lCell.getVal() == Cell.value.empty)
                             {
-                                cell = board.getCell(pattern[2].row, pattern[2].col - 1);
+                                lCell = board.getCell(pattern[2].row, pattern[2].col - 1);
 
-                                if (cell.getVal() == Cell.value.empty)
-                                {
-                                    pattern.Clear();
-                                    consecutive = false;
-
-                                }
-                                else
+                                if (lCell.getVal() != Cell.value.empty)
                                 {
                                     move = pattern[2].col - 1;
+                                    return true;
+
+                                }
+
+                            }
+
+                            if (pattern[2].row > 5 && pattern[0].col < 7)
+                            {
+                                rCell = board.getCell(pattern[0].row + 1, pattern[0].col + 1);
+
+                                if (rCell.getVal() == Cell.value.empty)
+                                {
+                                    move = pattern[0].col + 1;
                                     return true;
                                 }
                             }
