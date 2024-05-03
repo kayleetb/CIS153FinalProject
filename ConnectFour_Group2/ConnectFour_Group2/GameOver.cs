@@ -41,7 +41,7 @@ namespace ConnectFour_Group2
                     break;
 
                 case Cell.value.ai:
-                    lbl_gameOutcome.Text = "Y O U  W O N !";
+                    lbl_gameOutcome.Text = "Y O U  L O S T !";
                     lbl_gameOutcome.BackColor = Color.Red;
                     break;
 
