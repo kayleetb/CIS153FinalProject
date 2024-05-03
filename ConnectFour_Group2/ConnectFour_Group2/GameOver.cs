@@ -40,18 +40,15 @@ namespace ConnectFour_Group2
                     lbl_gameOutcome.Text = Player.PLAYERS[(int)winner].getName() + "  W O N !";
                     break;
 
-                //case Cell.value.tie:
-                //    lbl_gameOutcome.Text = "It's a Tie!";
-                //    break;
-
                 case Cell.value.ai:
-                    lbl_gameOutcome.Text = "You Lost";
+                    lbl_gameOutcome.Text = "Y O U  W O N !";
                     lbl_gameOutcome.BackColor = Color.Red;
                     break;
+
+                case Cell.value.empty:
+                    lbl_gameOutcome.Text = "I T ' S  A  T I E !";
+                    break; 
             }
-            //if (gameForm.getBoard().isBoardFull())
-            //{
-            //}
 
         }
 
