@@ -30,6 +30,7 @@ namespace ConnectFour_Group2
                 File.AppendAllText(Stats.PATH_SAVE, "\r\n" + Stats.getGame() + "," + (int)winner + ",");
             }
             SetVictoryStatment(winner);
+
         }
         public void SetVictoryStatment(Cell.value winner)
         {
@@ -52,12 +53,12 @@ namespace ConnectFour_Group2
 
         }
 
-        /* WARNING: UNABLE TO RETURN BACK TO ANY OTHER SCREEN! */
         private void btn_reviewGame_Click(object sender, EventArgs e)
         {
             gameForm.getBoard().disableAllCells();
+            gameForm.setIsReviewing(true);
             MainForm.load(gameForm, true);
-            gameForm.HideTurnLabel();
+            gameForm.hideTurnLabel();
         }
 
         private void btn_playAgain_Click(object sender, EventArgs e)
@@ -67,8 +68,9 @@ namespace ConnectFour_Group2
             playSound();
 
             gameForm.getBoard().enableAllCells();
-            gameForm.ShowTurnLabel();
+            gameForm.showTurnLabel();
             gameForm.reset();
+            gameForm.setIsReviewing(false);
 			MainForm.load(gameForm, false);
         }
 

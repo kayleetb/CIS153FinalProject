@@ -55,7 +55,6 @@ namespace ConnectFour_Group2
 			form.Show();
 		}
 
-
         public static void loadPrevious()
         {
             Form tmp;
@@ -64,5 +63,6 @@ namespace ConnectFour_Group2
             MainForm.load(previousForm, false);
             previousForm = tmp;
         }
+
     }
 }

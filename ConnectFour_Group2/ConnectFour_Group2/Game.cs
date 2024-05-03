@@ -13,6 +13,7 @@ namespace ConnectFour_Group2
 		private Computer ai;
 		private bool botGame;
         private PictureBox[] colPictureBoxes;
+		private bool isReviewing = true;
 
 
         public Game(bool botGame)
@@ -90,11 +91,11 @@ namespace ConnectFour_Group2
 			/* Clear the hover chip. */
 			colPictureBoxes[c].BackgroundImage = null;
         }
-        public void HideTurnLabel()
+        public void hideTurnLabel()
         {
             lbl_turn.Visible = false;
         }
-		public void ShowTurnLabel()
+		public void showTurnLabel()
 		{
 			lbl_turn.Visible = true;
 		}
@@ -132,20 +133,27 @@ namespace ConnectFour_Group2
 		{
 			return botGame;
 		}
+		public void setIsReviewing(bool value)
+		{
+			isReviewing = value;
+		}
 
         private void btn_Back_Click(object sender, EventArgs e)
         {
 			//if the game is NOT being reviewed we want to go back to the welcome page
 			//if the game is being reviewed we want to go back to the gameover form 	
-            MainForm.loadPrevious();
-            this.Hide();
-			
 
-			//else
-			//{
-   //             MainForm.load(new WelcomePage(), false);
-   //         }
-            //MainForm.loadPrevious();
-        }
+			if(isReviewing)
+			{
+                MainForm.loadPrevious();
+                this.Hide();
+            }
+      
+			else
+			{
+				MainForm.load(new WelcomePage(), false);
+			}
+		}
+
     }
 }
