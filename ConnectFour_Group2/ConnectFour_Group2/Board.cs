@@ -281,10 +281,11 @@ namespace ConnectFour_Group2
         public void disableAllCells()
         {
 			table.Enabled = false;
-            /* foreach (Cell cell in internalBoard)
-            {
-                cell.getBtn().Enabled = false;
-            } */
+        }
+
+        public void enableAllCells() 
+        {
+            table.Enabled = true;
         }
 
         /*

@@ -66,6 +66,8 @@ namespace ConnectFour_Group2
             player = new SoundPlayer(soundFile);
             playSound();
 
+            gameForm.getBoard().enableAllCells();
+            gameForm.ShowTurnLabel();
             gameForm.reset();
 			MainForm.load(gameForm, false);
         }

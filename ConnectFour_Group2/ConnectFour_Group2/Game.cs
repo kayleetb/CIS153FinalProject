@@ -94,6 +94,10 @@ namespace ConnectFour_Group2
         {
             lbl_turn.Visible = false;
         }
+		public void ShowTurnLabel()
+		{
+			lbl_turn.Visible = true;
+		}
 
         /*
 		 * reset	Reset
@@ -128,5 +132,20 @@ namespace ConnectFour_Group2
 		{
 			return botGame;
 		}
+
+        private void btn_Back_Click(object sender, EventArgs e)
+        {
+			//if the game is NOT being reviewed we want to go back to the welcome page
+			//if the game is being reviewed we want to go back to the gameover form 	
+            MainForm.loadPrevious();
+            this.Hide();
+			
+
+			//else
+			//{
+   //             MainForm.load(new WelcomePage(), false);
+   //         }
+            //MainForm.loadPrevious();
+        }
     }
 }
