@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Drawing;
-using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
@@ -14,6 +14,7 @@ namespace ConnectFour_Group2
 		private bool botGame;
         private PictureBox[] colPictureBoxes;
 		private bool isReviewing = true;
+		private bool playerCanPlay;
 
 
         public Game(bool botGame)
@@ -24,15 +25,19 @@ namespace ConnectFour_Group2
 
 			/* Use this line to change the window title */
 			this.Text = botGame ? "Single Player" : "Two Player";
+			playerCanPlay = true;
 
             colPictureBoxes = new PictureBox[] { pictureBox_0, pictureBox_1, pictureBox_2, pictureBox_3, pictureBox_4, pictureBox_5, pictureBox_6 };
         }
 
 
-        private void RoundButton_Click(object sender, EventArgs e)
+        private async void RoundButton_Click(object sender, EventArgs e)
         {
 			int winner;
 			int col;
+
+			if (!playerCanPlay)
+				return;
 
 			col = tableLayoutPanel1.GetColumn((Control)sender);
 
@@ -41,22 +46,25 @@ namespace ConnectFour_Group2
 			{
 				gameDriver.nextTurn();
 
+				if ((winner = gameBoard.getWinner()) != Board.WINNER_NONE)
+					MainForm.load(new GameOver(this, (Cell.value)winner), false);
+
+				/* Begin the bot's turn. */
 				if (botGame)
 				{
-					lbl_turn.Visible = false;
+					playerCanPlay = false;
+					await Task.Delay(667);
+
 					gameBoard.playMove(Cell.value.ai, ai.compMove(gameBoard));
 					gameDriver.nextTurn();
-					lbl_turn.Visible = true;
-				}
 
-				/* A bad fix for the chip not updating until the mouse leaves the cell... */
-				RoundButton_MouseEnter(sender, null);
+					playerCanPlay = true;
+
+					if ((winner = gameBoard.getWinner()) != Board.WINNER_NONE)
+						MainForm.load(new GameOver(this, (Cell.value)winner), false);
+				}
 			}
 
-			if ((winner = gameBoard.getWinner()) != Board.WINNER_NONE)
-			{
-                MainForm.load(new GameOver(this, (Cell.value)winner), false);
-            }
         }
 
         private void RoundButton_MouseEnter(object sender, EventArgs e)
@@ -72,7 +80,8 @@ namespace ConnectFour_Group2
 				if (gameBoard.getCell(r, c).getVal() == Cell.value.empty)
 					gameBoard.getCell(r, c).getBtn().BackColor = Color.White;
 
-			colPictureBoxes[c].BackgroundImage = Player.PLAYERS[(int)gameDriver.getTurn()].getBackgroundImage();
+			if (playerCanPlay)
+				colPictureBoxes[c].BackgroundImage = Player.PLAYERS[(int)gameDriver.getTurn()].getBackgroundImage();
         }
 
         private void RoundButton_MouseLeave(object sender, EventArgs e)
