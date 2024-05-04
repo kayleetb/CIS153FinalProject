@@ -39,15 +39,18 @@ namespace ConnectFour_Group2
                 case Cell.value.p1:
                 case Cell.value.p2:
                     lbl_gameOutcome.Text = Player.PLAYERS[(int)winner].getName() + "  W O N !";
+                    lbl_gameOutcome.Location = new Point(121, 116);
                     break;
 
                 case Cell.value.ai:
                     lbl_gameOutcome.Text = "Y O U  L O S T !";
                     lbl_gameOutcome.BackColor = Color.Red;
+                    lbl_gameOutcome.Location = new Point(172, 113);
                     break;
 
                 case Cell.value.empty:
                     lbl_gameOutcome.Text = "I T ' S  A  T I E !";
+                    lbl_gameOutcome.Location = new Point(172, 113);
                     break; 
             }
 

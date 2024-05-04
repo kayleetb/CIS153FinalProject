@@ -63,7 +63,9 @@ namespace ConnectFour_Group2
 					if ((winner = gameBoard.getWinner()) != Board.WINNER_NONE)
 						MainForm.load(new GameOver(this, (Cell.value)winner), false);
 				}
-			}
+                colPictureBoxes[col].BackgroundImage = Player.PLAYERS[(int)gameDriver.getTurn()].getBackgroundImage();
+
+            }
 
         }
 

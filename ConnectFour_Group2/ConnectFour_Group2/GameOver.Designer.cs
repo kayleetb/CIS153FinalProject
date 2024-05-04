@@ -44,20 +44,22 @@
             this.lbl_gameOutcome.Font = new System.Drawing.Font("Franklin Gothic Heavy", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_gameOutcome.ForeColor = System.Drawing.Color.White;
             this.lbl_gameOutcome.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.lbl_gameOutcome.Location = new System.Drawing.Point(172, 161);
+            this.lbl_gameOutcome.Location = new System.Drawing.Point(172, 113);
+            this.lbl_gameOutcome.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_gameOutcome.Name = "lbl_gameOutcome";
-            this.lbl_gameOutcome.Size = new System.Drawing.Size(517, 47);
+            this.lbl_gameOutcome.Size = new System.Drawing.Size(193, 34);
             this.lbl_gameOutcome.TabIndex = 0;
-            this.lbl_gameOutcome.Text = "    P L A Y E R  \"\"  W O N !     ";
+            this.lbl_gameOutcome.Text = "I T \' S  A  T I E !";
             this.lbl_gameOutcome.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // btn_playAgain
             // 
             this.btn_playAgain.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.btn_playAgain.Font = new System.Drawing.Font("Franklin Gothic Medium Cond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_playAgain.Location = new System.Drawing.Point(317, 294);
+            this.btn_playAgain.Location = new System.Drawing.Point(211, 191);
+            this.btn_playAgain.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btn_playAgain.Name = "btn_playAgain";
-            this.btn_playAgain.Size = new System.Drawing.Size(176, 98);
+            this.btn_playAgain.Size = new System.Drawing.Size(117, 64);
             this.btn_playAgain.TabIndex = 1;
             this.btn_playAgain.Text = "Play Again";
             this.btn_playAgain.UseVisualStyleBackColor = false;
@@ -67,9 +69,10 @@
             // 
             this.btn_reviewGame.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.btn_reviewGame.Font = new System.Drawing.Font("Franklin Gothic Medium Cond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_reviewGame.Location = new System.Drawing.Point(539, 294);
+            this.btn_reviewGame.Location = new System.Drawing.Point(359, 191);
+            this.btn_reviewGame.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btn_reviewGame.Name = "btn_reviewGame";
-            this.btn_reviewGame.Size = new System.Drawing.Size(176, 98);
+            this.btn_reviewGame.Size = new System.Drawing.Size(117, 64);
             this.btn_reviewGame.TabIndex = 2;
             this.btn_reviewGame.Text = "Review Game";
             this.btn_reviewGame.UseVisualStyleBackColor = false;
@@ -79,9 +82,10 @@
             // 
             this.btn_StatsGO.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.btn_StatsGO.Font = new System.Drawing.Font("Franklin Gothic Medium Cond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_StatsGO.Location = new System.Drawing.Point(92, 294);
+            this.btn_StatsGO.Location = new System.Drawing.Point(61, 191);
+            this.btn_StatsGO.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btn_StatsGO.Name = "btn_StatsGO";
-            this.btn_StatsGO.Size = new System.Drawing.Size(176, 98);
+            this.btn_StatsGO.Size = new System.Drawing.Size(117, 64);
             this.btn_StatsGO.TabIndex = 3;
             this.btn_StatsGO.Text = "Game Statistics";
             this.btn_StatsGO.UseVisualStyleBackColor = false;
@@ -89,16 +93,17 @@
             // 
             // GameOver
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.BackgroundImage = global::ConnectFour_Group2.Properties.Resources.graybackground;
-            this.ClientSize = new System.Drawing.Size(815, 510);
+            this.ClientSize = new System.Drawing.Size(543, 332);
             this.Controls.Add(this.btn_StatsGO);
             this.Controls.Add(this.btn_reviewGame);
             this.Controls.Add(this.btn_playAgain);
             this.Controls.Add(this.lbl_gameOutcome);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "GameOver";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = " Game Over";
