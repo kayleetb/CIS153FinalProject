@@ -242,7 +242,6 @@ namespace ConnectFour_Group2
                                 }
                                 else
                                 {
-                                    //pattern.Clear();
                                     consecutive = false;
                                 }
                             }
@@ -257,7 +256,6 @@ namespace ConnectFour_Group2
                                 }
                                 else
                                 {
-                                    //pattern.Clear();
                                     consecutive = false;
                                 }
                             }
@@ -278,7 +276,6 @@ namespace ConnectFour_Group2
                                 }
                                 else
                                 {
-                                    //pattern.Clear();
                                     consecutive = false;
 
                                 }
@@ -305,7 +302,6 @@ namespace ConnectFour_Group2
                                     }
                                     else
                                     {
-                                        //pattern.Clear();
                                         consecutive = false;
                                     }
 
@@ -333,13 +329,11 @@ namespace ConnectFour_Group2
                                     }
                                     else
                                     {
-                                        pattern.Clear();
                                         consecutive = false;
                                     }
                                 }
                                 else
                                 {
-                                    pattern.Clear();
                                     consecutive = false;
                                 }
                             }
@@ -375,7 +369,6 @@ namespace ConnectFour_Group2
                                 }
                                 else
                                 {
-                                    pattern.Clear();
                                     consecutive = false;
 
                                 }
@@ -740,9 +733,24 @@ namespace ConnectFour_Group2
                                 }
                             }
 
-                            if (pattern[0].row < 5 && pattern[1].col < 5)
+                            if (pattern[1].row == 0 && pattern[0].col > 1)
                             {
-                                
+                                lCell = board.getCell(pattern[0].row + 1, pattern[0].col - 1);
+
+                                if(lCell.getVal() == Cell.value.empty)
+                                {
+                                    lCell = board.getCell(pattern[0].row + 2, pattern[0].col - 2);
+
+                                    if(lCell.getVal() == Cell.value.p1)
+                                    {
+                                        lCell = board.getCell(pattern[0].row + 2, pattern[0].col - 1);
+
+                                        if(lCell.getVal() != Cell.value.empty)
+                                        {
+                                            move = pattern[0].col - 1;
+                                        }
+                                    }
+                                }
                             }
 
 
