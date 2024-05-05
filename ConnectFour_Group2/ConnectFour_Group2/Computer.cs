@@ -61,10 +61,10 @@ namespace ConnectFour_Group2
             {
                 return true;
             }
-            if (upperRightBlock(board))
-            {
-                return true;
-            }
+            //if (upperRightBlock(board))
+            //{
+            //    return true;
+            //}
             //if (upperLeftBlock(board))
             //{
             //    return true;
@@ -1154,7 +1154,7 @@ namespace ConnectFour_Group2
                                     {
                                         rCell = board.getCell(pattern[1].row, pattern[1].col + 2);
 
-                                        if (rCell.getVal() == Cell.value.ai)
+                                        if (rCell.getVal() == Cell.value.p1)
                                         {
                                             move = pattern[1].col + 1;
                                             return true;
@@ -1173,7 +1173,7 @@ namespace ConnectFour_Group2
                                     {
                                         lCell = board.getCell(pattern[0].row, pattern[0].col - 2);
 
-                                        if (lCell.getVal() == Cell.value.ai)
+                                        if (lCell.getVal() == Cell.value.p1)
                                         {
                                             move = pattern[0].col - 1;
                                             return true;
@@ -1182,27 +1182,27 @@ namespace ConnectFour_Group2
                                 }
 
                                 //if not starting at edge then evaluate both sides
-                                if (pattern[0].col > 1 && pattern[1].col < 5)
+                                if (pattern[0].col > 0 && pattern[1].col < 6)
                                 {
                                     lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
                                     rCell = board.getCell(pattern[1].row, pattern[1].col + 1);
 
-                                    if (lCell.getVal() == Cell.value.empty)
+                                    if (pattern[0].col > 1 && lCell.getVal() == Cell.value.empty)
                                     {
                                         lCell = board.getCell(pattern[0].row, pattern[0].col - 2);
 
-                                        if (lCell.getVal() == Cell.value.ai)
+                                        if (lCell.getVal() == Cell.value.p1)
                                         {
                                             move = pattern[0].col - 1;
                                             return true;
                                         }
                                     }
 
-                                    if (rCell.getVal() == Cell.value.empty)
+                                    if (pattern[1].col < 5 && rCell.getVal() == Cell.value.empty)
                                     {
                                         rCell = board.getCell(pattern[1].row, pattern[1].col + 2);
 
-                                        if (rCell.getVal() == Cell.value.ai)
+                                        if (rCell.getVal() == Cell.value.p1)
                                         {
                                             move = pattern[1].col + 1;
                                             return true;
@@ -1272,18 +1272,18 @@ namespace ConnectFour_Group2
                                 }
 
                                 //if not starting at edge then evaluate both sides
-                                if (pattern[0].col > 1 && pattern[1].col < 5)
+                                if (pattern[0].col > 0 && pattern[1].col < 6)
                                 {
                                     Console.WriteLine("Upper two consecutive");
 
                                     lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
                                     rCell = board.getCell(pattern[1].row, pattern[1].col + 1);
 
-                                    if (lCell.getVal() == Cell.value.empty)
+                                    if (pattern[0].col - 2 > 0 && lCell.getVal() == Cell.value.empty)
                                     {
                                         lCell = board.getCell(pattern[0].row, pattern[0].col - 2);
 
-                                        if (lCell.getVal() == Cell.value.p1)
+                                        if (lCell.getVal() == Cell.value.ai)
                                         {
 
                                             lCell = board.getCell(pattern[0].row + 1, pattern[0].col - 1);
@@ -1296,11 +1296,11 @@ namespace ConnectFour_Group2
                                         }
                                     }
 
-                                    if (rCell.getVal() == Cell.value.empty)
+                                    if (pattern[1].col + 2 < 6 && rCell.getVal() == Cell.value.empty)
                                     {
                                         rCell = board.getCell(pattern[1].row, pattern[1].col + 2);
 
-                                        if (rCell.getVal() == Cell.value.p1)
+                                        if (rCell.getVal() == Cell.value.ai)
                                         {
                                             rCell = board.getCell(pattern[1].row + 1, pattern[1].col + 1);
 
