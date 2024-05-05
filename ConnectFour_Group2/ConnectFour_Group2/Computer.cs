@@ -224,31 +224,109 @@ namespace ConnectFour_Group2
                             consecutive = false;
                         }
 
-                        if (consecutive && pattern.Count == 3)
-                        {
-                            //checks for block on bottom row
-                            if(pattern[0].row == 5)
-                            {
-                                if(pattern[0].col == 0)
-                                {
-                                    rCell = board.getCell(pattern[2].row, pattern[2].col + 1);
+                    }
 
-                                    if(rCell.getVal() == Cell.value.empty)
+                    if (consecutive && pattern.Count == 3)
+                    {
+                        //checks for block on bottom row
+                        if (pattern[0].row == 5)
+                        {
+                            if (pattern[0].col == 0)
+                            {
+                                rCell = board.getCell(pattern[2].row, pattern[2].col + 1);
+
+                                if (rCell.getVal() == Cell.value.empty)
+                                {
+                                    move = pattern[2].col + 1;
+                                    return true;
+                                }
+                                else
+                                {
+                                    //pattern.Clear();
+                                    consecutive = false;
+                                }
+                            }
+                            else if (pattern[2].col == 6)
+                            {
+                                lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
+
+                                if (lCell.getVal() == Cell.value.empty)
+                                {
+                                    move = pattern[0].col - 1;
+                                    return true;
+                                }
+                                else
+                                {
+                                    //pattern.Clear();
+                                    consecutive = false;
+                                }
+                            }
+                            else
+                            {
+                                lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
+                                rCell = board.getCell(pattern[2].row, pattern[2].col + 1);
+
+                                if (lCell.getVal() == Cell.value.empty)
+                                {
+                                    move = pattern[0].col - 1;
+                                    return true;
+                                }
+                                else if (rCell.getVal() == Cell.value.empty)
+                                {
+                                    move = pattern[2].col + 1;
+                                    return true;
+                                }
+                                else
+                                {
+                                    //pattern.Clear();
+                                    consecutive = false;
+
+                                }
+
+
+                            }
+                        }
+                        //check block if not on bottom row
+                        if (pattern[0].row < 5)
+                        {
+                            if (pattern[0].col == 0)
+                            {
+                                rCell = board.getCell(pattern[2].row, pattern[2].col + 1);
+
+                                if (rCell.getVal() == Cell.value.empty)
+                                {
+
+                                    rCell = board.getCell(pattern[2].row + 1, pattern[2].col + 1);
+
+                                    if (rCell.getVal() != Cell.value.empty)
                                     {
                                         move = pattern[2].col + 1;
                                         return true;
                                     }
                                     else
                                     {
-                                        pattern.Clear();
+                                        //pattern.Clear();
                                         consecutive = false;
                                     }
-                                }
-                                else if(pattern[2].col == 6)
-                                {
-                                    lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
 
-                                    if (lCell.getVal() == Cell.value.empty)
+                                }
+                                else
+                                {
+                                    
+                                    consecutive = false;
+                                }
+                            }
+
+
+                            if (pattern[2].col == 6)
+                            {
+                                lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
+
+                                if (lCell.getVal() == Cell.value.empty)
+                                {
+                                    lCell = board.getCell(pattern[0].row + 1, pattern[0].col - 1);
+
+                                    if (lCell.getVal() != Cell.value.empty)
                                     {
                                         move = pattern[0].col - 1;
                                         return true;
@@ -261,65 +339,178 @@ namespace ConnectFour_Group2
                                 }
                                 else
                                 {
-                                    lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
-                                    rCell = board.getCell(pattern[2].row, pattern[2].col + 1);
+                                    pattern.Clear();
+                                    consecutive = false;
+                                }
+                            }
 
-                                    if (lCell.getVal() == Cell.value.empty)
+                            if (pattern[0].col > 0 && pattern[2].col < 6)
+                            {
+                                lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
+                                rCell = board.getCell(pattern[2].row, pattern[2].col + 1);
+
+                                if (lCell.getVal() == Cell.value.empty)
+                                {
+                                    lCell = board.getCell(pattern[0].row + 1, pattern[0].col - 1);
+
+                                    if (lCell.getVal() != Cell.value.empty)
                                     {
                                         move = pattern[0].col - 1;
                                         return true;
                                     }
-                                    else if(rCell.getVal() == Cell.value.empty)
+
+
+                                }
+
+                                if (rCell.getVal() == Cell.value.empty)
+                                {
+                                    rCell = board.getCell(pattern[2].row + 1, pattern[2].col + 1);
+
+                                    if (rCell.getVal() != Cell.value.empty)
                                     {
                                         move = pattern[2].col + 1;
                                         return true;
                                     }
-                                    else
-                                    {
-                                        pattern.Clear();
-                                        consecutive = false;
-                                        
-                                    }
 
+                                }
+                                else
+                                {
+                                    pattern.Clear();
+                                    consecutive = false;
 
                                 }
                             }
-                            //check block if not on bottom row
-                            else
+                        }
+                    }
+
+                    if (twoConsecutive && pattern.Count == 2)
+                    {
+                        Console.WriteLine("Two consecutive");
+
+                        for (int i = 0; i < pattern.Count; i++)
+                        {
+                            Console.WriteLine("Pattern " + i + " R: " + pattern[i].row + " C: " + pattern[i].col);
+                        }
+
+                        //checks for if pattern is on bottom row so you dont go out of bounds
+                        if (pattern[0].row == 5)
+                        {
+                            Console.WriteLine("Bottom two consecutive");
+
+                            //if consecutive 2 are on the left edge of the board only evaluate the right side of the pattern
+                            if (pattern[0].col == 0)
                             {
-                                if (pattern[0].col == 0)
+                                Console.WriteLine("Bottom left consecutive");
+                                rCell = board.getCell(pattern[1].row, pattern[1].col + 1);
+
+                                if (rCell.getVal() == Cell.value.empty)
                                 {
-                                    rCell = board.getCell(pattern[2].row, pattern[2].col + 1);
+                                    rCell = board.getCell(pattern[1].row, pattern[1].col + 2);
 
-                                    if (rCell.getVal() == Cell.value.empty)
+                                    if (rCell.getVal() == Cell.value.p1)
                                     {
+                                        move = pattern[1].col + 1;
+                                        return true;
+                                    }
+                                }
 
-                                        rCell = board.getCell(pattern[2].row + 1, pattern[2].col + 1);
+                            }
 
-                                        if(rCell.getVal() != Cell.value.empty)
-                                        {
-                                            move = pattern[2].col + 1;
-                                            return true;
-                                        }
-                                        else
-                                        {
-                                            pattern.Clear();
-                                            consecutive = false;
-                                        }
+                            //if consecutive 2 are on the right edge of the board only evaluate the left side of the pattern
+                            if (pattern[1].col == 6)
+                            {
+                                Console.WriteLine("Bottom right consecutive");
+                                lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
 
+                                if (lCell.getVal() == Cell.value.empty)
+                                {
+                                    lCell = board.getCell(pattern[0].row, pattern[0].col - 2);
+
+                                    if (lCell.getVal() == Cell.value.p1)
+                                    {
+                                        move = pattern[0].col - 1;
+                                        return true;
+                                    }
+                                }
+                            }
+
+                            //if not starting at edge then evaluate both sides
+                            if (pattern[0].col > 0 && pattern[1].col < 6)
+                            {
+                                lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
+                                rCell = board.getCell(pattern[1].row, pattern[1].col + 1);
+
+                                if (pattern[0].col > 1 && lCell.getVal() == Cell.value.empty)
+                                {
+                                    lCell = board.getCell(pattern[0].row, pattern[0].col - 2);
+
+                                    if (lCell.getVal() == Cell.value.p1)
+                                    {
+                                        move = pattern[0].col - 1;
+                                        return true;
+                                    }
+                                }
+
+                                if (pattern[1].col < 5 && rCell.getVal() == Cell.value.empty)
+                                {
+                                    rCell = board.getCell(pattern[1].row, pattern[1].col + 2);
+
+                                    if (rCell.getVal() == Cell.value.p1)
+                                    {
+                                        move = pattern[1].col + 1;
+                                        return true;
                                     }
                                     else
                                     {
-                                        pattern.Clear();
-                                        consecutive = false;
+                                        twoConsecutive = false;
                                     }
                                 }
-                                
-                                if (pattern[2].col == 6)
+                                else
                                 {
-                                    lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
+                                    twoConsecutive = false;
+                                }
+                            }
 
-                                    if (lCell.getVal() == Cell.value.empty)
+                        }
+
+                        if (pattern[0].row < 5)
+                        {
+
+                            //if consecutive 2 are on the left edge and not on bottom row of the board only evaluate the right side of the pattern and check for empty space on bottom row to not give away the win
+                            if (pattern[0].col == 0)
+                            {
+                                Console.WriteLine("upper left consecutive");
+                                rCell = board.getCell(pattern[1].row, pattern[1].col + 1);
+
+                                if (rCell.getVal() == Cell.value.empty)
+                                {
+                                    rCell = board.getCell(pattern[1].row, pattern[1].col + 2);
+
+                                    if (rCell.getVal() == Cell.value.p1)
+                                    {
+                                        rCell = board.getCell(pattern[1].row + 1, pattern[1].col + 1);
+
+                                        if (rCell.getVal() != Cell.value.empty)
+                                        {
+                                            move = pattern[1].col + 1;
+                                            return true;
+                                        }
+                                    }
+                                }
+
+                            }
+
+                            //if consecutive 2 are on the right edge  and not on the bottom row of the board only evaluate the left side of the pattern and check for empty space on bottom row to not give away the win
+                            if (pattern[1].col == 6)
+                            {
+                                Console.WriteLine("upper right consecutive");
+                                lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
+
+                                if (lCell.getVal() == Cell.value.empty)
+                                {
+                                    lCell = board.getCell(pattern[0].row, pattern[0].col - 2);
+
+                                    if (lCell.getVal() == Cell.value.p1)
                                     {
                                         lCell = board.getCell(pattern[0].row + 1, pattern[0].col - 1);
 
@@ -328,257 +519,68 @@ namespace ConnectFour_Group2
                                             move = pattern[0].col - 1;
                                             return true;
                                         }
-                                        else
+
+                                    }
+                                }
+                            }
+
+                            //if not starting at edge then evaluate both sides
+                            if (pattern[0].col > 0 && pattern[1].col < 6)
+                            {
+                                Console.WriteLine("Upper two consecutive");
+
+                                lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
+                                rCell = board.getCell(pattern[1].row, pattern[1].col + 1);
+
+                                if (pattern[0].col - 2 > 0 && lCell.getVal() == Cell.value.empty)
+                                {
+                                    lCell = board.getCell(pattern[0].row, pattern[0].col - 2);
+
+                                    if (lCell.getVal() == Cell.value.p1)
+                                    {
+
+                                        lCell = board.getCell(pattern[0].row + 1, pattern[0].col - 1);
+
+                                        if (lCell.getVal() != Cell.value.empty)
                                         {
-                                            pattern.Clear();
-                                            consecutive = false;
+                                            move = pattern[0].col - 1;
+                                            return true;
                                         }
+                                    }
+                                }
+
+                                if (pattern[1].col + 2 < 6 && rCell.getVal() == Cell.value.empty)
+                                {
+                                    rCell = board.getCell(pattern[1].row, pattern[1].col + 2);
+
+                                    if (rCell.getVal() == Cell.value.p1)
+                                    {
+                                        rCell = board.getCell(pattern[1].row + 1, pattern[1].col + 1);
+
+                                        if (rCell.getVal() != Cell.value.empty)
+                                        {
+                                            move = pattern[1].col + 1;
+                                            return true;
+                                        }
+
                                     }
                                     else
                                     {
-                                        pattern.Clear();
-                                        consecutive = false;
+                                        twoConsecutive = false;
                                     }
                                 }
                                 else
                                 {
-                                    lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
-                                    rCell = board.getCell(pattern[2].row, pattern[2].col + 1);
-
-                                    if (lCell.getVal() == Cell.value.empty)
-                                    {
-                                        lCell = board.getCell(pattern[0].row + 1, pattern[0].col - 1);
-                                        
-                                        if(lCell.getVal() != Cell.value.empty)
-                                        {
-                                            move = pattern[0].col - 1;
-                                            return true;
-                                        }
-
-
-                                    }
-
-                                    if ( rCell.getVal() == Cell.value.empty)
-                                    {
-                                        rCell = board.getCell(pattern[2].row + 1, pattern[2].col + 1);
-
-                                        if (rCell.getVal() != Cell.value.empty)
-                                        {
-                                            move = pattern[2].col + 1;
-                                            return true;
-                                        }
-
-                                    }
-                                    else
-                                    {
-                                        pattern.Clear();
-                                        consecutive = false;
-
-                                    }
+                                    twoConsecutive = false;
                                 }
                             }
-                        }
 
-                        if (twoConsecutive && pattern.Count == 2)
+                        }
+                        else
                         {
-                            Console.WriteLine("Two consecutive");
-
-                            for(int i = 0;i < pattern.Count; i++)
-                            {
-                                Console.WriteLine("Pattern " + i + " R: " + pattern[i].row + " C: " + pattern[i].col );
-                            }
-
-                            //checks for if pattern is on bottom row so you dont go out of bounds
-                            if (pattern[0].row == 5)
-                            {
-                                Console.WriteLine("Bottom two consecutive");
-
-                                //if consecutive 2 are on the left edge of the board only evaluate the right side of the pattern
-                                if (pattern[0].col == 0)
-                                {
-                                    Console.WriteLine("Bottom left consecutive");
-                                    rCell = board.getCell(pattern[1].row, pattern[1].col + 1);
-
-                                    if (rCell.getVal() == Cell.value.empty)
-                                    {
-                                        rCell = board.getCell(pattern[1].row, pattern[1].col + 2);
-
-                                        if(rCell.getVal() == Cell.value.p1)
-                                        {
-                                            move = pattern[1].col + 1;
-                                            return true;
-                                        }
-                                    }
-
-                                }
-                                
-                                //if consecutive 2 are on the right edge of the board only evaluate the left side of the pattern
-                                if (pattern[1].col == 6)
-                                {
-                                    Console.WriteLine("Bottom right consecutive");
-                                    lCell  = board.getCell(pattern[0].row, pattern[0].col - 1);
-
-                                    if(lCell.getVal() == Cell.value.empty)
-                                    {
-                                        lCell = board.getCell(pattern[0].row, pattern[0].col - 2);
-
-                                        if(lCell.getVal() == Cell.value.p1)
-                                        {
-                                            move = pattern[0].col - 1;
-                                            return true;
-                                        }
-                                    }
-                                }
-                                
-                                //if not starting at edge then evaluate both sides
-                                if(pattern[0].col > 0 && pattern[1].col < 6)
-                                {
-                                    lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
-                                    rCell = board.getCell(pattern[1].row, pattern[1].col + 1);
-
-                                    if (pattern[0].col > 1 && lCell.getVal() == Cell.value.empty)
-                                    {
-                                        lCell = board.getCell(pattern[0].row, pattern[0].col - 2);
-
-                                        if (lCell.getVal() == Cell.value.p1)
-                                        {
-                                            move = pattern[0].col - 1;
-                                            return true;
-                                        }
-                                    }
-
-                                    if (pattern[1].col < 5 && rCell.getVal() == Cell.value.empty)
-                                    {
-                                        rCell = board.getCell(pattern[1].row, pattern[1].col + 2);
-
-                                        if (rCell.getVal() == Cell.value.p1)
-                                        {
-                                            move = pattern[1].col + 1;
-                                            return true;
-                                        }
-                                        else
-                                        {
-                                            twoConsecutive = false;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        twoConsecutive = false;
-                                    }
-                                }
-                                
-                            }
-
-                            if(pattern[0].row < 5)
-                            {
-
-                                //if consecutive 2 are on the left edge and not on bottom row of the board only evaluate the right side of the pattern and check for empty space on bottom row to not give away the win
-                                if (pattern[0].col == 0)
-                                {
-                                    Console.WriteLine("upper left consecutive");
-                                    rCell = board.getCell(pattern[1].row, pattern[1].col + 1);
-
-                                    if (rCell.getVal() == Cell.value.empty)
-                                    {
-                                        rCell = board.getCell(pattern[1].row, pattern[1].col + 2);
-
-                                        if (rCell.getVal() == Cell.value.p1)
-                                        {
-                                            rCell = board.getCell(pattern[1].row + 1, pattern[1].col + 1);
-
-                                            if(rCell.getVal() != Cell.value.empty)
-                                            {
-                                                move = pattern[1].col + 1;
-                                                return true;
-                                            }
-                                        }
-                                    }
-
-                                }
-
-                                //if consecutive 2 are on the right edge  and not on the bottom row of the board only evaluate the left side of the pattern and check for empty space on bottom row to not give away the win
-                                if (pattern[1].col == 6)
-                                {
-                                    Console.WriteLine("upper right consecutive");
-                                    lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
-
-                                    if (lCell.getVal() == Cell.value.empty)
-                                    {
-                                        lCell = board.getCell(pattern[0].row, pattern[0].col - 2);
-
-                                        if (lCell.getVal() == Cell.value.p1)
-                                        {
-                                            lCell = board.getCell(pattern[0].row + 1, pattern[0].col - 1);
-
-                                            if(lCell.getVal() != Cell.value.empty)
-                                            {
-                                                move = pattern[0].col - 1;
-                                                return true;
-                                            }
-
-                                        }
-                                    }
-                                }
-
-                                //if not starting at edge then evaluate both sides
-                                if (pattern[0].col > 0 && pattern[1].col < 6)
-                                {
-                                    Console.WriteLine("Upper two consecutive");
-
-                                    lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
-                                    rCell = board.getCell(pattern[1].row, pattern[1].col + 1);
-
-                                    if (pattern[0].col - 2 > 0 && lCell.getVal() == Cell.value.empty)
-                                    {
-                                        lCell = board.getCell(pattern[0].row, pattern[0].col - 2);
-
-                                        if (lCell.getVal() == Cell.value.p1)
-                                        {
-
-                                            lCell = board.getCell(pattern[0].row + 1, pattern[0].col - 1);
-
-                                            if (lCell.getVal() != Cell.value.empty)
-                                            {
-                                                move = pattern[0].col - 1;
-                                                return true;
-                                            }
-                                        }
-                                    }
-
-                                    if (pattern[1].col + 2 < 6 && rCell.getVal() == Cell.value.empty)
-                                    {
-                                        rCell = board.getCell(pattern[1].row, pattern[1].col + 2);
-
-                                        if (rCell.getVal() == Cell.value.p1)
-                                        {
-                                            rCell = board.getCell(pattern[1].row + 1, pattern[1].col + 1);
-
-                                            if (rCell.getVal() != Cell.value.empty)
-                                            {
-                                                move = pattern[1].col + 1;
-                                                return true;
-                                            }
-
-                                        }
-                                        else
-                                        {
-                                            twoConsecutive = false;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        twoConsecutive = false;
-                                    }
-                                }
-
-                            }
-                            else
-                            {
-                                pattern.Clear();
-                                twoConsecutive = false;
-                            }
+                            pattern.Clear();
+                            twoConsecutive = false;
                         }
-
                     }
                 }
 
@@ -587,6 +589,7 @@ namespace ConnectFour_Group2
             return false;
         }
 
+        //checks diagonally upper right or lower left for blocks
         public bool upperRightBlock(Board board)
         {
             Cell cell;
@@ -595,23 +598,25 @@ namespace ConnectFour_Group2
             List<CoordRC> pattern = new List<CoordRC>();
             CoordRC coord;
             bool consecutive = false;
+            bool twoConsecutive = false;
 
             for (int r = 5; r >=0; r--)
             {
                 for(int c = 0; c < 7; c++)
                 {
                     cell = board.getCell(r, c);
-                    pattern.Clear();
 
                     if (r - 1 > 0 && c + 1 < 6 && cell.getVal() == Cell.value.p1)
                     {
+                        pattern.Clear();
+
                         coord.row = r;
                         coord.col = c;
                         pattern.Add(coord);
 
                         cell = board.getCell(r - 1, c + 1);
 
-                        if(r - 2 > 1 && c + 2 < 6 && cell.getVal() == Cell.value.p1)
+                        if(r - 2 > 0 && c + 2 < 6 && cell.getVal() == Cell.value.p1)
                         {
                             coord.row = r - 1;
                             coord.col = c + 1;
@@ -629,9 +634,17 @@ namespace ConnectFour_Group2
                             }
                             else
                             {
-                                pattern.Clear();
+                                twoConsecutive = true;
                                 
                             }
+                        }
+                        else if(cell.getVal() == Cell.value.p1)
+                        {
+                            coord.row = r - 1;
+                            coord.col = c + 1;
+                            pattern.Add(coord);
+
+                            twoConsecutive = true;
                         }
                         else
                         {
@@ -702,6 +715,38 @@ namespace ConnectFour_Group2
                                 
                             }
                         }
+
+                        if(twoConsecutive && pattern.Count == 2)
+                        {
+                            if (pattern[0].row == 5 && pattern[0].col < 4)
+                            {
+                                rCell = board.getCell(pattern[1].row - 1, pattern[1].col + 1);
+
+                                if(rCell.getVal() == Cell.value.empty)
+                                {
+                                    rCell = board.getCell(pattern[1].row - 2, pattern[1].col + 2);
+
+                                    if(rCell.getVal() == Cell.value.p1)
+                                    {
+                                        rCell = board.getCell(pattern[1].row, pattern[1].col + 1);
+                                        {
+                                            if(rCell.getVal() != Cell.value.empty)
+                                            {
+                                                move = pattern[1].col + 1;
+                                                return true;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (pattern[0].row < 5 && pattern[1].col < 5)
+                            {
+                                
+                            }
+
+
+                        }
                     }
                 }
             }
@@ -709,6 +754,7 @@ namespace ConnectFour_Group2
             return false;
         }
 
+        //checks diagonally upper left or lower right for blocks
         public bool upperLeftBlock(Board board)
         {
 
@@ -967,7 +1013,16 @@ namespace ConnectFour_Group2
                             else
                             {
                                 twoConsecutive = true;
+
                             }
+                        }
+                        else if (cell.getVal() == Cell.value.ai)
+                        {
+                            coord.row = r;
+                            coord.col = c + 1;
+
+                            pattern.Add(coord);
+                            twoConsecutive = true;
                         }
                         else
                         {
@@ -975,32 +1030,109 @@ namespace ConnectFour_Group2
                             consecutive = false;
                         }
 
-                        if (consecutive && pattern.Count == 3)
+                    }
+
+                    if (consecutive && pattern.Count == 3)
+                    {
+                        //checks for block on bottom row
+                        if (pattern[0].row == 5)
                         {
-                            //checks for block on bottom row
-                            if (pattern[0].row == 5)
+                            if (pattern[0].col == 0)
                             {
+                                rCell = board.getCell(pattern[2].row, pattern[2].col + 1);
 
-                                if (pattern[0].col == 0)
+                                if (rCell.getVal() == Cell.value.empty)
                                 {
-                                    rCell = board.getCell(pattern[2].row, pattern[2].col + 1);
+                                    move = pattern[2].col + 1;
+                                    return true;
+                                }
+                                else
+                                {
+                                    //pattern.Clear();
+                                    consecutive = false;
+                                }
+                            }
+                            else if (pattern[2].col == 6)
+                            {
+                                lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
 
-                                    if (rCell.getVal() == Cell.value.empty)
+                                if (lCell.getVal() == Cell.value.empty)
+                                {
+                                    move = pattern[0].col - 1;
+                                    return true;
+                                }
+                                else
+                                {
+                                    //pattern.Clear();
+                                    consecutive = false;
+                                }
+                            }
+                            else
+                            {
+                                lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
+                                rCell = board.getCell(pattern[2].row, pattern[2].col + 1);
+
+                                if (lCell.getVal() == Cell.value.empty)
+                                {
+                                    move = pattern[0].col - 1;
+                                    return true;
+                                }
+                                else if (rCell.getVal() == Cell.value.empty)
+                                {
+                                    move = pattern[2].col + 1;
+                                    return true;
+                                }
+                                else
+                                {
+                                    //pattern.Clear();
+                                    consecutive = false;
+
+                                }
+
+
+                            }
+                        }
+                        //check block if not on bottom row
+                        if (pattern[0].row < 5)
+                        {
+                            if (pattern[0].col == 0)
+                            {
+                                rCell = board.getCell(pattern[2].row, pattern[2].col + 1);
+
+                                if (rCell.getVal() == Cell.value.empty)
+                                {
+
+                                    rCell = board.getCell(pattern[2].row + 1, pattern[2].col + 1);
+
+                                    if (rCell.getVal() != Cell.value.empty)
                                     {
                                         move = pattern[2].col + 1;
                                         return true;
                                     }
                                     else
                                     {
-                                        pattern.Clear();
+                                        //pattern.Clear();
                                         consecutive = false;
                                     }
-                                }
-                                else if (pattern[2].col == 6)
-                                {
-                                    lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
 
-                                    if (lCell.getVal() == Cell.value.empty)
+                                }
+                                else
+                                {
+
+                                    consecutive = false;
+                                }
+                            }
+
+
+                            if (pattern[2].col == 6)
+                            {
+                                lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
+
+                                if (lCell.getVal() == Cell.value.empty)
+                                {
+                                    lCell = board.getCell(pattern[0].row + 1, pattern[0].col - 1);
+
+                                    if (lCell.getVal() != Cell.value.empty)
                                     {
                                         move = pattern[0].col - 1;
                                         return true;
@@ -1013,90 +1145,178 @@ namespace ConnectFour_Group2
                                 }
                                 else
                                 {
-                                    lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
-                                    rCell = board.getCell(pattern[2].row, pattern[2].col + 1);
+                                    pattern.Clear();
+                                    consecutive = false;
+                                }
+                            }
 
-                                    if (lCell.getVal() == Cell.value.empty)
+                            if (pattern[0].col > 0 && pattern[2].col < 6)
+                            {
+                                lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
+                                rCell = board.getCell(pattern[2].row, pattern[2].col + 1);
+
+                                if (lCell.getVal() == Cell.value.empty)
+                                {
+                                    lCell = board.getCell(pattern[0].row + 1, pattern[0].col - 1);
+
+                                    if (lCell.getVal() != Cell.value.empty)
                                     {
                                         move = pattern[0].col - 1;
                                         return true;
                                     }
-                                    else if (rCell.getVal() == Cell.value.empty)
+
+
+                                }
+
+                                if (rCell.getVal() == Cell.value.empty)
+                                {
+                                    rCell = board.getCell(pattern[2].row + 1, pattern[2].col + 1);
+
+                                    if (rCell.getVal() != Cell.value.empty)
                                     {
                                         move = pattern[2].col + 1;
                                         return true;
                                     }
-                                    else
-                                    {
-                                        pattern.Clear();
-                                        consecutive = false;
 
-                                    }
-
+                                }
+                                else
+                                {
+                                    pattern.Clear();
+                                    consecutive = false;
 
                                 }
                             }
-                            //check block if not on bottom row
-                            else
+                        }
+                    }
+
+                    if (twoConsecutive && pattern.Count == 2)
+                    {
+                        Console.WriteLine("Two consecutive");
+
+                        for (int i = 0; i < pattern.Count; i++)
+                        {
+                            Console.WriteLine("Pattern " + i + " R: " + pattern[i].row + " C: " + pattern[i].col);
+                        }
+
+                        //checks for if pattern is on bottom row so you dont go out of bounds
+                        if (pattern[0].row == 5)
+                        {
+                            Console.WriteLine("Bottom two consecutive");
+
+                            //if consecutive 2 are on the left edge of the board only evaluate the right side of the pattern
+                            if (pattern[0].col == 0)
                             {
-                                if (pattern[0].col == 0)
+                                Console.WriteLine("Bottom left consecutive");
+                                rCell = board.getCell(pattern[1].row, pattern[1].col + 1);
+
+                                if (rCell.getVal() == Cell.value.empty)
                                 {
-                                    rCell = board.getCell(pattern[2].row, pattern[2].col + 1);
+                                    rCell = board.getCell(pattern[1].row, pattern[1].col + 2);
 
-                                    if (rCell.getVal() == Cell.value.empty)
+                                    if (rCell.getVal() == Cell.value.ai)
                                     {
-
-                                        rCell = board.getCell(pattern[2].row + 1, pattern[2].col + 1);
-
-                                        if (rCell.getVal() != Cell.value.empty)
-                                        {
-                                            move = pattern[2].col + 1;
-                                            return true;
-                                        }
-                                        else
-                                        {
-                                            pattern.Clear();
-                                            consecutive = false;
-                                        }
-
-                                    }
-                                    else
-                                    {
-                                        pattern.Clear();
-                                        consecutive = false;
+                                        move = pattern[1].col + 1;
+                                        return true;
                                     }
                                 }
-                                else if (pattern[2].col == 6)
+
+                            }
+
+                            //if consecutive 2 are on the right edge of the board only evaluate the left side of the pattern
+                            if (pattern[1].col == 6)
+                            {
+                                Console.WriteLine("Bottom right consecutive");
+                                lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
+
+                                if (lCell.getVal() == Cell.value.empty)
                                 {
-                                    lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
+                                    lCell = board.getCell(pattern[0].row, pattern[0].col - 2);
 
-                                    if (lCell.getVal() == Cell.value.empty)
+                                    if (lCell.getVal() == Cell.value.ai)
                                     {
-                                        lCell = board.getCell(pattern[0].row + 1, pattern[0].col - 1);
+                                        move = pattern[0].col - 1;
+                                        return true;
+                                    }
+                                }
+                            }
 
-                                        if (lCell.getVal() != Cell.value.empty)
-                                        {
-                                            move = pattern[0].col - 1;
-                                            return true;
-                                        }
-                                        else
-                                        {
-                                            pattern.Clear();
-                                            consecutive = false;
-                                        }
+                            //if not starting at edge then evaluate both sides
+                            if (pattern[0].col > 0 && pattern[1].col < 6)
+                            {
+                                lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
+                                rCell = board.getCell(pattern[1].row, pattern[1].col + 1);
+
+                                if (pattern[0].col > 1 && lCell.getVal() == Cell.value.empty)
+                                {
+                                    lCell = board.getCell(pattern[0].row, pattern[0].col - 2);
+
+                                    if (lCell.getVal() == Cell.value.ai)
+                                    {
+                                        move = pattern[0].col - 1;
+                                        return true;
+                                    }
+                                }
+
+                                if (pattern[1].col < 5 && rCell.getVal() == Cell.value.empty)
+                                {
+                                    rCell = board.getCell(pattern[1].row, pattern[1].col + 2);
+
+                                    if (rCell.getVal() == Cell.value.ai)
+                                    {
+                                        move = pattern[1].col + 1;
+                                        return true;
                                     }
                                     else
                                     {
-                                        pattern.Clear();
-                                        consecutive = false;
+                                        twoConsecutive = false;
                                     }
                                 }
                                 else
                                 {
-                                    lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
-                                    rCell = board.getCell(pattern[2].row, pattern[2].col + 1);
+                                    twoConsecutive = false;
+                                }
+                            }
 
-                                    if (lCell.getVal() == Cell.value.empty)
+                        }
+
+                        if (pattern[0].row < 5)
+                        {
+
+                            //if consecutive 2 are on the left edge and not on bottom row of the board only evaluate the right side of the pattern and check for empty space on bottom row to not give away the win
+                            if (pattern[0].col == 0)
+                            {
+                                Console.WriteLine("upper left consecutive");
+                                rCell = board.getCell(pattern[1].row, pattern[1].col + 1);
+
+                                if (rCell.getVal() == Cell.value.empty)
+                                {
+                                    rCell = board.getCell(pattern[1].row, pattern[1].col + 2);
+
+                                    if (rCell.getVal() == Cell.value.ai)
+                                    {
+                                        rCell = board.getCell(pattern[1].row + 1, pattern[1].col + 1);
+
+                                        if (rCell.getVal() != Cell.value.empty)
+                                        {
+                                            move = pattern[1].col + 1;
+                                            return true;
+                                        }
+                                    }
+                                }
+
+                            }
+
+                            //if consecutive 2 are on the right edge  and not on the bottom row of the board only evaluate the left side of the pattern and check for empty space on bottom row to not give away the win
+                            if (pattern[1].col == 6)
+                            {
+                                Console.WriteLine("upper right consecutive");
+                                lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
+
+                                if (lCell.getVal() == Cell.value.empty)
+                                {
+                                    lCell = board.getCell(pattern[0].row, pattern[0].col - 2);
+
+                                    if (lCell.getVal() == Cell.value.ai)
                                     {
                                         lCell = board.getCell(pattern[0].row + 1, pattern[0].col - 1);
 
@@ -1106,230 +1326,67 @@ namespace ConnectFour_Group2
                                             return true;
                                         }
 
-
                                     }
+                                }
+                            }
 
-                                    if (rCell.getVal() == Cell.value.empty)
+                            //if not starting at edge then evaluate both sides
+                            if (pattern[0].col > 0 && pattern[1].col < 6)
+                            {
+                                Console.WriteLine("Upper two consecutive");
+
+                                lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
+                                rCell = board.getCell(pattern[1].row, pattern[1].col + 1);
+
+                                if (pattern[0].col - 2 > 0 && lCell.getVal() == Cell.value.empty)
+                                {
+                                    lCell = board.getCell(pattern[0].row, pattern[0].col - 2);
+
+                                    if (lCell.getVal() == Cell.value.ai)
                                     {
-                                        rCell = board.getCell(pattern[2].row + 1, pattern[2].col + 1);
+
+                                        lCell = board.getCell(pattern[0].row + 1, pattern[0].col - 1);
+
+                                        if (lCell.getVal() != Cell.value.empty)
+                                        {
+                                            move = pattern[0].col - 1;
+                                            return true;
+                                        }
+                                    }
+                                }
+
+                                if (pattern[1].col + 2 < 6 && rCell.getVal() == Cell.value.empty)
+                                {
+                                    rCell = board.getCell(pattern[1].row, pattern[1].col + 2);
+
+                                    if (rCell.getVal() == Cell.value.ai)
+                                    {
+                                        rCell = board.getCell(pattern[1].row + 1, pattern[1].col + 1);
 
                                         if (rCell.getVal() != Cell.value.empty)
                                         {
-                                            move = pattern[2].col + 1;
+                                            move = pattern[1].col + 1;
                                             return true;
                                         }
 
                                     }
                                     else
                                     {
-                                        pattern.Clear();
-                                        consecutive = false;
-
+                                        twoConsecutive = false;
                                     }
                                 }
+                                else
+                                {
+                                    twoConsecutive = false;
+                                }
                             }
-                        }
 
-                        if (twoConsecutive && pattern.Count == 2)
+                        }
+                        else
                         {
-                            Console.WriteLine("Two consecutive");
-
-                            for (int i = 0; i < pattern.Count; i++)
-                            {
-                                Console.WriteLine("Pattern " + i + " R: " + pattern[i].row + " C: " + pattern[i].col);
-                            }
-
-                            //checks for if pattern is on bottom row so you dont go out of bounds
-                            if (pattern[0].row == 5)
-                            {
-                                Console.WriteLine("Bottom two consecutive");
-
-                                //if consecutive 2 are on the left edge of the board only evaluate the right side of the pattern
-                                if (pattern[0].col == 0)
-                                {
-                                    Console.WriteLine("Bottom left consecutive");
-                                    rCell = board.getCell(pattern[1].row, pattern[1].col + 1);
-
-                                    if (rCell.getVal() == Cell.value.empty)
-                                    {
-                                        rCell = board.getCell(pattern[1].row, pattern[1].col + 2);
-
-                                        if (rCell.getVal() == Cell.value.p1)
-                                        {
-                                            move = pattern[1].col + 1;
-                                            return true;
-                                        }
-                                    }
-
-                                }
-
-                                //if consecutive 2 are on the right edge of the board only evaluate the left side of the pattern
-                                if (pattern[1].col == 6)
-                                {
-                                    Console.WriteLine("Bottom right consecutive");
-                                    lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
-
-                                    if (lCell.getVal() == Cell.value.empty)
-                                    {
-                                        lCell = board.getCell(pattern[0].row, pattern[0].col - 2);
-
-                                        if (lCell.getVal() == Cell.value.p1)
-                                        {
-                                            move = pattern[0].col - 1;
-                                            return true;
-                                        }
-                                    }
-                                }
-
-                                //if not starting at edge then evaluate both sides
-                                if (pattern[0].col > 0 && pattern[1].col < 6)
-                                {
-                                    lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
-                                    rCell = board.getCell(pattern[1].row, pattern[1].col + 1);
-
-                                    if (pattern[0].col > 1 && lCell.getVal() == Cell.value.empty)
-                                    {
-                                        lCell = board.getCell(pattern[0].row, pattern[0].col - 2);
-
-                                        if (lCell.getVal() == Cell.value.p1)
-                                        {
-                                            move = pattern[0].col - 1;
-                                            return true;
-                                        }
-                                    }
-
-                                    if (pattern[1].col < 5 && rCell.getVal() == Cell.value.empty)
-                                    {
-                                        rCell = board.getCell(pattern[1].row, pattern[1].col + 2);
-
-                                        if (rCell.getVal() == Cell.value.p1)
-                                        {
-                                            move = pattern[1].col + 1;
-                                            return true;
-                                        }
-                                        else
-                                        {
-                                            twoConsecutive = false;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        twoConsecutive = false;
-                                    }
-                                }
-
-                            }
-
-                            if (pattern[0].row < 5)
-                            {
-
-                                //if consecutive 2 are on the left edge and not on bottom row of the board only evaluate the right side of the pattern and check for empty space on bottom row to not give away the win
-                                if (pattern[0].col == 0)
-                                {
-                                    Console.WriteLine("upper left consecutive");
-                                    rCell = board.getCell(pattern[1].row, pattern[1].col + 1);
-
-                                    if (rCell.getVal() == Cell.value.empty)
-                                    {
-                                        rCell = board.getCell(pattern[1].row, pattern[1].col + 2);
-
-                                        if (rCell.getVal() == Cell.value.p1)
-                                        {
-                                            rCell = board.getCell(pattern[1].row + 1, pattern[1].col + 1);
-
-                                            if (rCell.getVal() != Cell.value.empty)
-                                            {
-                                                move = pattern[1].col + 1;
-                                                return true;
-                                            }
-                                        }
-                                    }
-
-                                }
-
-                                //if consecutive 2 are on the right edge  and not on the bottom row of the board only evaluate the left side of the pattern and check for empty space on bottom row to not give away the win
-                                if (pattern[1].col == 6)
-                                {
-                                    Console.WriteLine("upper right consecutive");
-                                    lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
-
-                                    if (lCell.getVal() == Cell.value.empty)
-                                    {
-                                        lCell = board.getCell(pattern[0].row, pattern[0].col - 2);
-
-                                        if (lCell.getVal() == Cell.value.p1)
-                                        {
-                                            lCell = board.getCell(pattern[0].row + 1, pattern[0].col - 1);
-
-                                            if (lCell.getVal() != Cell.value.empty)
-                                            {
-                                                move = pattern[0].col - 1;
-                                                return true;
-                                            }
-
-                                        }
-                                    }
-                                }
-
-                                //if not starting at edge then evaluate both sides
-                                if (pattern[0].col > 0 && pattern[1].col < 6)
-                                {
-                                    Console.WriteLine("Upper two consecutive");
-
-                                    lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
-                                    rCell = board.getCell(pattern[1].row, pattern[1].col + 1);
-
-                                    if (pattern[0].col - 2 > 0 && lCell.getVal() == Cell.value.empty)
-                                    {
-                                        lCell = board.getCell(pattern[0].row, pattern[0].col - 2);
-
-                                        if (lCell.getVal() == Cell.value.ai)
-                                        {
-
-                                            lCell = board.getCell(pattern[0].row + 1, pattern[0].col - 1);
-
-                                            if (lCell.getVal() != Cell.value.empty)
-                                            {
-                                                move = pattern[0].col - 1;
-                                                return true;
-                                            }
-                                        }
-                                    }
-
-                                    if (pattern[1].col + 2 < 6 && rCell.getVal() == Cell.value.empty)
-                                    {
-                                        rCell = board.getCell(pattern[1].row, pattern[1].col + 2);
-
-                                        if (rCell.getVal() == Cell.value.ai)
-                                        {
-                                            rCell = board.getCell(pattern[1].row + 1, pattern[1].col + 1);
-
-                                            if (rCell.getVal() != Cell.value.empty)
-                                            {
-                                                move = pattern[1].col + 1;
-                                                return true;
-                                            }
-
-                                        }
-                                        else
-                                        {
-                                            twoConsecutive = false;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        twoConsecutive = false;
-                                    }
-                                }
-
-                            }
-                            else
-                            {
-                                pattern.Clear();
-                                twoConsecutive = false;
-                            }
+                            pattern.Clear();
+                            twoConsecutive = false;
                         }
-
                     }
                 }
 
