@@ -38,7 +38,7 @@ namespace ConnectFour_Group2
                     cell = board.getCell(0, move);
                 }
 
-                return move = rnd.Next(0, 6);
+                //return move = rnd.Next(0, 6);
             }
 
 			return -1;
@@ -47,22 +47,22 @@ namespace ConnectFour_Group2
         public bool evalMove(Board board)
         {
 
-            if(vertWin(board))
-            {
-                return true;
-            }
-            if(horzWin(board))
-            {
-                return true;
-            }
-            if (upperRightWin(board))
-            {
-                return true;
-            }
-            if (upperLeftWin(board))
-            {
-                return true;
-            }
+            //if(vertWin(board))
+            //{
+            //    return true;
+            //}
+            //if(horzWin(board))
+            //{
+            //    return true;
+            //}
+            //if (upperRightWin(board))
+            //{
+            //    return true;
+            //}
+            //if (upperLeftWin(board))
+            //{
+            //    return true;
+            //}
             if (vertBlock(board))
             {
                 return true;
@@ -176,6 +176,7 @@ namespace ConnectFour_Group2
             List<CoordRC> pattern = new List<CoordRC>();
             CoordRC coord;
             bool consecutive = false;
+            bool twoConsecutive = false;
 
 
 
@@ -185,7 +186,7 @@ namespace ConnectFour_Group2
                 {
                     cell = board.getCell(r, c);
 
-                    if (c + 1 < 7 && cell.getVal() == Cell.value.p1)
+                    if (c + 1 < 6 && cell.getVal() == Cell.value.p1)
                     {
                         pattern.Clear();
                         coord.row = r;
@@ -195,7 +196,7 @@ namespace ConnectFour_Group2
 
                         cell = board.getCell(r, c + 1);
 
-                        if(c + 2 < 7 && cell.getVal() == Cell.value.p1)
+                        if(c + 2 < 6 && cell.getVal() == Cell.value.p1)
                         {
                             coord.row = r;
                             coord.col = c + 1;
@@ -215,8 +216,7 @@ namespace ConnectFour_Group2
                             }
                             else
                             {
-                                pattern.Clear();
-                                consecutive = false;
+                                twoConsecutive = true;
                             }
                         }
                         else
@@ -376,6 +376,99 @@ namespace ConnectFour_Group2
                                         consecutive = false;
 
                                     }
+                                }
+                            }
+                        }
+
+                        if(twoConsecutive)
+                        {
+                            Console.WriteLine("Two consecutive");
+
+                            //checks for if pattern is on bottom row so you dont go out of bounds
+                            if (pattern[0].row == 5 && pattern[0].col > 1 && pattern[1].col < 5)
+                            {
+                                Console.WriteLine("Bottom two consecutive");
+
+                                lCell= board.getCell(pattern[0].row, pattern[0].col - 1);
+                                rCell = board.getCell(pattern[1].row, pattern[1].col + 1);
+
+                                if(lCell.getVal() == Cell.value.empty)
+                                {
+                                    lCell = board.getCell(pattern[0].row, pattern[0].col - 2);
+
+                                    if (lCell.getVal() == Cell.value.p1)
+                                    {
+                                        move = pattern[0].col - 1;
+                                        return true;
+                                    }
+                                }
+
+                                if(rCell.getVal() == Cell.value.empty)
+                                {
+                                    rCell = board.getCell(pattern[1].row, pattern[1].col + 2);
+
+                                    if(rCell.getVal() == Cell.value.p1)
+                                    {
+                                        move = pattern[1].col + 1;
+                                        return true;
+                                    }
+                                    else
+                                    {
+                                        twoConsecutive = false;
+                                    }
+                                }
+                                else
+                                {
+                                    twoConsecutive = false;
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("Bottom two consecutive");
+
+                                lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
+                                rCell = board.getCell(pattern[1].row, pattern[1].col + 1);
+
+                                if (lCell.getVal() == Cell.value.empty)
+                                {
+                                    lCell = board.getCell(pattern[0].row, pattern[0].col - 2);
+
+                                    if (lCell.getVal() == Cell.value.p1)
+                                    {
+
+                                        lCell = board.getCell(pattern[0].row + 1, pattern[0].col - 1);
+
+                                        if(lCell.getVal() != Cell.value.empty)
+                                        {
+                                            move = pattern[0].col - 1;
+                                            return true;
+                                        }
+                                    }
+                                }
+
+                                if (rCell.getVal() == Cell.value.empty)
+                                {
+                                    rCell = board.getCell(pattern[1].row, pattern[1].col + 2);
+
+                                    if (rCell.getVal() == Cell.value.p1)
+                                    {
+                                        rCell= board.getCell(pattern[1].row + 1, pattern[1].col + 1);
+
+                                        if(rCell.getVal() != Cell.value.empty)
+                                        {
+                                            move = pattern[1].col + 1;
+                                            return true;
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        twoConsecutive = false;
+                                    }
+                                }
+                                else
+                                {
+                                    twoConsecutive = false;
                                 }
                             }
                         }
@@ -727,6 +820,7 @@ namespace ConnectFour_Group2
             List<CoordRC> pattern = new List<CoordRC>();
             CoordRC coord;
             bool consecutive = false;
+            bool twoConsecutive = false;
 
 
 
@@ -766,8 +860,7 @@ namespace ConnectFour_Group2
                             }
                             else
                             {
-                                pattern.Clear();
-                                consecutive = false;
+                                twoConsecutive = true;
                             }
                         }
                         else
@@ -927,6 +1020,99 @@ namespace ConnectFour_Group2
                                         consecutive = false;
 
                                     }
+                                }
+                            }
+                        }
+
+                        if (twoConsecutive)
+                        {
+                            Console.WriteLine("Two consecutive");
+
+                            //checks for if pattern is on bottom row so you dont go out of bounds
+                            if (pattern[0].row == 5 && pattern[0].col > 1 && pattern[1].col < 5)
+                            {
+                                Console.WriteLine("Bottom two consecutive");
+
+                                lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
+                                rCell = board.getCell(pattern[1].row, pattern[1].col + 1);
+
+                                if (lCell.getVal() == Cell.value.empty)
+                                {
+                                    lCell = board.getCell(pattern[0].row, pattern[0].col - 2);
+
+                                    if (lCell.getVal() == Cell.value.p1)
+                                    {
+                                        move = pattern[0].col - 1;
+                                        return true;
+                                    }
+                                }
+
+                                if (rCell.getVal() == Cell.value.empty)
+                                {
+                                    rCell = board.getCell(pattern[1].row, pattern[1].col + 2);
+
+                                    if (rCell.getVal() == Cell.value.p1)
+                                    {
+                                        move = pattern[1].col + 1;
+                                        return true;
+                                    }
+                                    else
+                                    {
+                                        twoConsecutive = false;
+                                    }
+                                }
+                                else
+                                {
+                                    twoConsecutive = false;
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("Bottom two consecutive");
+
+                                lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
+                                rCell = board.getCell(pattern[1].row, pattern[1].col + 1);
+
+                                if (lCell.getVal() == Cell.value.empty)
+                                {
+                                    lCell = board.getCell(pattern[0].row, pattern[0].col - 2);
+
+                                    if (lCell.getVal() == Cell.value.p1)
+                                    {
+
+                                        lCell = board.getCell(pattern[0].row + 1, pattern[0].col - 1);
+
+                                        if (lCell.getVal() != Cell.value.empty)
+                                        {
+                                            move = pattern[0].col - 1;
+                                            return true;
+                                        }
+                                    }
+                                }
+
+                                if (rCell.getVal() == Cell.value.empty)
+                                {
+                                    rCell = board.getCell(pattern[1].row, pattern[1].col + 2);
+
+                                    if (rCell.getVal() == Cell.value.p1)
+                                    {
+                                        rCell = board.getCell(pattern[1].row + 1, pattern[1].col + 1);
+
+                                        if (rCell.getVal() != Cell.value.empty)
+                                        {
+                                            move = pattern[1].col + 1;
+                                            return true;
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        twoConsecutive = false;
+                                    }
+                                }
+                                else
+                                {
+                                    twoConsecutive = false;
                                 }
                             }
                         }
