@@ -38,7 +38,7 @@ namespace ConnectFour_Group2
                     cell = board.getCell(0, move);
                 }
 
-                //return move = rnd.Next(0, 6);
+                return move = rnd.Next(0, 6);
             }
 
 			return -1;
@@ -47,22 +47,22 @@ namespace ConnectFour_Group2
         public bool evalMove(Board board)
         {
 
-            //if(vertWin(board))
-            //{
-            //    return true;
-            //}
-            //if(horzWin(board))
-            //{
-            //    return true;
-            //}
-            //if (upperRightWin(board))
-            //{
-            //    return true;
-            //}
-            //if (upperLeftWin(board))
-            //{
-            //    return true;
-            //}
+            if (vertWin(board))
+            {
+                return true;
+            }
+            if (horzWin(board))
+            {
+                return true;
+            }
+            if (upperRightWin(board))
+            {
+                return true;
+            }
+            if (upperLeftWin(board))
+            {
+                return true;
+            }
             if (vertBlock(board))
             {
                 return true;
