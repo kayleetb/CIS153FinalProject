@@ -11,13 +11,13 @@ namespace ConnectFour_Group2
 
         public int compMove(Board board)
         {
-            Cell cell;
+
 
             //computer always takes 5,3 first so player can not get 4 on bottom row (unless player takes it first)
             if (board.getCell(5, 3).getVal() == Cell.value.empty)
             {
                 Console.WriteLine("comp if");
-				return 3;
+				//return 3;
             }
             
             if (evalMove(board))
@@ -61,10 +61,10 @@ namespace ConnectFour_Group2
             {
                 return true;
             }
-            //if (upperRightBlock(board))
-            //{
-            //    return true;
-            //}
+            if (upperRightBlock(board))
+            {
+                return true;
+            }
             //if (upperLeftBlock(board))
             //{
             //    return true;
@@ -431,12 +431,12 @@ namespace ConnectFour_Group2
                                 }
                                 
                                 //if not starting at edge then evaluate both sides
-                                if(pattern[0].col > 1 && pattern[1].col < 5)
+                                if(pattern[0].col > 0 && pattern[1].col < 6)
                                 {
                                     lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
                                     rCell = board.getCell(pattern[1].row, pattern[1].col + 1);
 
-                                    if (lCell.getVal() == Cell.value.empty)
+                                    if (pattern[0].col > 1 && lCell.getVal() == Cell.value.empty)
                                     {
                                         lCell = board.getCell(pattern[0].row, pattern[0].col - 2);
 
@@ -447,7 +447,7 @@ namespace ConnectFour_Group2
                                         }
                                     }
 
-                                    if (rCell.getVal() == Cell.value.empty)
+                                    if (pattern[1].col < 5 && rCell.getVal() == Cell.value.empty)
                                     {
                                         rCell = board.getCell(pattern[1].row, pattern[1].col + 2);
 
@@ -521,14 +521,14 @@ namespace ConnectFour_Group2
                                 }
 
                                 //if not starting at edge then evaluate both sides
-                                if (pattern[0].col > 1 && pattern[1].col < 5)
+                                if (pattern[0].col > 0 && pattern[1].col < 6)
                                 {
                                     Console.WriteLine("Upper two consecutive");
 
                                     lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
                                     rCell = board.getCell(pattern[1].row, pattern[1].col + 1);
 
-                                    if (lCell.getVal() == Cell.value.empty)
+                                    if (pattern[0].col - 2 > 0 && lCell.getVal() == Cell.value.empty)
                                     {
                                         lCell = board.getCell(pattern[0].row, pattern[0].col - 2);
 
@@ -545,7 +545,7 @@ namespace ConnectFour_Group2
                                         }
                                     }
 
-                                    if (rCell.getVal() == Cell.value.empty)
+                                    if (pattern[1].col + 2 < 6 && rCell.getVal() == Cell.value.empty)
                                     {
                                         rCell = board.getCell(pattern[1].row, pattern[1].col + 2);
 
