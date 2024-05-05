@@ -16,7 +16,6 @@ namespace ConnectFour_Group2
 		private bool isReviewing = true;
 		private bool playerCanPlay;
 
-
         public Game(bool botGame)
         {
             InitializeComponent();
@@ -52,6 +51,7 @@ namespace ConnectFour_Group2
 				/* Begin the bot's turn. */
 				if (botGame)
 				{
+					gameBoard.disableAllCells();
 					playerCanPlay = false;
 					await Task.Delay(667);
 
@@ -59,11 +59,16 @@ namespace ConnectFour_Group2
 					gameDriver.nextTurn();
 
 					playerCanPlay = true;
+					gameBoard.enableAllCells();
 
 					if ((winner = gameBoard.getWinner()) != Board.WINNER_NONE)
 						MainForm.load(new GameOver(this, (Cell.value)winner), false);
+
 				}
-                colPictureBoxes[col].BackgroundImage = Player.PLAYERS[(int)gameDriver.getTurn()].getBackgroundImage();
+				else
+				{
+                    colPictureBoxes[col].BackgroundImage = Player.PLAYERS[(int)gameDriver.getTurn()].getBackgroundImage();
+                }
 
             }
 
@@ -71,6 +76,9 @@ namespace ConnectFour_Group2
 
         private void RoundButton_MouseEnter(object sender, EventArgs e)
         {
+			if (!playerCanPlay)
+				return;
+
 			int r, c;
 
 			c = gameBoard.getTable().GetColumn((Control)sender);
@@ -84,24 +92,26 @@ namespace ConnectFour_Group2
 
 			if (playerCanPlay)
 				colPictureBoxes[c].BackgroundImage = Player.PLAYERS[(int)gameDriver.getTurn()].getBackgroundImage();
-        }
+
+		}
 
         private void RoundButton_MouseLeave(object sender, EventArgs e)
         {
-			int r, c;
+            int r, c;
 
-			c = gameBoard.getTable().GetColumn((Control)sender);
+            c = gameBoard.getTable().GetColumn((Control)sender);
 
-			if (c < 0)
-				return;
+            if (c < 0)
+                return;
 
-			for (r = 0; r < Board.NUM_ROWS; ++r)
-				if (gameBoard.getCell(r, c).getVal() == Cell.value.empty)
-					gameBoard.getCell(r, c).getBtn().BackColor = Player.PLAYERS[(int)Cell.value.empty].getColor();
+            for (r = 0; r < Board.NUM_ROWS; ++r)
+                if (gameBoard.getCell(r, c).getVal() == Cell.value.empty)
+                    gameBoard.getCell(r, c).getBtn().BackColor = Player.PLAYERS[(int)Cell.value.empty].getColor();
 
-			/* Clear the hover chip. */
-			colPictureBoxes[c].BackgroundImage = null;
+            /* Clear the hover chip. */
+            colPictureBoxes[c].BackgroundImage = null;
         }
+
         public void hideTurnLabel()
         {
             lbl_turn.Visible = false;
