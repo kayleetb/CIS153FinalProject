@@ -609,6 +609,7 @@ namespace ConnectFour_Group2
                 {
                     cell = board.getCell(r, c);
 
+                    //checks for bound before setting cell and then adds it to the pattern if it belongs to the player
                     if (r - 1 > 0 && c + 1 < 6 && cell.getVal() == Cell.value.p1)
                     {
                         pattern.Clear();
@@ -714,8 +715,11 @@ namespace ConnectFour_Group2
                         }
                     }
 
+                    //if there is 2 in a row splits checks for a space between two pieces and a single piece
                     if (twoConsecutive && pattern.Count == 2)
                     {
+
+                        //checks up to the right  when on pattern starts on bottom row
                         if (pattern[0].row == 5 && pattern[0].col < 4)
                         {
                             rCell = board.getCell(pattern[1].row - 1, pattern[1].col + 1);
@@ -738,6 +742,7 @@ namespace ConnectFour_Group2
                             }
                         }
 
+                        //checks down to the left when pattern ends at top row
                         if (pattern[1].row == 0 && pattern[0].col > 1)
                         {
                             lCell = board.getCell(pattern[0].row + 1, pattern[0].col - 1);
@@ -759,6 +764,7 @@ namespace ConnectFour_Group2
                             }
                         }
 
+                        //checks for uppper right diagonal when pattern begins at col 6
                         if (pattern[1].row < 3 && pattern[1].col == 6)
                         {
                             lCell = board.getCell(pattern[0].row - 1, pattern[0].col - 1);
@@ -780,6 +786,7 @@ namespace ConnectFour_Group2
                             }
                         }
 
+                        //check for lower left diagonal when the pattern ends at col 0
                         if (pattern[0].row > 2 && pattern[0].col == 0)
                         {
                             rCell = board.getCell(pattern[1].row - 1, pattern[1].col + 1);
@@ -802,6 +809,7 @@ namespace ConnectFour_Group2
 
                         }
 
+                        //checks diagonal upper right and lower left from middle of board
                         if (pattern[0].row < 4 && pattern[0].col > 1 && pattern[1].row > 1 && pattern[1].col < 5)
                         {
                             lCell = board.getCell(pattern[0].row + 1, pattern[0].col - 1 );
@@ -870,8 +878,8 @@ namespace ConnectFour_Group2
                 {
                     cell = board.getCell(r, c);
 
-
-                    if(r - 1 > 0 && c - 1 > 0 && cell.getVal() == Cell.value.p1)
+                    //checks for bound before setting cell and then adds it to the pattern if it belongs to the player
+                    if (r - 1 > 0 && c - 1 > 0 && cell.getVal() == Cell.value.p1)
                     {
                         pattern.Clear();
 
@@ -975,8 +983,11 @@ namespace ConnectFour_Group2
                         }
                     }
 
+                    //if there is 2 in a row splits checks for a space between two pieces and a single piece
                     if (twoConsecutive && pattern.Count == 2)
                     {
+
+                        //checks up to the left  when on pattern starts on bottom row
                         if (pattern[0].row == 5 && pattern[0].col > 2)
                         {
                             lCell = board.getCell(pattern[1].row - 1, pattern[1].col - 1);
@@ -999,6 +1010,7 @@ namespace ConnectFour_Group2
                             }
                         }
 
+                        //checks down to the right when pattern ends at top row
                         if (pattern[1].row == 0 && pattern[0].col < 4)
                         {
                             rCell = board.getCell(pattern[0].row - 1, pattern[0].col + 1);
@@ -1020,6 +1032,7 @@ namespace ConnectFour_Group2
                             }
                         }
 
+                        //checks for uppper left diagonal when pattern begins at col 6
                         if (pattern[0].row > 2 && pattern[0].col == 6)
                         {
                             lCell = board.getCell(pattern[1].row - 1, pattern[1].col - 1);
@@ -1041,7 +1054,8 @@ namespace ConnectFour_Group2
                             }
                         }
 
-                        if (pattern[0].row > 2 && pattern[0].col == 0)
+                        //check for lower right diagonal when the pattern ends at col 0
+                        if (pattern[0].row > 2 && pattern[1].col == 0)
                         {
                             rCell = board.getCell(pattern[1].row - 1, pattern[1].col + 1);
 
@@ -1051,7 +1065,7 @@ namespace ConnectFour_Group2
 
                                 if (rCell.getVal() == Cell.value.p1)
                                 {
-                                    rCell = board.getCell(pattern[0].row, pattern[1].col + 1);
+                                    rCell = board.getCell(pattern[0].row - 2, pattern[1].col + 1);
 
                                     if (rCell.getVal() != Cell.value.empty)
                                     {
@@ -1063,6 +1077,7 @@ namespace ConnectFour_Group2
 
                         }
 
+                        //checks diagonal upper left and lower right from middle of board
                         if (pattern[0].row < 4 && pattern[0].col < 5 && pattern[1].row > 1 && pattern[1].col > 1)
                         {
                             lCell = board.getCell(pattern[1].row - 1, pattern[1].col - 1);
@@ -1623,6 +1638,7 @@ namespace ConnectFour_Group2
             return false;
         }
 
+        //checks diagonally upper right or lower left for win
         public bool upperRightWin(Board board)
         {
 
@@ -1640,6 +1656,7 @@ namespace ConnectFour_Group2
                 {
                     cell = board.getCell(r, c);
 
+                    //checks for bound before setting cell and then adds it to the pattern if it belongs to the ai
                     if (r - 1 > 1 && c + 1 < 6 && cell.getVal() == Cell.value.ai)
                     {
                         coord.row = r;
@@ -1745,8 +1762,10 @@ namespace ConnectFour_Group2
                         }
                     }
 
+                    //if there is 2 in a row splits checks for a space between two pieces and a single piece
                     if (twoConsecutive && pattern.Count == 2)
                     {
+                        //checks up to the right  when on pattern starts on bottom row
                         if (pattern[0].row == 5 && pattern[0].col < 4)
                         {
                             rCell = board.getCell(pattern[1].row - 1, pattern[1].col + 1);
@@ -1769,6 +1788,7 @@ namespace ConnectFour_Group2
                             }
                         }
 
+                        //checks down to the left when pattern ends at top row
                         if (pattern[1].row == 0 && pattern[0].col > 1)
                         {
                             lCell = board.getCell(pattern[0].row + 1, pattern[0].col - 1);
@@ -1790,6 +1810,7 @@ namespace ConnectFour_Group2
                             }
                         }
 
+                        //checks for uppper right diagonal when pattern begins at col 6
                         if (pattern[1].row < 3 && pattern[1].col == 6)
                         {
                             lCell = board.getCell(pattern[0].row - 1, pattern[0].col - 1);
@@ -1811,6 +1832,7 @@ namespace ConnectFour_Group2
                             }
                         }
 
+                        //check for lower left diagonal when the pattern ends at col 0
                         if (pattern[0].row > 2 && pattern[0].col == 0)
                         {
                             rCell = board.getCell(pattern[1].row - 1, pattern[1].col + 1);
@@ -1833,6 +1855,7 @@ namespace ConnectFour_Group2
 
                         }
 
+                        //checks diagonal upper right and lower left from middle of board
                         if (pattern[0].row < 4 && pattern[0].col > 1 && pattern[1].row > 1 && pattern[1].col < 5)
                         {
                             lCell = board.getCell(pattern[0].row + 1, pattern[0].col - 1);
@@ -1882,6 +1905,7 @@ namespace ConnectFour_Group2
             return false;
         }
 
+        //checks diagonally upper left or lower right for win
         public bool upperLeftWin(Board board)
         {
 
@@ -1900,6 +1924,7 @@ namespace ConnectFour_Group2
                 {
                     cell = board.getCell(r, c);
 
+                    //checks for bound before setting cell and then adds it to the pattern if it belongs to the ai
                     if (r - 1 > 0 && c - 1 > 0 && cell.getVal() == Cell.value.ai)
                     {
                         coord.row = r;
@@ -2004,8 +2029,11 @@ namespace ConnectFour_Group2
                         }
                     }
 
+                    //if there is 2 in a row splits checks for a space between two pieces and a single piece
                     if (twoConsecutive && pattern.Count == 2)
                     {
+
+                        //checks up to the left  when on pattern starts on bottom row
                         if (pattern[0].row == 5 && pattern[0].col > 2)
                         {
                             lCell = board.getCell(pattern[1].row - 1, pattern[1].col - 1);
@@ -2028,6 +2056,7 @@ namespace ConnectFour_Group2
                             }
                         }
 
+                        //checks down to the right when pattern ends at top row
                         if (pattern[1].row == 0 && pattern[0].col < 4)
                         {
                             rCell = board.getCell(pattern[0].row - 1, pattern[0].col + 1);
@@ -2049,6 +2078,7 @@ namespace ConnectFour_Group2
                             }
                         }
 
+                        //checks for uppper left diagonal when pattern begins at col 6
                         if (pattern[0].row > 2 && pattern[0].col == 6)
                         {
                             lCell = board.getCell(pattern[1].row - 1, pattern[1].col - 1);
@@ -2070,7 +2100,8 @@ namespace ConnectFour_Group2
                             }
                         }
 
-                        if (pattern[0].row > 2 && pattern[0].col == 0)
+                        //check for lower right diagonal when the pattern ends at col 0
+                        if (pattern[0].row > 2 && pattern[1].col == 0)
                         {
                             rCell = board.getCell(pattern[1].row - 1, pattern[1].col + 1);
 
@@ -2080,7 +2111,7 @@ namespace ConnectFour_Group2
 
                                 if (rCell.getVal() == Cell.value.ai)
                                 {
-                                    rCell = board.getCell(pattern[0].row, pattern[1].col + 1);
+                                    rCell = board.getCell(pattern[0].row - 2, pattern[1].col + 1);
 
                                     if (rCell.getVal() != Cell.value.empty)
                                     {
@@ -2092,6 +2123,7 @@ namespace ConnectFour_Group2
 
                         }
 
+                        //checks diagonal upper left and lower right from middle of board
                         if (pattern[0].row < 4 && pattern[0].col < 5 && pattern[1].row > 1 && pattern[1].col > 1)
                         {
                             lCell = board.getCell(pattern[1].row - 1, pattern[1].col - 1);
