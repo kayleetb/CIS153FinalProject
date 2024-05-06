@@ -55,14 +55,14 @@ namespace ConnectFour_Group2
             {
                 return true;
             }
-            //if (upperRightWin(board))
-            //{
-            //    return true;
-            //}
-            //if (upperLeftWin(board))
-            //{
-            //    return true;
-            //}
+            if (upperRightWin(board))
+            {
+                return true;
+            }
+            if (upperLeftWin(board))
+            {
+                return true;
+            }
             if (vertBlock(board))
             {
                 return true;
@@ -75,10 +75,10 @@ namespace ConnectFour_Group2
             {
                 return true;
             }
-            //if (upperLeftBlock(board))
-            //{
-            //    return true;
-            //}
+            if (upperLeftBlock(board))
+            {
+                return true;
+            }
 
             return false;
         }
@@ -649,10 +649,6 @@ namespace ConnectFour_Group2
 
                             twoConsecutive = true;
                         }
-                        else
-                        {
-                            pattern.Clear();
-                        }
                     }
 
                     if (consecutive && pattern.Count == 3)
@@ -865,6 +861,7 @@ namespace ConnectFour_Group2
             List<CoordRC> pattern = new List<CoordRC>();
             CoordRC coord;
             bool consecutive = false;
+            bool twoConsecutive = false;
 
 
             for(int r = 5; r >= 0; r--)
@@ -872,11 +869,12 @@ namespace ConnectFour_Group2
                 for(int c = 0; c < 7; c++)
                 {
                     cell = board.getCell(r, c);
-                    pattern.Clear();
 
 
                     if(r - 1 > 0 && c - 1 > 0 && cell.getVal() == Cell.value.p1)
                     {
+                        pattern.Clear();
+
                         coord.row = r;
                         coord.col = c;
                         pattern.Add(coord);
@@ -902,74 +900,210 @@ namespace ConnectFour_Group2
                             }
                             else
                             {
-                                pattern.Clear();
+                                twoConsecutive = true;
+                            }
+
+                        }
+                        else if(cell.getVal() == Cell.value.p1)
+                        {
+                            coord.row = r - 1;
+                            coord.col = c - 1;
+                            pattern.Add(coord);
+
+                            twoConsecutive = true;
+                        }
+
+                    }
+
+                    if (consecutive && pattern.Count == 3)
+                    {
+
+                        //upper left check when pattern starts on bottom row
+                        if (pattern[0].row == 5 && pattern[2].col > 0)
+                        {
+
+                            lCell = board.getCell(pattern[2].row, pattern[2].col - 1);
+
+                            if (lCell.getVal() != Cell.value.empty)
+                            {
+                                lCell = board.getCell(pattern[2].row - 1, pattern[2].col - 1);
+
+                                if (lCell.getVal() == Cell.value.empty)
+                                {
+                                    move = pattern[2].col - 1;
+                                    return true;
+                                }
+                            }
+                        }
+
+                        //upper left and lower right check when pattern does not start on bottom row
+                        if (pattern[0].row < 5)
+                        {
+                            Console.WriteLine("upper left off ground");
+                            lCell = board.getCell(pattern[2].row, pattern[2].col - 1);
+                            rCell = board.getCell(pattern[0].row + 1, pattern[0].col + 1);
+
+                            if (rCell.getVal() == Cell.value.empty)
+                            {
+                                Console.WriteLine("Lower right block");
+                                move = pattern[0].col + 1;
+                                return true;
+                            }
+
+                            if (lCell.getVal() != Cell.value.empty)
+                            {
+                                lCell = board.getCell(pattern[2].row - 1, pattern[2].col - 1);
+
+                                if (lCell.getVal() == Cell.value.empty)
+                                {
+                                    move = pattern[2].col - 1;
+                                    return true;
+                                }
+                                else
+                                {
+                                    pattern.Clear();
+                                    consecutive = false;
+                                }
                             }
 
                         }
                         else
                         {
                             pattern.Clear();
-                        }
+                            consecutive = false;
 
-                        if (consecutive && pattern.Count == 3)
+                        }
+                    }
+
+                    if (twoConsecutive && pattern.Count == 2)
+                    {
+                        if (pattern[0].row == 5 && pattern[0].col > 2)
                         {
+                            lCell = board.getCell(pattern[1].row - 1, pattern[1].col - 1);
 
-                            //upper left check when pattern starts on bottom row
-                            if (pattern[0].row == 5 && pattern[2].col > 0)
+                            if (lCell.getVal() == Cell.value.empty)
                             {
-                                
-                                lCell = board.getCell(pattern[2].row, pattern[2].col - 1);
+                                lCell = board.getCell(pattern[1].row - 2, pattern[1].col - 2);
 
-                                if (lCell.getVal() != Cell.value.empty)
+                                if (lCell.getVal() == Cell.value.p1)
                                 {
-                                    lCell = board.getCell(pattern[2].row - 1, pattern[2].col - 1);
-
-                                    if(lCell.getVal() == Cell.value.empty)
+                                    lCell = board.getCell(pattern[1].row, pattern[1].col - 1);
                                     {
-                                        move = pattern[2].col - 1;
-                                        return true;
+                                        if (lCell.getVal() != Cell.value.empty)
+                                        {
+                                            move = pattern[1].col - 1;
+                                            return true;
+                                        }
                                     }
                                 }
-                            }
-
-                            //upper left and lower right check when pattern does not start on bottom row
-                            if(pattern[0].row < 5)
-                            {
-                                Console.WriteLine("upper left off ground");
-                                lCell = board.getCell(pattern[2].row, pattern[2].col - 1);
-                                rCell = board.getCell(pattern[0].row + 1, pattern[0].col + 1);
-
-                                if (rCell.getVal() == Cell.value.empty)
-                                {
-                                    Console.WriteLine("Lower right block");
-                                    move = pattern[0].col + 1;
-                                    return true;
-                                }
-
-                                if(lCell.getVal() != Cell.value.empty)
-                                {
-                                    lCell = board.getCell(pattern[2].row - 1, pattern[2].col - 1);
-
-                                    if(lCell.getVal() == Cell.value.empty)
-                                    {
-                                        move = pattern[2].col - 1;
-                                        return true;
-                                    }
-                                    else
-                                    {
-                                        pattern.Clear();
-                                        consecutive = false;
-                                    }
-                                }
-
-                            }
-                            else
-                            {
-                                pattern.Clear();
-                                consecutive = false;
-                                
                             }
                         }
+
+                        if (pattern[1].row == 0 && pattern[0].col < 4)
+                        {
+                            rCell = board.getCell(pattern[0].row - 1, pattern[0].col + 1);
+
+                            if (rCell.getVal() == Cell.value.empty)
+                            {
+                                rCell = board.getCell(pattern[0].row - 2, pattern[0].col + 2);
+
+                                if (rCell.getVal() == Cell.value.p1)
+                                {
+                                    rCell = board.getCell(pattern[0].row - 2, pattern[0].col + 2);
+
+                                    if (rCell.getVal() != Cell.value.empty)
+                                    {
+                                        move = pattern[0].col + 1;
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+
+                        if (pattern[0].row > 2 && pattern[0].col == 6)
+                        {
+                            lCell = board.getCell(pattern[1].row - 1, pattern[1].col - 1);
+
+                            if (lCell.getVal() == Cell.value.empty)
+                            {
+                                lCell = board.getCell(pattern[1].row - 2, pattern[1].col - 2);
+
+                                if (lCell.getVal() == Cell.value.p1)
+                                {
+                                    lCell = board.getCell(pattern[1].row, pattern[1].col - 1);
+
+                                    if (lCell.getVal() != Cell.value.empty)
+                                    {
+                                        move = pattern[1].col - 1;
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+
+                        if (pattern[0].row > 2 && pattern[0].col == 0)
+                        {
+                            rCell = board.getCell(pattern[1].row - 1, pattern[1].col + 1);
+
+                            if (rCell.getVal() == Cell.value.empty)
+                            {
+                                rCell = board.getCell(pattern[1].row - 2, pattern[1].col + 2);
+
+                                if (rCell.getVal() == Cell.value.p1)
+                                {
+                                    rCell = board.getCell(pattern[0].row, pattern[1].col + 1);
+
+                                    if (rCell.getVal() != Cell.value.empty)
+                                    {
+                                        move = pattern[1].col + 1;
+                                        return true;
+                                    }
+                                }
+                            }
+
+                        }
+
+                        if (pattern[0].row < 4 && pattern[0].col < 5 && pattern[1].row > 1 && pattern[1].col > 1)
+                        {
+                            lCell = board.getCell(pattern[1].row - 1, pattern[1].col - 1);
+                            rCell = board.getCell(pattern[0].row + 1, pattern[0].col + 1);
+
+                            if (lCell.getVal() == Cell.value.empty)
+                            {
+                                lCell = board.getCell(pattern[1].row - 2, pattern[1].col - 2);
+
+                                if (lCell.getVal() == Cell.value.p1)
+                                {
+                                    lCell = board.getCell(pattern[1].row, pattern[1].col - 1);
+
+                                    if (lCell.getVal() != Cell.value.empty)
+                                    {
+                                        move = pattern[1].col - 1;
+                                        return true;
+                                    }
+                                }
+                            }
+
+                            if (rCell.getVal() == Cell.value.empty)
+                            {
+                                rCell = board.getCell(pattern[0].row + 2, pattern[0].col + 2);
+
+                                if (rCell.getVal() == Cell.value.p1)
+                                {
+                                    rCell = board.getCell(pattern[0].row + 2, pattern[0].col + 1);
+
+                                    if (rCell.getVal() != Cell.value.empty)
+                                    {
+                                        move = pattern[0].col + 1;
+                                        return true;
+                                    }
+
+                                }
+                            }
+
+                        }
+
+
 
                     }
                 }
@@ -1536,81 +1670,211 @@ namespace ConnectFour_Group2
 
                             }
                         }
-                        else
+                        else if (cell.getVal() == Cell.value.ai)
                         {
-                            pattern.Clear();
+                            coord.row = r - 1;
+                            coord.col = c + 1;
+                            pattern.Add(coord);
 
+                            twoConsecutive = true;
                         }
+                    }
 
-                        if (consecutive && pattern.Count == 3)
+                    if (consecutive && pattern.Count == 3)
+                    {
+
+                        //upper right check when on bottom of game board
+                        if (pattern[0].row == 5 && pattern[2].col < 6)
                         {
 
-                            //upper right check when on bottom of game board
-                            if (pattern[0].row == 5 && pattern[2].col < 6)
+                            Console.WriteLine("Bottom upper right");
+                            rCell = board.getCell(pattern[2].row, pattern[2].col + 1);
+
+                            if (rCell.getVal() != Cell.value.empty)
                             {
+                                rCell = board.getCell(pattern[2].row - 1, pattern[2].col + 1);
 
-                                Console.WriteLine("Bottom upper right");
-                                rCell = board.getCell(pattern[2].row, pattern[2].col + 1);
-
-                                if (rCell.getVal() != Cell.value.empty)
+                                if (rCell.getVal() == Cell.value.empty)
                                 {
-                                    rCell = board.getCell(pattern[2].row - 1, pattern[2].col + 1);
 
-                                    if (rCell.getVal() == Cell.value.empty)
-                                    {
-
-                                        move = pattern[2].col + 1;
-                                        return true;
-                                    }
-
-                                }
-
-                            }
-
-                            //lower left and upper right check when not on bottom row
-                            if (pattern[0].row < 5)
-                            {
-
-                                lCell = board.getCell(pattern[0].row - 1, pattern[0].col - 1);
-                                rCell = board.getCell(pattern[2].row, pattern[2].col + 1);
-
-                                if (lCell.getVal() == Cell.value.empty)
-                                {
-                                    move = pattern[0].col - 1;
+                                    move = pattern[2].col + 1;
                                     return true;
                                 }
 
-                                if (rCell.getVal() != Cell.value.empty)
-                                {
-                                    rCell = board.getCell(pattern[2].row - 1, pattern[2].col + 1);
+                            }
 
-                                    if (rCell.getVal() == Cell.value.empty)
+                        }
+
+                        //lower left and upper right check when not on bottom row
+                        if (pattern[0].row < 5)
+                        {
+
+                            lCell = board.getCell(pattern[0].row - 1, pattern[0].col - 1);
+                            rCell = board.getCell(pattern[2].row, pattern[2].col + 1);
+
+                            if (lCell.getVal() == Cell.value.empty)
+                            {
+                                move = pattern[0].col - 1;
+                                return true;
+                            }
+
+                            if (rCell.getVal() != Cell.value.empty)
+                            {
+                                rCell = board.getCell(pattern[2].row - 1, pattern[2].col + 1);
+
+                                if (rCell.getVal() == Cell.value.empty)
+                                {
+                                    move = pattern[2].col + 1;
+                                    return true;
+                                }
+                                else
+                                {
+                                    pattern.Clear();
+                                    consecutive = false;
+                                }
+
+                            }
+
+
+                        }
+                        else
+                        {
+                            pattern.Clear();
+                            consecutive = false;
+
+                        }
+                    }
+
+                    if (twoConsecutive && pattern.Count == 2)
+                    {
+                        if (pattern[0].row == 5 && pattern[0].col < 4)
+                        {
+                            rCell = board.getCell(pattern[1].row - 1, pattern[1].col + 1);
+
+                            if (rCell.getVal() == Cell.value.empty)
+                            {
+                                rCell = board.getCell(pattern[1].row - 2, pattern[1].col + 2);
+
+                                if (rCell.getVal() == Cell.value.ai)
+                                {
+                                    rCell = board.getCell(pattern[1].row, pattern[1].col + 1);
                                     {
-                                        move = pattern[2].col + 1;
+                                        if (rCell.getVal() != Cell.value.empty)
+                                        {
+                                            move = pattern[1].col + 1;
+                                            return true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        if (pattern[1].row == 0 && pattern[0].col > 1)
+                        {
+                            lCell = board.getCell(pattern[0].row + 1, pattern[0].col - 1);
+
+                            if (lCell.getVal() == Cell.value.empty)
+                            {
+                                lCell = board.getCell(pattern[0].row + 2, pattern[0].col - 2);
+
+                                if (lCell.getVal() == Cell.value.ai)
+                                {
+                                    lCell = board.getCell(pattern[0].row + 2, pattern[0].col - 1);
+
+                                    if (lCell.getVal() != Cell.value.empty)
+                                    {
+                                        move = pattern[0].col - 1;
                                         return true;
                                     }
-                                    else
+                                }
+                            }
+                        }
+
+                        if (pattern[1].row < 3 && pattern[1].col == 6)
+                        {
+                            lCell = board.getCell(pattern[0].row - 1, pattern[0].col - 1);
+
+                            if (lCell.getVal() == Cell.value.empty)
+                            {
+                                lCell = board.getCell(pattern[0].row - 2, pattern[0].col - 2);
+
+                                if (lCell.getVal() == Cell.value.ai)
+                                {
+                                    lCell = board.getCell(pattern[0].row - 2, pattern[2].col - 1);
+
+                                    if (lCell.getVal() != Cell.value.empty)
                                     {
-                                        pattern.Clear();
-                                        consecutive = false;
+                                        move = pattern[0].col - 1;
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+
+                        if (pattern[0].row > 2 && pattern[0].col == 0)
+                        {
+                            rCell = board.getCell(pattern[1].row - 1, pattern[1].col + 1);
+
+                            if (rCell.getVal() == Cell.value.empty)
+                            {
+                                rCell = board.getCell(pattern[1].row - 2, pattern[1].col + 2);
+
+                                if (rCell.getVal() == Cell.value.ai)
+                                {
+                                    rCell = board.getCell(pattern[0].row - 2, pattern[2].col + 1);
+
+                                    if (rCell.getVal() != Cell.value.empty)
+                                    {
+                                        move = pattern[1].col + 1;
+                                        return true;
+                                    }
+                                }
+                            }
+
+                        }
+
+                        if (pattern[0].row < 4 && pattern[0].col > 1 && pattern[1].row > 1 && pattern[1].col < 5)
+                        {
+                            lCell = board.getCell(pattern[0].row + 1, pattern[0].col - 1);
+                            rCell = board.getCell(pattern[1].row - 1, pattern[1].col + 1);
+
+                            if (lCell.getVal() == Cell.value.empty)
+                            {
+                                lCell = board.getCell(pattern[0].row + 2, pattern[0].col - 2);
+
+                                if (lCell.getVal() == Cell.value.ai)
+                                {
+                                    lCell = board.getCell(pattern[0].row + 2, pattern[0].col - 1);
+
+                                    if (lCell.getVal() != Cell.value.empty)
+                                    {
+                                        move = pattern[0].col - 1;
+                                        return true;
+                                    }
+                                }
+                            }
+
+                            if (rCell.getVal() == Cell.value.empty)
+                            {
+                                rCell = board.getCell(pattern[1].row - 2, pattern[1].col + 2);
+
+                                if (rCell.getVal() == Cell.value.ai)
+                                {
+                                    rCell = board.getCell(pattern[1].row, pattern[1].col + 1);
+
+                                    if (rCell.getVal() != Cell.value.empty)
+                                    {
+                                        move = pattern[1].col + 1;
+                                        return true;
                                     }
 
                                 }
-
-
                             }
-                            else
-                            {
-                                pattern.Clear();
-                                consecutive = false;
 
-                            }
                         }
 
-                        if(twoConsecutive && pattern.Count == 2)
-                        {
 
-                        }
+
                     }
                 }
             }
@@ -1627,6 +1891,7 @@ namespace ConnectFour_Group2
             List<CoordRC> pattern = new List<CoordRC>();
             CoordRC coord;
             bool consecutive = false;
+            bool twoConsecutive = false;
 
 
             for (int r = 5; r >= 0; r--)
@@ -1666,70 +1931,208 @@ namespace ConnectFour_Group2
                             }
 
                         }
+                        else if (cell.getVal() == Cell.value.p1)
+                        {
+                            coord.row = r - 1;
+                            coord.col = c - 1;
+                            pattern.Add(coord);
+
+                            twoConsecutive = true;
+                        }
+
+
+
+                    }
+
+                    if (consecutive && pattern.Count == 3)
+                    {
+
+                        //upper left check when pattern starts on bottom row
+                        if (pattern[0].row == 5 && pattern[2].col > 0)
+                        {
+
+                            lCell = board.getCell(pattern[2].row, pattern[2].col - 1);
+
+                            if (lCell.getVal() != Cell.value.empty)
+                            {
+                                lCell = board.getCell(pattern[2].row - 1, pattern[2].col - 1);
+
+                                if (lCell.getVal() == Cell.value.empty)
+                                {
+                                    move = pattern[2].col - 1;
+                                    return true;
+                                }
+                            }
+                        }
+
+                        //upper left and lower right check when pattern does not start on bottom row
+                        if (pattern[0].row < 5)
+                        {
+                            Console.WriteLine("upper left off ground");
+                            lCell = board.getCell(pattern[2].row, pattern[2].col - 1);
+                            rCell = board.getCell(pattern[0].row + 1, pattern[0].col + 1);
+
+                            if (rCell.getVal() == Cell.value.empty)
+                            {
+                                Console.WriteLine("Lower right block");
+                                move = pattern[0].col + 1;
+                                return true;
+                            }
+
+                            if (lCell.getVal() != Cell.value.empty)
+                            {
+                                lCell = board.getCell(pattern[2].row - 1, pattern[2].col - 1);
+
+                                if (lCell.getVal() == Cell.value.empty)
+                                {
+                                    move = pattern[2].col - 1;
+                                    return true;
+                                }
+                                else
+                                {
+                                    pattern.Clear();
+                                    consecutive = false;
+                                }
+                            }
+
+                        }
                         else
                         {
                             pattern.Clear();
-                        }
+                            consecutive = false;
 
-                        if (consecutive && pattern.Count == 3)
+                        }
+                    }
+
+                    if (twoConsecutive && pattern.Count == 2)
+                    {
+                        if (pattern[0].row == 5 && pattern[0].col > 2)
                         {
+                            lCell = board.getCell(pattern[1].row - 1, pattern[1].col - 1);
 
-                            //upper left check when pattern starts on bottom row
-                            if (pattern[0].row == 5 && pattern[2].col > 0)
+                            if (lCell.getVal() == Cell.value.empty)
                             {
+                                lCell = board.getCell(pattern[1].row - 2, pattern[1].col - 2);
 
-                                lCell = board.getCell(pattern[2].row, pattern[2].col - 1);
-
-                                if (lCell.getVal() != Cell.value.empty)
+                                if (lCell.getVal() == Cell.value.ai)
                                 {
-                                    lCell = board.getCell(pattern[2].row - 1, pattern[2].col - 1);
-
-                                    if (lCell.getVal() == Cell.value.empty)
+                                    lCell = board.getCell(pattern[1].row, pattern[1].col - 1);
                                     {
-                                        move = pattern[2].col - 1;
-                                        return true;
+                                        if (lCell.getVal() != Cell.value.empty)
+                                        {
+                                            move = pattern[1].col - 1;
+                                            return true;
+                                        }
                                     }
                                 }
-                            }
-
-                            //upper left and lower right check when pattern does not start on bottom row
-                            if (pattern[0].row < 5)
-                            {
-                                Console.WriteLine("upper left off ground");
-                                lCell = board.getCell(pattern[2].row, pattern[2].col - 1);
-                                rCell = board.getCell(pattern[0].row + 1, pattern[0].col + 1);
-
-                                if (rCell.getVal() == Cell.value.empty)
-                                {
-                                    Console.WriteLine("Lower right block");
-                                    move = pattern[0].col + 1;
-                                    return true;
-                                }
-
-                                if (lCell.getVal() != Cell.value.empty)
-                                {
-                                    lCell = board.getCell(pattern[2].row - 1, pattern[2].col - 1);
-
-                                    if (lCell.getVal() == Cell.value.empty)
-                                    {
-                                        move = pattern[2].col - 1;
-                                        return true;
-                                    }
-                                    else
-                                    {
-                                        pattern.Clear();
-                                        consecutive = false;
-                                    }
-                                }
-
-                            }
-                            else
-                            {
-                                pattern.Clear();
-                                consecutive = false;
-
                             }
                         }
+
+                        if (pattern[1].row == 0 && pattern[0].col < 4)
+                        {
+                            rCell = board.getCell(pattern[0].row - 1, pattern[0].col + 1);
+
+                            if (rCell.getVal() == Cell.value.empty)
+                            {
+                                rCell = board.getCell(pattern[0].row - 2, pattern[0].col + 2);
+
+                                if (rCell.getVal() == Cell.value.ai)
+                                {
+                                    rCell = board.getCell(pattern[0].row - 2, pattern[0].col + 2);
+
+                                    if (rCell.getVal() != Cell.value.empty)
+                                    {
+                                        move = pattern[0].col + 1;
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+
+                        if (pattern[0].row > 2 && pattern[0].col == 6)
+                        {
+                            lCell = board.getCell(pattern[1].row - 1, pattern[1].col - 1);
+
+                            if (lCell.getVal() == Cell.value.empty)
+                            {
+                                lCell = board.getCell(pattern[1].row - 2, pattern[1].col - 2);
+
+                                if (lCell.getVal() == Cell.value.ai)
+                                {
+                                    lCell = board.getCell(pattern[1].row, pattern[1].col - 1);
+
+                                    if (lCell.getVal() != Cell.value.empty)
+                                    {
+                                        move = pattern[1].col - 1;
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+
+                        if (pattern[0].row > 2 && pattern[0].col == 0)
+                        {
+                            rCell = board.getCell(pattern[1].row - 1, pattern[1].col + 1);
+
+                            if (rCell.getVal() == Cell.value.empty)
+                            {
+                                rCell = board.getCell(pattern[1].row - 2, pattern[1].col + 2);
+
+                                if (rCell.getVal() == Cell.value.ai)
+                                {
+                                    rCell = board.getCell(pattern[0].row, pattern[1].col + 1);
+
+                                    if (rCell.getVal() != Cell.value.empty)
+                                    {
+                                        move = pattern[1].col + 1;
+                                        return true;
+                                    }
+                                }
+                            }
+
+                        }
+
+                        if (pattern[0].row < 4 && pattern[0].col < 5 && pattern[1].row > 1 && pattern[1].col > 1)
+                        {
+                            lCell = board.getCell(pattern[1].row - 1, pattern[1].col - 1);
+                            rCell = board.getCell(pattern[0].row + 1, pattern[0].col + 1);
+
+                            if (lCell.getVal() == Cell.value.empty)
+                            {
+                                lCell = board.getCell(pattern[1].row - 2, pattern[1].col - 2);
+
+                                if (lCell.getVal() == Cell.value.ai)
+                                {
+                                    lCell = board.getCell(pattern[1].row, pattern[1].col - 1);
+
+                                    if (lCell.getVal() != Cell.value.empty)
+                                    {
+                                        move = pattern[1].col - 1;
+                                        return true;
+                                    }
+                                }
+                            }
+
+                            if (rCell.getVal() == Cell.value.empty)
+                            {
+                                rCell = board.getCell(pattern[0].row + 2, pattern[0].col + 2);
+
+                                if (rCell.getVal() == Cell.value.ai)
+                                {
+                                    rCell = board.getCell(pattern[0].row + 2, pattern[0].col + 1);
+
+                                    if (rCell.getVal() != Cell.value.empty)
+                                    {
+                                        move = pattern[0].col + 1;
+                                        return true;
+                                    }
+
+                                }
+                            }
+
+                        }
+
+
 
                     }
                 }
@@ -1740,6 +2143,3 @@ namespace ConnectFour_Group2
         }
     }
 }
-
-
-
