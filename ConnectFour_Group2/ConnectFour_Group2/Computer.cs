@@ -38,7 +38,7 @@ namespace ConnectFour_Group2
 
                 }
 
-                return move;
+                //return move;
             }
 
 			return -1;
@@ -535,7 +535,7 @@ namespace ConnectFour_Group2
                                 lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
                                 rCell = board.getCell(pattern[1].row, pattern[1].col + 1);
 
-                                if (pattern[0].col - 2 > 0 && lCell.getVal() == Cell.value.empty)
+                                if (pattern[0].col - 2 >= 0 && lCell.getVal() == Cell.value.empty)
                                 {
                                     lCell = board.getCell(pattern[0].row, pattern[0].col - 2);
 
@@ -552,7 +552,7 @@ namespace ConnectFour_Group2
                                     }
                                 }
 
-                                if (pattern[1].col + 2 < 6 && rCell.getVal() == Cell.value.empty)
+                                if (pattern[1].col + 2 <= 6 && rCell.getVal() == Cell.value.empty)
                                 {
                                     rCell = board.getCell(pattern[1].row, pattern[1].col + 2);
 
@@ -1144,6 +1144,7 @@ namespace ConnectFour_Group2
 
                     if (r - 1 > 0 && cell.getVal() == Cell.value.ai)
                     {
+                        pattern.Clear();
                         coord.row = r;
                         coord.col = c;
 
@@ -1581,7 +1582,7 @@ namespace ConnectFour_Group2
                                 lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
                                 rCell = board.getCell(pattern[1].row, pattern[1].col + 1);
 
-                                if (pattern[0].col - 2 > 0 && lCell.getVal() == Cell.value.empty)
+                                if (pattern[0].col - 2 >= 0 && lCell.getVal() == Cell.value.empty)
                                 {
                                     lCell = board.getCell(pattern[0].row, pattern[0].col - 2);
 
@@ -1598,7 +1599,7 @@ namespace ConnectFour_Group2
                                     }
                                 }
 
-                                if (pattern[1].col + 2 < 6 && rCell.getVal() == Cell.value.empty)
+                                if (pattern[1].col + 2 <= 6 && rCell.getVal() == Cell.value.empty)
                                 {
                                     rCell = board.getCell(pattern[1].row, pattern[1].col + 2);
 
