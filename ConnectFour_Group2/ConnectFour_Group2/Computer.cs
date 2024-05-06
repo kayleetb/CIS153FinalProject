@@ -16,18 +16,15 @@ namespace ConnectFour_Group2
             //computer always takes 5,3 first so player can not get 4 on bottom row (unless player takes it first)
             if (board.getCell(5, 3).getVal() == Cell.value.empty)
             {
-                Console.WriteLine("comp if");
 				return 3;
             }
             
             if (evalMove(board))
             {
-                Console.WriteLine("comp else if");
 				return move;
             }
             else 
             {
-                Console.WriteLine("comp else");
                 move = rnd.Next(0,6);
 
                 cell = board.getCell(0,move);
@@ -38,7 +35,7 @@ namespace ConnectFour_Group2
 
                 }
 
-                //return move;
+                return move;
             }
 
 			return -1;
@@ -388,22 +385,16 @@ namespace ConnectFour_Group2
 
                     if (twoConsecutive && pattern.Count == 2)
                     {
-                        Console.WriteLine("Two consecutive");
-
-                        for (int i = 0; i < pattern.Count; i++)
-                        {
-                            Console.WriteLine("Pattern " + i + " R: " + pattern[i].row + " C: " + pattern[i].col);
-                        }
 
                         //checks for if pattern is on bottom row so you dont go out of bounds
                         if (pattern[0].row == 5)
                         {
-                            Console.WriteLine("Bottom two consecutive");
+
 
                             //if consecutive 2 are on the left edge of the board only evaluate the right side of the pattern
                             if (pattern[0].col == 0)
                             {
-                                Console.WriteLine("Bottom left consecutive");
+
                                 rCell = board.getCell(pattern[1].row, pattern[1].col + 1);
 
                                 if (rCell.getVal() == Cell.value.empty)
@@ -422,7 +413,7 @@ namespace ConnectFour_Group2
                             //if consecutive 2 are on the right edge of the board only evaluate the left side of the pattern
                             if (pattern[1].col == 6)
                             {
-                                Console.WriteLine("Bottom right consecutive");
+
                                 lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
 
                                 if (lCell.getVal() == Cell.value.empty)
@@ -482,7 +473,7 @@ namespace ConnectFour_Group2
                             //if consecutive 2 are on the left edge and not on bottom row of the board only evaluate the right side of the pattern and check for empty space on bottom row to not give away the win
                             if (pattern[0].col == 0)
                             {
-                                Console.WriteLine("upper left consecutive");
+
                                 rCell = board.getCell(pattern[1].row, pattern[1].col + 1);
 
                                 if (rCell.getVal() == Cell.value.empty)
@@ -506,7 +497,7 @@ namespace ConnectFour_Group2
                             //if consecutive 2 are on the right edge  and not on the bottom row of the board only evaluate the left side of the pattern and check for empty space on bottom row to not give away the win
                             if (pattern[1].col == 6)
                             {
-                                Console.WriteLine("upper right consecutive");
+
                                 lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
 
                                 if (lCell.getVal() == Cell.value.empty)
@@ -530,7 +521,7 @@ namespace ConnectFour_Group2
                             //if not starting at edge then evaluate both sides
                             if (pattern[0].col > 0 && pattern[1].col < 6)
                             {
-                                Console.WriteLine("Upper two consecutive");
+
 
                                 lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
                                 rCell = board.getCell(pattern[1].row, pattern[1].col + 1);
@@ -659,7 +650,6 @@ namespace ConnectFour_Group2
                         if (pattern[0].row == 5 && pattern[2].col < 6)
                         {
 
-                            Console.WriteLine("Bottom upper right");
                             rCell = board.getCell(pattern[2].row, pattern[2].col + 1);
 
                             if (rCell.getVal() != Cell.value.empty)
@@ -947,13 +937,12 @@ namespace ConnectFour_Group2
                         //upper left and lower right check when pattern does not start on bottom row
                         if (pattern[0].row < 5)
                         {
-                            Console.WriteLine("upper left off ground");
+
                             lCell = board.getCell(pattern[2].row, pattern[2].col - 1);
                             rCell = board.getCell(pattern[0].row + 1, pattern[0].col + 1);
 
                             if (rCell.getVal() == Cell.value.empty)
                             {
-                                Console.WriteLine("Lower right block");
                                 move = pattern[0].col + 1;
                                 return true;
                             }
@@ -969,7 +958,6 @@ namespace ConnectFour_Group2
                                 }
                                 else
                                 {
-                                    pattern.Clear();
                                     consecutive = false;
                                 }
                             }
@@ -977,9 +965,7 @@ namespace ConnectFour_Group2
                         }
                         else
                         {
-                            pattern.Clear();
                             consecutive = false;
-
                         }
                     }
 
@@ -1435,22 +1421,14 @@ namespace ConnectFour_Group2
 
                     if (twoConsecutive && pattern.Count == 2)
                     {
-                        Console.WriteLine("Two consecutive");
-
-                        for (int i = 0; i < pattern.Count; i++)
-                        {
-                            Console.WriteLine("Pattern " + i + " R: " + pattern[i].row + " C: " + pattern[i].col);
-                        }
 
                         //checks for if pattern is on bottom row so you dont go out of bounds
                         if (pattern[0].row == 5)
                         {
-                            Console.WriteLine("Bottom two consecutive");
 
                             //if consecutive 2 are on the left edge of the board only evaluate the right side of the pattern
                             if (pattern[0].col == 0)
                             {
-                                Console.WriteLine("Bottom left consecutive");
                                 rCell = board.getCell(pattern[1].row, pattern[1].col + 1);
 
                                 if (rCell.getVal() == Cell.value.empty)
@@ -1469,7 +1447,6 @@ namespace ConnectFour_Group2
                             //if consecutive 2 are on the right edge of the board only evaluate the left side of the pattern
                             if (pattern[1].col == 6)
                             {
-                                Console.WriteLine("Bottom right consecutive");
                                 lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
 
                                 if (lCell.getVal() == Cell.value.empty)
@@ -1529,7 +1506,6 @@ namespace ConnectFour_Group2
                             //if consecutive 2 are on the left edge and not on bottom row of the board only evaluate the right side of the pattern and check for empty space on bottom row to not give away the win
                             if (pattern[0].col == 0)
                             {
-                                Console.WriteLine("upper left consecutive");
                                 rCell = board.getCell(pattern[1].row, pattern[1].col + 1);
 
                                 if (rCell.getVal() == Cell.value.empty)
@@ -1553,7 +1529,6 @@ namespace ConnectFour_Group2
                             //if consecutive 2 are on the right edge  and not on the bottom row of the board only evaluate the left side of the pattern and check for empty space on bottom row to not give away the win
                             if (pattern[1].col == 6)
                             {
-                                Console.WriteLine("upper right consecutive");
                                 lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
 
                                 if (lCell.getVal() == Cell.value.empty)
@@ -1577,7 +1552,6 @@ namespace ConnectFour_Group2
                             //if not starting at edge then evaluate both sides
                             if (pattern[0].col > 0 && pattern[1].col < 6)
                             {
-                                Console.WriteLine("Upper two consecutive");
 
                                 lCell = board.getCell(pattern[0].row, pattern[0].col - 1);
                                 rCell = board.getCell(pattern[1].row, pattern[1].col + 1);
@@ -1705,7 +1679,6 @@ namespace ConnectFour_Group2
                         if (pattern[0].row == 5 && pattern[2].col < 6)
                         {
 
-                            Console.WriteLine("Bottom upper right");
                             rCell = board.getCell(pattern[2].row, pattern[2].col + 1);
 
                             if (rCell.getVal() != Cell.value.empty)
@@ -1747,7 +1720,6 @@ namespace ConnectFour_Group2
                                 }
                                 else
                                 {
-                                    pattern.Clear();
                                     consecutive = false;
                                 }
 
@@ -1757,9 +1729,7 @@ namespace ConnectFour_Group2
                         }
                         else
                         {
-                            pattern.Clear();
                             consecutive = false;
-
                         }
                     }
 
@@ -1994,13 +1964,11 @@ namespace ConnectFour_Group2
                         //upper left and lower right check when pattern does not start on bottom row
                         if (pattern[0].row < 5)
                         {
-                            Console.WriteLine("upper left off ground");
                             lCell = board.getCell(pattern[2].row, pattern[2].col - 1);
                             rCell = board.getCell(pattern[0].row + 1, pattern[0].col + 1);
 
                             if (rCell.getVal() == Cell.value.empty)
                             {
-                                Console.WriteLine("Lower right block");
                                 move = pattern[0].col + 1;
                                 return true;
                             }
@@ -2016,7 +1984,6 @@ namespace ConnectFour_Group2
                                 }
                                 else
                                 {
-                                    pattern.Clear();
                                     consecutive = false;
                                 }
                             }
@@ -2024,7 +1991,6 @@ namespace ConnectFour_Group2
                         }
                         else
                         {
-                            pattern.Clear();
                             consecutive = false;
 
                         }
