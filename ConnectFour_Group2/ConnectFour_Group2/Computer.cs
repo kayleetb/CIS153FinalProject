@@ -30,7 +30,7 @@ namespace ConnectFour_Group2
                 cell = board.getCell(0,move);
                 while(cell.getVal() != Cell.value.empty)
                 {
-                    move = rnd.Next(0,6);
+                    move = rnd.Next(0,7);
                     cell = board.getCell(0, move);
 
                 }
